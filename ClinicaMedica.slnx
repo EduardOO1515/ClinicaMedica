@@ -1,3 +1,5 @@
 <Solution>
-  <Project Path="ClinicaMedica/ClinicaMedica.csproj" Id="96453b9e-2f25-49a2-a0ec-d628c41ea255" />
+  <Project Path="ClinicaMedica.Datos/ClinicaMedica.Datos.csproj" Id="5163d814-044c-48e2-b0d0-b07912ea560e" />
+  <Project Path="ClinicaMedica.Negocio/ClinicaMedica.Negocio.csproj" Id="9241fa92-9b3e-4b4c-9bda-43b22b91c39d" />
+  <Project Path="ClinicaMedica/ClinicaMedica.Presentacion.csproj" Id="96453b9e-2f25-49a2-a0ec-d628c41ea255" />
 </Solution>
