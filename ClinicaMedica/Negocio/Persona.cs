@@ -4,6 +4,7 @@ namespace ClinicaMedica.Negocio
 {
     public abstract class Persona
     {
+        //TODO Clase Abstracto
         protected string _cedula;
         protected string _nombre;
         protected string _apellido;

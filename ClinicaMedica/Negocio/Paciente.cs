@@ -17,7 +17,7 @@ namespace ClinicaMedica.Negocio
             _tieneSeguro = tieneSeguro;
         }
 
-        // Constructor alternativo
+        //TODO Constructor alternativo
         public Paciente(string cedula, string nombre, string apellido)
             : base(cedula, nombre, apellido)
         {
@@ -35,7 +35,7 @@ namespace ClinicaMedica.Negocio
         public DateTime FechaNacimiento { get => _fechaNacimiento; set => _fechaNacimiento = value; }
         public int IdPaciente { get => _idPaciente; set => _idPaciente = value; }
 
-        // Implementación del método abstracto
+        //TODO Implementación del método abstracto
         public override decimal CalcularCosto()
         {
             if (_tieneSeguro)
