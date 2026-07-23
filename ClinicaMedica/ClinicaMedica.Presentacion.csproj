@@ -46,74 +46,38 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Datos\CitasDAL.cs" />
-    <Compile Include="Datos\Conexion.cs" />
-    <Compile Include="Datos\DoctoresDAL.cs" />
-    <Compile Include="Datos\PacientesDAL.cs" />
-    <Compile Include="Datos\UsuariosDAL.cs" />
-    <Compile Include="Presentacion\frmCitas.cs">
+    <Compile Include="frmCitas.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Presentacion\frmCitas.Designer.cs">
-      <DependentUpon>frmCitas.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Presentacion\frmDoctores.cs">
+    <Compile Include="frmCitas.Designer.cs" />
+    <Compile Include="frmDoctores.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Presentacion\frmDoctores.Designer.cs">
-      <DependentUpon>frmDoctores.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Presentacion\frmLogin.cs">
+    <Compile Include="frmDoctores.Designer.cs" />
+    <Compile Include="frmLogin.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Presentacion\frmLogin.Designer.cs">
-      <DependentUpon>frmLogin.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Negocio\CitasNegocio.cs" />
-    <Compile Include="Negocio\Doctor.cs" />
-    <Compile Include="Negocio\DoctoresNegocio.cs" />
-    <Compile Include="Negocio\Paciente.cs" />
-    <Compile Include="Negocio\PacienteNegocio.cs" />
-    <Compile Include="Negocio\Persona.cs" />
-    <Compile Include="Negocio\UsuariosNegocio.cs" />
-    <Compile Include="Presentacion\frmPacientes.cs">
+    <Compile Include="frmLogin.Designer.cs" />
+    <Compile Include="frmPacientes.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Presentacion\frmPacientes.Designer.cs">
-      <DependentUpon>frmPacientes.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Presentacion\frmPrincipal.cs">
+    <Compile Include="frmPacientes.Designer.cs" />
+    <Compile Include="frmPrincipal.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Presentacion\frmPrincipal.Designer.cs">
-      <DependentUpon>frmPrincipal.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Presentacion\frmReportes.cs">
+    <Compile Include="frmPrincipal.Designer.cs" />
+    <Compile Include="frmReportes.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Presentacion\frmReportes.Designer.cs">
-      <DependentUpon>frmReportes.cs</DependentUpon>
-    </Compile>
+    <Compile Include="frmReportes.Designer.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Presentacion\frmCitas.resx">
-      <DependentUpon>frmCitas.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Presentacion\frmDoctores.resx">
-      <DependentUpon>frmDoctores.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Presentacion\frmLogin.resx">
-      <DependentUpon>frmLogin.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Presentacion\frmPacientes.resx">
-      <DependentUpon>frmPacientes.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Presentacion\frmPrincipal.resx">
-      <DependentUpon>frmPrincipal.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Presentacion\frmReportes.resx">
-      <DependentUpon>frmReportes.cs</DependentUpon>
-    </EmbeddedResource>
+    <EmbeddedResource Include="frmCitas.resx" />
+    <EmbeddedResource Include="frmDoctores.resx" />
+    <EmbeddedResource Include="frmLogin.resx" />
+    <EmbeddedResource Include="frmPacientes.resx" />
+    <EmbeddedResource Include="frmPrincipal.resx" />
+    <EmbeddedResource Include="frmReportes.resx" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -136,6 +100,15 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\ClinicaMedica.Datos\ClinicaMedica.Datos.csproj">
+      <Project>{1422652d-5a21-4dac-8b28-298b9f91c806}</Project>
+      <Name>ClinicaMedica.Datos</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ClinicaMedica.Negocio\ClinicaMedica.Negocio.csproj">
+      <Project>{fa17323b-8caf-48a6-bae3-01009015f430}</Project>
+      <Name>ClinicaMedica.Negocio</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
