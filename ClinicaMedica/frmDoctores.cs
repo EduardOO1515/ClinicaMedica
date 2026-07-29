@@ -82,7 +82,7 @@ namespace ClinicaMedica
             ConfigurarBoton(btnLimpiar, Color.FromArgb(70, 130, 180), new Point(290, 585));
             ConfigurarBoton(btnVolver, Color.FromArgb(0, 100, 60), new Point(420, 585));
         }
-
+        //NUEVO
         private void PosicionarLabel(Label lbl, int x, int y)
         {
             lbl.Location = new Point(x, y);
