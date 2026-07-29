@@ -103,9 +103,8 @@ namespace ClinicaMedica
 
                 if (dt.Rows.Count > 0)
                 {
-                    string rol = dt.Rows[0]["Rol"].ToString();
-                    MessageBox.Show($"Bienvenido, {txtUsuario.Text}!\nRol: {rol}",
-                        "Acceso Correcto", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show($"Bienvenido, {txtUsuario.Text}!",
+                       "Acceso Correcto", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     frmPrincipal principal = new frmPrincipal();
                     principal.Show();
                     this.Hide();

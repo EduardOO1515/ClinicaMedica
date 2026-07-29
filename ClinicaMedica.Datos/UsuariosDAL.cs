@@ -15,8 +15,8 @@ namespace ClinicaMedica.Datos
                 {
                     con.Open();
                     SqlCommand cmd = new SqlCommand(
-                        "SELECT IdUsuario, Usuario, Rol FROM Usuarios " +
-                        "WHERE Usuario=@usuario AND Contrasena=@contrasena", con);
+                    "SELECT IdUsuario, Usuario FROM Usuarios " +
+                     "WHERE Usuario=@usuario AND Contrasena=@contrasena", con);
                     cmd.Parameters.AddWithValue("@usuario", usuario);
                     cmd.Parameters.AddWithValue("@contrasena", contrasena);
                     SqlDataAdapter da = new SqlDataAdapter(cmd);
