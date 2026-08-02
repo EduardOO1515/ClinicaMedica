@@ -154,15 +154,15 @@ namespace ClinicaMedica
                 DataRowView fila = cmbPaciente.SelectedItem as DataRowView;
                 bool tieneSeguro = Convert.ToBoolean(fila?.Row["TieneSeguro"]);
 
-                // Usa Paciente.CalcularCosto() para obtener el precio base segun el tipo de consulta.
-                // TieneSeguro queda en false (valor por defecto del constructor) para que el metodo
-                // devuelva el precio completo sin descuento; el descuento se aplica abajo visualmente.
+                // CalcularCosto() aplica el descuento de seguro internamente.
+                // El precio original se reconstruye al reves cuando hay seguro.
                 Paciente paciente = new Paciente("", "", "");
                 paciente.TipoConsulta = tipo;
-                decimal costoBase = paciente.CalcularCosto();
+                paciente.TieneSeguro = tieneSeguro;
 
-                decimal descuento = tieneSeguro ? costoBase / 2 : 0;
-                decimal costoFinal = costoBase - descuento;
+                decimal costoFinal = paciente.CalcularCosto();
+                decimal costoBase = tieneSeguro ? costoFinal * 2 : costoFinal;
+                decimal descuento = costoBase - costoFinal;
 
                 lblValorOriginal.Text = $"RD${costoBase:N2}";
                 lblValorDescuento.Text = $"RD${descuento:N2}";
@@ -180,7 +180,11 @@ namespace ClinicaMedica
                     lblValorTotal.ForeColor = Color.White;
                 }
             }
-            catch { }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al calcular el costo: " + ex.Message, "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }

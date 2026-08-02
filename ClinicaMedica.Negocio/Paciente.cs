@@ -47,7 +47,10 @@ namespace ClinicaMedica.Negocio
             else if (_tipoConsulta == "Control") costoBase = 800m;
             else if (_tipoConsulta == "Laboratorio") costoBase = 1200m;
 
-            return _tieneSeguro ? costoBase * 0.5m : costoBase;
+            if (!_tieneSeguro)
+                return costoBase;
+
+            return costoBase * 0.5m;
         }
 
         //TODO Sobreescritura del método virtual
