@@ -35,9 +35,9 @@
             this.btnReportes = new System.Windows.Forms.Button();
             this.btnSalir = new System.Windows.Forms.Button();
             this.SuspendLayout();
-            // 
+            //
             // lblTitulo
-            // 
+            //
             this.lblTitulo.AutoSize = false;
             this.lblTitulo.Font = new System.Drawing.Font("Segoe UI", 22F, System.Drawing.FontStyle.Bold);
             this.lblTitulo.ForeColor = System.Drawing.Color.White;
@@ -46,10 +46,10 @@
             this.lblTitulo.Name = "lblTitulo";
             this.lblTitulo.Size = new System.Drawing.Size(440, 90);
             this.lblTitulo.TabIndex = 0;
-            this.lblTitulo.Text = "🏥 Clínica Médica";
-            // 
+            this.lblTitulo.Text = "Clínica Médica";
+            //
             // btnPacientes
-            // 
+            //
             this.btnPacientes.BackColor = System.Drawing.Color.FromArgb(0, 168, 232);
             this.btnPacientes.ForeColor = System.Drawing.Color.White;
             this.btnPacientes.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
@@ -60,12 +60,12 @@
             this.btnPacientes.Name = "btnPacientes";
             this.btnPacientes.Size = new System.Drawing.Size(250, 50);
             this.btnPacientes.TabIndex = 1;
-            this.btnPacientes.Text = "👥 PACIENTES";
+            this.btnPacientes.Text = "PACIENTES";
             this.btnPacientes.UseVisualStyleBackColor = false;
             this.btnPacientes.Click += new System.EventHandler(this.btnPacientes_Click);
-            // 
+            //
             // btnDoctores
-            // 
+            //
             this.btnDoctores.BackColor = System.Drawing.Color.FromArgb(0, 140, 70);
             this.btnDoctores.ForeColor = System.Drawing.Color.White;
             this.btnDoctores.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
@@ -76,12 +76,12 @@
             this.btnDoctores.Name = "btnDoctores";
             this.btnDoctores.Size = new System.Drawing.Size(250, 50);
             this.btnDoctores.TabIndex = 2;
-            this.btnDoctores.Text = "👨‍⚕️ DOCTORES";
+            this.btnDoctores.Text = "DOCTORES";
             this.btnDoctores.UseVisualStyleBackColor = false;
             this.btnDoctores.Click += new System.EventHandler(this.btnDoctores_Click);
-            // 
+            //
             // btnCitas
-            // 
+            //
             this.btnCitas.BackColor = System.Drawing.Color.FromArgb(200, 120, 0);
             this.btnCitas.ForeColor = System.Drawing.Color.White;
             this.btnCitas.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
@@ -92,12 +92,12 @@
             this.btnCitas.Name = "btnCitas";
             this.btnCitas.Size = new System.Drawing.Size(250, 50);
             this.btnCitas.TabIndex = 3;
-            this.btnCitas.Text = "📅 CITAS";
+            this.btnCitas.Text = "CITAS";
             this.btnCitas.UseVisualStyleBackColor = false;
             this.btnCitas.Click += new System.EventHandler(this.btnCitas_Click);
-            // 
+            //
             // btnReportes
-            // 
+            //
             this.btnReportes.BackColor = System.Drawing.Color.FromArgb(100, 50, 160);
             this.btnReportes.ForeColor = System.Drawing.Color.White;
             this.btnReportes.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
@@ -108,12 +108,12 @@
             this.btnReportes.Name = "btnReportes";
             this.btnReportes.Size = new System.Drawing.Size(250, 50);
             this.btnReportes.TabIndex = 4;
-            this.btnReportes.Text = "📊 REPORTES";
+            this.btnReportes.Text = "REPORTES";
             this.btnReportes.UseVisualStyleBackColor = false;
             this.btnReportes.Click += new System.EventHandler(this.btnReportes_Click);
-            // 
+            //
             // btnSalir
-            // 
+            //
             this.btnSalir.BackColor = System.Drawing.Color.FromArgb(180, 30, 30);
             this.btnSalir.ForeColor = System.Drawing.Color.White;
             this.btnSalir.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
@@ -124,12 +124,12 @@
             this.btnSalir.Name = "btnSalir";
             this.btnSalir.Size = new System.Drawing.Size(250, 50);
             this.btnSalir.TabIndex = 5;
-            this.btnSalir.Text = "🚪 CERRAR SESIÓN";
+            this.btnSalir.Text = "CERRAR SESION";
             this.btnSalir.UseVisualStyleBackColor = false;
             this.btnSalir.Click += new System.EventHandler(this.btnSalir_Click);
-            // 
+            //
             // frmPrincipal
-            // 
+            //
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(10, 60, 120);
@@ -147,10 +147,7 @@
             this.Text = "Clínica Médica — Panel Principal";
             this.ResumeLayout(false);
             this.PerformLayout();
-
         }
-
-        #endregion
 
         private System.Windows.Forms.Label lblTitulo;
         private System.Windows.Forms.Button btnPacientes;
@@ -158,5 +155,7 @@
         private System.Windows.Forms.Button btnCitas;
         private System.Windows.Forms.Button btnReportes;
         private System.Windows.Forms.Button btnSalir;
+        #endregion
     }
+
 }

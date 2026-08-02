@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Drawing;
 using System.Windows.Forms;
 
 namespace ClinicaMedica
@@ -8,13 +7,15 @@ namespace ClinicaMedica
     {
         public frmPrincipal()
         {
-            InitializeComponent();   // <-- esta línea faltaba
-            ConfigurarFormulario();
+            InitializeComponent();
             this.Load += frmPrincipal_Load;
         }
 
         private void frmPrincipal_Load(object sender, EventArgs e)
         {
+            if (System.ComponentModel.LicenseManager.UsageMode == System.ComponentModel.LicenseUsageMode.Designtime)
+                return;
+
             this.Hide();
 
             using (frmLogin login = new frmLogin())
@@ -28,39 +29,6 @@ namespace ClinicaMedica
                     Application.Exit();
                 }
             }
-        }
-
-        private void ConfigurarFormulario()
-        {
-            this.Text = "Clínica Médica — Panel Principal";
-            this.BackColor = Color.FromArgb(10, 60, 120);
-            this.FormBorderStyle = FormBorderStyle.FixedSingle;
-            this.MaximizeBox = false;
-            this.StartPosition = FormStartPosition.CenterScreen;
-            this.Size = new Size(500, 550);
-
-            lblTitulo.Font = new Font("Segoe UI", 22, FontStyle.Bold);
-            lblTitulo.ForeColor = Color.White;
-            lblTitulo.TextAlign = ContentAlignment.MiddleCenter;
-            lblTitulo.Text = "🏥 Clínica Médica";
-            lblTitulo.Size = new Size(440, 90);
-            lblTitulo.Location = new Point(30, 20);
-
-            ConfigurarBoton(btnPacientes, Color.FromArgb(0, 168, 232));
-            ConfigurarBoton(btnDoctores, Color.FromArgb(0, 140, 70));
-            ConfigurarBoton(btnCitas, Color.FromArgb(200, 120, 0));
-            ConfigurarBoton(btnReportes, Color.FromArgb(100, 50, 160));
-            ConfigurarBoton(btnSalir, Color.FromArgb(180, 30, 30));
-        }
-
-        private void ConfigurarBoton(Button btn, Color color)
-        {
-            btn.BackColor = color;
-            btn.ForeColor = Color.White;
-            btn.Font = new Font("Segoe UI", 12, FontStyle.Bold);
-            btn.FlatStyle = FlatStyle.Flat;
-            btn.FlatAppearance.BorderSize = 0;
-            btn.Cursor = Cursors.Hand;
         }
 
         private void btnPacientes_Click(object sender, EventArgs e)
@@ -114,17 +82,10 @@ namespace ClinicaMedica
                 }
             }
         }
-
-        private void InitializeComponent()
+        private void frmPrincipal_Load_1(object sender, EventArgs e)
         {
-            this.SuspendLayout();
-            // 
-            // frmPrincipal
-            // 
-            this.ClientSize = new System.Drawing.Size(826, 471);
-            this.Name = "frmPrincipal";
-            this.ResumeLayout(false);
 
         }
     }
+
 }
