@@ -1,72 +1,80 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Threading.Tasks;
 using ClinicaMedica.Datos;
 
 namespace ClinicaMedica.Negocio
 {
+    // Logica de negocio para la gestion de pacientes
     public class PacientesNegocio
     {
-        private PacientesDAL _dal = new PacientesDAL();
+        private readonly IPacientesRepositorio _dal;
 
-        public DataTable ObtenerTodos()
+        public PacientesNegocio()
         {
-            return _dal.ObtenerTodos();
+            _dal = new PacientesDAL();
         }
 
-        public string RegistrarPaciente(string cedula, string nombre, string apellido,
-                                DateTime fechaNac, string telefono, bool tieneSeguro)
+        public async Task<DataTable> ObtenerTodosAsync()
+        {
+            return await _dal.ObtenerTodosAsync();
+        }
+
+        // Valida el formato de los campos antes de insertar el paciente
+        public async Task<string> RegistrarPacienteAsync(string cedula, string nombre, string apellido,
+                                                         DateTime fechaNac, string telefono, bool tieneSeguro)
         {
             if (string.IsNullOrWhiteSpace(cedula) || cedula.Length != 13)
-                return "La cédula debe tener formato 000-0000000-0.";
+                return "La cedula debe tener formato 000-0000000-0.";
 
             if (string.IsNullOrWhiteSpace(nombre) || nombre.Trim().Length < 2)
-                return "El nombre no puede estar vacío.";
+                return "El nombre no puede estar vacio.";
 
             if (string.IsNullOrWhiteSpace(apellido) || apellido.Trim().Length < 2)
-                return "El apellido no puede estar vacío.";
+                return "El apellido no puede estar vacio.";
 
             if (fechaNac >= DateTime.Now)
-                return "La fecha de nacimiento no es válida.";
+                return "La fecha de nacimiento no es valida.";
 
             if (string.IsNullOrWhiteSpace(telefono) || telefono.Length != 12)
-                return "El teléfono debe tener formato 000-000-0000.";
+                return "El telefono debe tener formato 000-000-0000.";
 
-            _dal.Insertar(cedula, nombre, apellido, fechaNac, telefono, tieneSeguro);
+            await _dal.InsertarAsync(cedula, nombre, apellido, fechaNac, telefono, tieneSeguro);
             return "OK";
         }
 
-        public string ActualizarPaciente(int id, string cedula, string nombre, string apellido,
-                                          DateTime fechaNac, string telefono, bool tieneSeguro)
+        public async Task<string> ActualizarPacienteAsync(int id, string cedula, string nombre, string apellido,
+                                                          DateTime fechaNac, string telefono, bool tieneSeguro)
         {
             if (string.IsNullOrWhiteSpace(cedula) || cedula.Length != 13)
-                return "La cédula debe tener formato 000-0000000-0.";
+                return "La cedula debe tener formato 000-0000000-0.";
 
             if (string.IsNullOrWhiteSpace(nombre) || nombre.Trim().Length < 2)
-                return "El nombre no puede estar vacío.";
+                return "El nombre no puede estar vacio.";
 
             if (string.IsNullOrWhiteSpace(apellido) || apellido.Trim().Length < 2)
-                return "El apellido no puede estar vacío.";
+                return "El apellido no puede estar vacio.";
 
             if (fechaNac >= DateTime.Now)
-                return "La fecha de nacimiento no es válida.";
+                return "La fecha de nacimiento no es valida.";
 
             if (string.IsNullOrWhiteSpace(telefono) || telefono.Length != 12)
-                return "El teléfono debe tener formato 000-000-0000.";
+                return "El telefono debe tener formato 000-000-0000.";
 
-            _dal.Insertar(cedula, nombre, apellido, fechaNac, telefono, tieneSeguro);
+            await _dal.InsertarAsync(cedula, nombre, apellido, fechaNac, telefono, tieneSeguro);
             return "OK";
         }
 
-        public string EliminarPaciente(int id)
+        public async Task<string> EliminarPacienteAsync(int id)
         {
             if (id <= 0)
-                return "ID de paciente no válido.";
-            _dal.Eliminar(id);
+                return "ID de paciente no valido.";
+            await _dal.EliminarAsync(id);
             return "OK";
         }
 
-        //TODO Método como función — Func<DataRow, bool>
+        // Filtro en memoria: no requiere acceso a base de datos
         public List<DataRow> FiltrarPacientes(DataTable tabla, Func<DataRow, bool> filtro)
         {
             List<DataRow> resultado = new List<DataRow>();
@@ -76,6 +84,7 @@ namespace ClinicaMedica.Negocio
             return resultado;
         }
 
+        // Metodo utilitario para previsualizar el costo de una cita antes de guardarla
         public decimal CalcularCostoCita(bool tieneSeguro)
         {
             Paciente p = new Paciente("00000000000", "Temp", "Temp",

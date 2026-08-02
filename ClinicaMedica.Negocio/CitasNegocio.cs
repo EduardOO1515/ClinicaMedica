@@ -1,21 +1,29 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Threading.Tasks;
 using ClinicaMedica.Datos;
 
 namespace ClinicaMedica.Negocio
 {
+    // Logica de negocio para la gestion de citas medicas
     public class CitasNegocio
     {
-        private CitasDAL _dal = new CitasDAL();
+        private readonly ICitasRepositorio _dal;
 
-        public DataTable ObtenerTodos()
+        public CitasNegocio()
         {
-            return _dal.ObtenerTodos();
+            _dal = new CitasDAL();
         }
 
-        public string RegistrarCita(int idPaciente, int idDoctor, DateTime fechaCita,
-                                    string estado, string tipoConsulta, decimal costo)
+        public async Task<DataTable> ObtenerTodosAsync()
+        {
+            return await _dal.ObtenerTodosAsync();
+        }
+
+        // Valida que la cita tenga paciente, doctor y fecha futura antes de guardar
+        public async Task<string> RegistrarCitaAsync(int idPaciente, int idDoctor, DateTime fechaCita,
+                                                     string estado, string tipoConsulta, decimal costo)
         {
             if (idPaciente <= 0)
                 return "Debe seleccionar un paciente.";
@@ -26,12 +34,12 @@ namespace ClinicaMedica.Negocio
             if (costo < 0)
                 return "El costo no puede ser negativo.";
 
-            _dal.Insertar(idPaciente, idDoctor, fechaCita, estado, tipoConsulta, costo);
+            await _dal.InsertarAsync(idPaciente, idDoctor, fechaCita, estado, tipoConsulta, costo);
             return "OK";
         }
 
-        public string ActualizarCita(int id, int idPaciente, int idDoctor, DateTime fechaCita,
-                                      string estado, string tipoConsulta, decimal costo)
+        public async Task<string> ActualizarCitaAsync(int id, int idPaciente, int idDoctor, DateTime fechaCita,
+                                                      string estado, string tipoConsulta, decimal costo)
         {
             if (idPaciente <= 0)
                 return "Debe seleccionar un paciente.";
@@ -40,19 +48,19 @@ namespace ClinicaMedica.Negocio
             if (costo < 0)
                 return "El costo no puede ser negativo.";
 
-            _dal.Actualizar(id, idPaciente, idDoctor, fechaCita, estado, tipoConsulta, costo);
+            await _dal.ActualizarAsync(id, idPaciente, idDoctor, fechaCita, estado, tipoConsulta, costo);
             return "OK";
         }
 
-        public string EliminarCita(int id)
+        public async Task<string> EliminarCitaAsync(int id)
         {
             if (id <= 0)
-                return "ID de cita no válido.";
-            _dal.Eliminar(id);
+                return "ID de cita no valido.";
+            await _dal.EliminarAsync(id);
             return "OK";
         }
 
-        //TODO Método como función — filtrar citas usando Func
+        // Filtro en memoria: aplica un predicado lambda sobre la tabla ya cargada
         public List<DataRow> FiltrarCitas(DataTable tabla, Func<DataRow, bool> filtro)
         {
             List<DataRow> resultado = new List<DataRow>();

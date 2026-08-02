@@ -1,12 +1,14 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using ClinicaMedica.Negocio;
 
 namespace ClinicaMedica
 {
+    // Formulario de reportes de citas. Permite filtrar por estado usando un predicado lambda.
     public partial class frmReportes : Form
     {
         private CitasNegocio _negocio = new CitasNegocio();
@@ -15,14 +17,15 @@ namespace ClinicaMedica
         public frmReportes()
         {
             InitializeComponent();
-            CargarCitas();
+            this.Load += async (s, e) => await CargarCitasAsync();
         }
 
-        private void CargarCitas()
+        // Carga todas las citas y actualiza el contador en la etiqueta de informacion
+        private async Task CargarCitasAsync()
         {
             try
             {
-                _tablaCitas = _negocio.ObtenerTodos();
+                _tablaCitas = await _negocio.ObtenerTodosAsync();
                 dgvReportes.DataSource = _tablaCitas;
                 lblInfo.Text = $"Total de citas: {_tablaCitas.Rows.Count}";
             }
@@ -33,6 +36,7 @@ namespace ClinicaMedica
             }
         }
 
+        // Filtra las citas por el estado seleccionado usando FiltrarCitas con un predicado
         private void btnFiltrar_Click(object sender, EventArgs e)
         {
             try
@@ -60,9 +64,10 @@ namespace ClinicaMedica
             }
         }
 
-        private void btnTodos_Click(object sender, EventArgs e)
+        // Recarga todas las citas sin filtro
+        private async void btnTodos_Click(object sender, EventArgs e)
         {
-            CargarCitas();
+            await CargarCitasAsync();
         }
 
         private void btnVolver_Click(object sender, EventArgs e)

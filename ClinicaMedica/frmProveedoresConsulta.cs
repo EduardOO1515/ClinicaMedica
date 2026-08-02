@@ -1,28 +1,28 @@
 using System;
 using System.Data;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using ClinicaMedica.Negocio;
 
 namespace ClinicaMedica
 {
+    // Formulario de consulta de proveedores con busqueda en memoria
     public partial class frmProveedoresConsulta : Form
     {
         private ProveedoresNegocio _negocio = new ProveedoresNegocio();
-        // Tabla completa cargada al abrir; se usa como base para el filtro en memoria.
         private DataTable _tablaProveedores;
 
         public frmProveedoresConsulta()
         {
             InitializeComponent();
-            CargarProveedores();
+            this.Load += async (s, e) => await CargarProveedoresAsync();
         }
 
-        // Carga todos los proveedores desde la base de datos y los muestra en el grid.
-        private void CargarProveedores()
+        private async Task CargarProveedoresAsync()
         {
             try
             {
-                _tablaProveedores = _negocio.ObtenerTodos();
+                _tablaProveedores = await _negocio.ObtenerTodosAsync();
                 dgvProveedores.DataSource = _tablaProveedores;
             }
             catch (Exception ex)
@@ -32,7 +32,7 @@ namespace ClinicaMedica
             }
         }
 
-        // Filtra en memoria los proveedores por nombre o email segun el texto ingresado.
+        // Filtra por nombre o email sobre la tabla ya cargada
         private void btnBuscar_Click(object sender, EventArgs e)
         {
             try
@@ -62,11 +62,10 @@ namespace ClinicaMedica
             }
         }
 
-        // Limpia el buscador y vuelve a cargar todos los registros.
-        private void btnActualizar_Click(object sender, EventArgs e)
+        private async void btnActualizar_Click(object sender, EventArgs e)
         {
             txtBuscar.Clear();
-            CargarProveedores();
+            await CargarProveedoresAsync();
         }
 
         private void btnCerrar_Click(object sender, EventArgs e)

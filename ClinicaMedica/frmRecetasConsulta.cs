@@ -1,28 +1,28 @@
 using System;
 using System.Data;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using ClinicaMedica.Negocio;
 
 namespace ClinicaMedica
 {
+    // Formulario de consulta de recetas medicas con busqueda en memoria
     public partial class frmRecetasConsulta : Form
     {
         private RecetasNegocio _negocio = new RecetasNegocio();
-        // Tabla completa cargada en memoria para filtrar sin consultar la base de datos.
         private DataTable _tablaRecetas;
 
         public frmRecetasConsulta()
         {
             InitializeComponent();
-            CargarRecetas();
+            this.Load += async (s, e) => await CargarRecetasAsync();
         }
 
-        // Carga todas las recetas desde la base de datos.
-        private void CargarRecetas()
+        private async Task CargarRecetasAsync()
         {
             try
             {
-                _tablaRecetas = _negocio.ObtenerTodos();
+                _tablaRecetas = await _negocio.ObtenerTodosAsync();
                 dgvRecetas.DataSource = _tablaRecetas;
             }
             catch (Exception ex)
@@ -32,7 +32,7 @@ namespace ClinicaMedica
             }
         }
 
-        // Filtra en memoria por indicaciones o por numero de cita.
+        // Filtra por indicaciones o numero de cita sobre la tabla ya cargada
         private void btnBuscar_Click(object sender, EventArgs e)
         {
             try
@@ -62,11 +62,10 @@ namespace ClinicaMedica
             }
         }
 
-        // Limpia el buscador y recarga todos los registros.
-        private void btnActualizar_Click(object sender, EventArgs e)
+        private async void btnActualizar_Click(object sender, EventArgs e)
         {
             txtBuscar.Clear();
-            CargarRecetas();
+            await CargarRecetasAsync();
         }
 
         private void btnCerrar_Click(object sender, EventArgs e)

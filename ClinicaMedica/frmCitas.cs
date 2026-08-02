@@ -1,11 +1,13 @@
 using System;
 using System.Data;
 using System.Drawing;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using ClinicaMedica.Negocio;
 
 namespace ClinicaMedica
 {
+    // Formulario de entrada para registrar nuevas citas medicas
     public partial class frmCitas : Form
     {
         private CitasNegocio _negocio = new CitasNegocio();
@@ -15,9 +17,10 @@ namespace ClinicaMedica
         public frmCitas()
         {
             InitializeComponent();
-            CargarCombos();
+            this.Load += async (s, e) => await CargarCombosAsync();
         }
 
+        // Inicia con todos los campos deshabilitados hasta que el usuario presione Habilitar
         private void frmCitas_Load(object sender, EventArgs e)
         {
             cmbPaciente.Enabled = false;
@@ -43,7 +46,7 @@ namespace ClinicaMedica
             btnDeshabilitar.Enabled = true;
         }
 
-        private void btnDeshabilitar_Click(object sender, EventArgs e)
+        private async void btnDeshabilitar_Click(object sender, EventArgs e)
         {
             cmbPaciente.Enabled = false;
             cmbDoctor.Enabled = false;
@@ -54,19 +57,20 @@ namespace ClinicaMedica
             btnGuardar.Enabled = false;
             btnDeshabilitar.Enabled = false;
             btnHabilitar.Enabled = true;
-            LimpiarCampos();
+            await LimpiarCamposAsync();
         }
 
-        private void CargarCombos()
+        // Carga pacientes y doctores en sus combos, y conecta CalcularCostoAutomatico a los eventos
+        private async Task CargarCombosAsync()
         {
             try
             {
-                DataTable dtPacientes = _negocioPacientes.ObtenerTodos();
+                DataTable dtPacientes = await _negocioPacientes.ObtenerTodosAsync();
                 cmbPaciente.DataSource = dtPacientes;
                 cmbPaciente.DisplayMember = "Nombre";
                 cmbPaciente.ValueMember = "IdPaciente";
 
-                DataTable dtDoctores = _negocioDoctores.ObtenerTodos();
+                DataTable dtDoctores = await _negocioDoctores.ObtenerTodosAsync();
                 cmbDoctor.DataSource = dtDoctores;
                 cmbDoctor.DisplayMember = "Nombre";
                 cmbDoctor.ValueMember = "IdDoctor";
@@ -81,7 +85,7 @@ namespace ClinicaMedica
             }
         }
 
-        private void btnGuardar_Click(object sender, EventArgs e)
+        private async void btnGuardar_Click(object sender, EventArgs e)
         {
             try
             {
@@ -94,7 +98,7 @@ namespace ClinicaMedica
 
                 decimal costo = Convert.ToDecimal(txtCosto.Text);
 
-                string resultado = _negocio.RegistrarCita(
+                string resultado = await _negocio.RegistrarCitaAsync(
                     Convert.ToInt32(cmbPaciente.SelectedValue),
                     Convert.ToInt32(cmbDoctor.SelectedValue),
                     dtpFechaCita.Value,
@@ -106,7 +110,7 @@ namespace ClinicaMedica
                 {
                     MessageBox.Show("Cita guardada correctamente.", "Exito",
                         MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    LimpiarCampos();
+                    await LimpiarCamposAsync();
                 }
                 else
                 {
@@ -121,9 +125,9 @@ namespace ClinicaMedica
             }
         }
 
-        private void btnLimpiar_Click(object sender, EventArgs e)
+        private async void btnLimpiar_Click(object sender, EventArgs e)
         {
-            LimpiarCampos();
+            await LimpiarCamposAsync();
         }
 
         private void btnVolver_Click(object sender, EventArgs e)
@@ -131,7 +135,7 @@ namespace ClinicaMedica
             this.Close();
         }
 
-        private void LimpiarCampos()
+        private async Task LimpiarCamposAsync()
         {
             dtpFechaCita.Value = DateTime.Now;
             txtCosto.Clear();
@@ -140,9 +144,12 @@ namespace ClinicaMedica
             lblValorOriginal.Text = "RD$0.00";
             lblValorDescuento.Text = "RD$0.00";
             lblValorTotal.Text = "RD$0.00";
-            CargarCombos();
+            await CargarCombosAsync();
         }
 
+        // Calcula el costo automaticamente al cambiar el paciente o el tipo de consulta.
+        // CalcularCosto() aplica el descuento de seguro internamente.
+        // El precio original se reconstruye al reves cuando hay seguro (costoFinal * 2).
         private void CalcularCostoAutomatico(object sender, EventArgs e)
         {
             try
@@ -154,8 +161,6 @@ namespace ClinicaMedica
                 DataRowView fila = cmbPaciente.SelectedItem as DataRowView;
                 bool tieneSeguro = Convert.ToBoolean(fila?.Row["TieneSeguro"]);
 
-                // CalcularCosto() aplica el descuento de seguro internamente.
-                // El precio original se reconstruye al reves cuando hay seguro.
                 Paciente paciente = new Paciente("", "", "");
                 paciente.TipoConsulta = tipo;
                 paciente.TieneSeguro = tieneSeguro;
@@ -169,6 +174,7 @@ namespace ClinicaMedica
                 lblValorTotal.Text = $"RD${costoFinal:N2}";
                 txtCosto.Text = costoFinal.ToString();
 
+                // Resalta en verde cuando hay descuento por seguro
                 if (tieneSeguro)
                 {
                     lblValorDescuento.ForeColor = Color.FromArgb(0, 200, 100);

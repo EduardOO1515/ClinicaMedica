@@ -1,28 +1,28 @@
 using System;
 using System.Data;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using ClinicaMedica.Negocio;
 
 namespace ClinicaMedica
 {
+    // Formulario de consulta de expedientes medicos con busqueda en memoria
     public partial class frmExpedientesConsulta : Form
     {
         private ExpedientesNegocio _negocio = new ExpedientesNegocio();
-        // Tabla completa cargada una vez en memoria para filtrar sin ir a la base de datos.
         private DataTable _tablaExpedientes;
 
         public frmExpedientesConsulta()
         {
             InitializeComponent();
-            CargarExpedientes();
+            this.Load += async (s, e) => await CargarExpedientesAsync();
         }
 
-        // Carga todos los expedientes desde la base de datos.
-        private void CargarExpedientes()
+        private async Task CargarExpedientesAsync()
         {
             try
             {
-                _tablaExpedientes = _negocio.ObtenerTodos();
+                _tablaExpedientes = await _negocio.ObtenerTodosAsync();
                 dgvExpedientes.DataSource = _tablaExpedientes;
             }
             catch (Exception ex)
@@ -32,7 +32,7 @@ namespace ClinicaMedica
             }
         }
 
-        // Filtra en memoria por nombre de paciente o diagnostico.
+        // Filtra por nombre del paciente o diagnostico sobre la tabla ya cargada
         private void btnBuscar_Click(object sender, EventArgs e)
         {
             try
@@ -62,11 +62,10 @@ namespace ClinicaMedica
             }
         }
 
-        // Limpia el buscador y recarga todos los registros.
-        private void btnActualizar_Click(object sender, EventArgs e)
+        private async void btnActualizar_Click(object sender, EventArgs e)
         {
             txtBuscar.Clear();
-            CargarExpedientes();
+            await CargarExpedientesAsync();
         }
 
         private void btnCerrar_Click(object sender, EventArgs e)

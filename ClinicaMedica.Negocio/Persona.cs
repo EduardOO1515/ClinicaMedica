@@ -1,7 +1,8 @@
-﻿using System;
+using System;
 
 namespace ClinicaMedica.Negocio
 {
+    // Clase base abstracta para todas las personas del sistema (pacientes y doctores)
     public abstract class Persona
     {
         protected string _cedula;
@@ -9,7 +10,7 @@ namespace ClinicaMedica.Negocio
         protected string _apellido;
         protected string _telefono;
 
-        // Constructor completo
+        // Constructor completo con todos los campos
         public Persona(string cedula, string nombre, string apellido, string telefono)
         {
             _cedula = cedula;
@@ -18,7 +19,7 @@ namespace ClinicaMedica.Negocio
             _telefono = telefono;
         }
 
-        // Constructor alternativo
+        // Constructor alternativo - telefono queda como valor por defecto
         public Persona(string cedula, string nombre, string apellido)
         {
             _cedula = cedula;
@@ -32,16 +33,16 @@ namespace ClinicaMedica.Negocio
         public string Apellido { get => _apellido; set => _apellido = value; }
         public string Telefono { get => _telefono; set => _telefono = value; }
 
-        //TODO Método abstracto
+        // Metodo abstracto - debe ser implementado por las subclases
         public abstract decimal CalcularCosto();
 
-        //TODO Método virtual
+        // Metodo virtual - puede ser sobreescrito para mostrar detalles especificos del rol
         public virtual string ObtenerInfo()
         {
             return $"Nombre: {_nombre} {_apellido} | Cédula: {_cedula}";
         }
 
-        //TODO Método normal
+        // Retorna el nombre completo como una sola cadena
         public string NombreCompleto()
         {
             return $"{_nombre} {_apellido}";

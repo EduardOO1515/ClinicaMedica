@@ -1,24 +1,27 @@
 using System;
 using System.Data;
+using System.Threading.Tasks;
 using ClinicaMedica.Datos;
 
 namespace ClinicaMedica.Negocio
 {
-    // Logica de negocio para el modulo de Expedientes.
+    // Logica de negocio para la gestion de expedientes medicos
     public class ExpedientesNegocio
     {
-        private ExpedientesDAL _dal = new ExpedientesDAL();
+        private readonly IExpedientesRepositorio _dal;
 
-        // Retorna todos los expedientes sin filtro.
-        public DataTable ObtenerTodos()
+        public ExpedientesNegocio()
         {
-            return _dal.ObtenerTodos();
+            _dal = new ExpedientesDAL();
         }
 
-        // Valida los datos y registra un nuevo expediente.
-        // La fecha de registro se establece automaticamente con la fecha actual.
-        // Retorna "OK" si fue exitoso o un mensaje de error si falla la validacion.
-        public string RegistrarExpediente(int idCita, string diagnostico, string tratamiento)
+        public async Task<DataTable> ObtenerTodosAsync()
+        {
+            return await _dal.ObtenerTodosAsync();
+        }
+
+        // FechaRegistro siempre se establece como la fecha y hora actuales al guardar
+        public async Task<string> RegistrarExpedienteAsync(int idCita, string diagnostico, string tratamiento)
         {
             if (idCita <= 0)
                 return "Debe seleccionar una cita.";
@@ -26,7 +29,7 @@ namespace ClinicaMedica.Negocio
             if (string.IsNullOrWhiteSpace(diagnostico))
                 return "El diagnostico es obligatorio.";
 
-            _dal.Insertar(idCita, diagnostico, tratamiento, DateTime.Now);
+            await _dal.InsertarAsync(idCita, diagnostico, tratamiento, DateTime.Now);
             return "OK";
         }
     }

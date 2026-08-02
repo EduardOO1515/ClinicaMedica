@@ -1,26 +1,29 @@
 using System;
 using System.Data;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using ClinicaMedica.Negocio;
 
 namespace ClinicaMedica
 {
+    // Formulario de consulta de doctores con busqueda en memoria
     public partial class frmDoctoresConsulta : Form
     {
         private DoctoresNegocio _negocio = new DoctoresNegocio();
+        // _tablaDoctores guarda el conjunto completo; la busqueda filtra sobre esta tabla
         private DataTable _tablaDoctores;
 
         public frmDoctoresConsulta()
         {
             InitializeComponent();
-            CargarDoctores();
+            this.Load += async (s, e) => await CargarDoctoresAsync();
         }
 
-        private void CargarDoctores()
+        private async Task CargarDoctoresAsync()
         {
             try
             {
-                _tablaDoctores = _negocio.ObtenerTodos();
+                _tablaDoctores = await _negocio.ObtenerTodosAsync();
                 dgvDoctores.DataSource = _tablaDoctores;
             }
             catch (Exception ex)
@@ -30,6 +33,7 @@ namespace ClinicaMedica
             }
         }
 
+        // Filtra por nombre, apellido o cedula sobre la tabla ya cargada
         private void btnBuscar_Click(object sender, EventArgs e)
         {
             try
@@ -60,10 +64,10 @@ namespace ClinicaMedica
             }
         }
 
-        private void btnActualizar_Click(object sender, EventArgs e)
+        private async void btnActualizar_Click(object sender, EventArgs e)
         {
             txtBuscar.Clear();
-            CargarDoctores();
+            await CargarDoctoresAsync();
         }
 
         private void btnCerrar_Click(object sender, EventArgs e)

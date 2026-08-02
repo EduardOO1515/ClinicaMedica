@@ -1,9 +1,11 @@
 using System;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using ClinicaMedica.Negocio;
 
 namespace ClinicaMedica
 {
+    // Formulario de entrada para registrar nuevos proveedores de medicamentos
     public partial class frmProveedores : Form
     {
         private ProveedoresNegocio _negocio = new ProveedoresNegocio();
@@ -13,7 +15,7 @@ namespace ClinicaMedica
             InitializeComponent();
         }
 
-        // Al cargar, deshabilita todos los controles de entrada hasta que el usuario habilite el ingreso.
+        // Inicia con todos los campos deshabilitados hasta que el usuario presione Habilitar
         private void frmProveedores_Load(object sender, EventArgs e)
         {
             txtNombre.Enabled = false;
@@ -23,7 +25,6 @@ namespace ClinicaMedica
             btnHabilitar.Enabled = true;
         }
 
-        // Habilita todos los controles de entrada y activa el boton Deshabilitar.
         private void btnHabilitar_Click(object sender, EventArgs e)
         {
             txtNombre.Enabled = true;
@@ -35,7 +36,6 @@ namespace ClinicaMedica
             txtNombre.Focus();
         }
 
-        // Deshabilita los controles, limpia los campos y activa el boton Habilitar.
         private void btnDeshabilitar_Click(object sender, EventArgs e)
         {
             txtNombre.Enabled = false;
@@ -47,12 +47,11 @@ namespace ClinicaMedica
             LimpiarCampos();
         }
 
-        // Valida y guarda el nuevo proveedor.
-        private void btnGuardar_Click(object sender, EventArgs e)
+        private async void btnGuardar_Click(object sender, EventArgs e)
         {
             try
             {
-                string resultado = _negocio.RegistrarProveedor(
+                string resultado = await _negocio.RegistrarProveedorAsync(
                     txtNombre.Text.Trim(),
                     txtTelefono.Text.Trim(),
                     txtEmail.Text.Trim());
@@ -86,7 +85,7 @@ namespace ClinicaMedica
             this.Close();
         }
 
-        // Limpia todos los campos de entrada.
+        // LimpiarCampos es sincrono porque no necesita llamar a la base de datos
         private void LimpiarCampos()
         {
             txtNombre.Clear();
@@ -94,14 +93,13 @@ namespace ClinicaMedica
             txtEmail.Clear();
         }
 
-        // Solo permite digitos en el telefono.
         private void txtTelefono_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!char.IsDigit(e.KeyChar) && e.KeyChar != (char)Keys.Back)
                 e.Handled = true;
         }
 
-        // Formatea el telefono automaticamente con guiones (000-000-0000).
+        // Aplica formato 000-000-0000 mientras el usuario escribe
         private void txtTelefono_TextChanged(object sender, EventArgs e)
         {
             string solo = txtTelefono.Text.Replace("-", "");
@@ -119,7 +117,7 @@ namespace ClinicaMedica
             txtTelefono.TextChanged += txtTelefono_TextChanged;
         }
 
-        // Valida el formato del email al salir del campo.
+        // Valida el formato del email al perder el foco el campo
         private void txtEmail_Leave(object sender, EventArgs e)
         {
             string email = txtEmail.Text.Trim();

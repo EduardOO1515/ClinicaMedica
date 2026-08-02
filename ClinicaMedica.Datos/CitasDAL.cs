@@ -1,19 +1,22 @@
-﻿using System;
+using System;
 using System.Data;
+using System.Threading.Tasks;
 using Microsoft.Data.SqlClient;
 
 namespace ClinicaMedica.Datos
 {
-    public class CitasDAL
+    // Acceso a datos para la tabla Citas
+    public class CitasDAL : ICitasRepositorio
     {
-        public DataTable ObtenerTodos()
+        // Hace JOIN con Pacientes y Doctores para mostrar los nombres en la consulta
+        public async Task<DataTable> ObtenerTodosAsync()
         {
             DataTable dt = new DataTable();
             try
             {
                 using (SqlConnection con = Conexion.ObtenerConexion())
                 {
-                    con.Open();
+                    await con.OpenAsync();
                     SqlDataAdapter da = new SqlDataAdapter(
                         "SELECT c.IdCita, p.Nombre + ' ' + p.Apellido AS Paciente, " +
                         "d.Nombre + ' ' + d.Apellido AS Doctor, " +
@@ -22,7 +25,7 @@ namespace ClinicaMedica.Datos
                         "FROM Citas c " +
                         "INNER JOIN Pacientes p ON c.IdPaciente = p.IdPaciente " +
                         "INNER JOIN Doctores d ON c.IdDoctor = d.IdDoctor", con);
-                    da.Fill(dt);
+                    await Task.Run(() => da.Fill(dt));
                 }
             }
             catch (Exception ex)
@@ -32,14 +35,14 @@ namespace ClinicaMedica.Datos
             return dt;
         }
 
-        public bool Insertar(int idPaciente, int idDoctor, DateTime fechaCita,
-                            string estado, string tipoConsulta, decimal costo)
+        public async Task<bool> InsertarAsync(int idPaciente, int idDoctor, DateTime fechaCita,
+                                              string estado, string tipoConsulta, decimal costo)
         {
             try
             {
                 using (SqlConnection con = Conexion.ObtenerConexion())
                 {
-                    con.Open();
+                    await con.OpenAsync();
                     SqlCommand cmd = new SqlCommand(
                         "INSERT INTO Citas (IdPaciente, IdDoctor, FechaCita, Estado, TipoConsulta, Costo) " +
                         "VALUES (@idPaciente, @idDoctor, @fechaCita, @estado, @tipoConsulta, @costo)", con);
@@ -49,7 +52,7 @@ namespace ClinicaMedica.Datos
                     cmd.Parameters.AddWithValue("@estado", estado);
                     cmd.Parameters.AddWithValue("@tipoConsulta", tipoConsulta);
                     cmd.Parameters.AddWithValue("@costo", costo);
-                    cmd.ExecuteNonQuery();
+                    await cmd.ExecuteNonQueryAsync();
                     return true;
                 }
             }
@@ -59,14 +62,14 @@ namespace ClinicaMedica.Datos
             }
         }
 
-        public bool Actualizar(int id, int idPaciente, int idDoctor, DateTime fechaCita,
-                              string estado, string tipoConsulta, decimal costo)
+        public async Task<bool> ActualizarAsync(int id, int idPaciente, int idDoctor, DateTime fechaCita,
+                                                string estado, string tipoConsulta, decimal costo)
         {
             try
             {
                 using (SqlConnection con = Conexion.ObtenerConexion())
                 {
-                    con.Open();
+                    await con.OpenAsync();
                     SqlCommand cmd = new SqlCommand(
                         "UPDATE Citas SET IdPaciente=@idPaciente, IdDoctor=@idDoctor, " +
                         "FechaCita=@fechaCita, Estado=@estado, TipoConsulta=@tipoConsulta, Costo=@costo " +
@@ -78,7 +81,7 @@ namespace ClinicaMedica.Datos
                     cmd.Parameters.AddWithValue("@estado", estado);
                     cmd.Parameters.AddWithValue("@tipoConsulta", tipoConsulta);
                     cmd.Parameters.AddWithValue("@costo", costo);
-                    cmd.ExecuteNonQuery();
+                    await cmd.ExecuteNonQueryAsync();
                     return true;
                 }
             }
@@ -88,17 +91,17 @@ namespace ClinicaMedica.Datos
             }
         }
 
-        public bool Eliminar(int id)
+        public async Task<bool> EliminarAsync(int id)
         {
             try
             {
                 using (SqlConnection con = Conexion.ObtenerConexion())
                 {
-                    con.Open();
+                    await con.OpenAsync();
                     SqlCommand cmd = new SqlCommand(
                         "DELETE FROM Citas WHERE IdCita=@id", con);
                     cmd.Parameters.AddWithValue("@id", id);
-                    cmd.ExecuteNonQuery();
+                    await cmd.ExecuteNonQueryAsync();
                     return true;
                 }
             }

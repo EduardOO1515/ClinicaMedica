@@ -1,22 +1,24 @@
-﻿using System;
+using System;
 using System.Data;
+using System.Threading.Tasks;
 using Microsoft.Data.SqlClient;
 
 namespace ClinicaMedica.Datos
 {
-    public class PacientesDAL
+    // Acceso a datos para la tabla Pacientes
+    public class PacientesDAL : IPacientesRepositorio
     {
-        public DataTable ObtenerTodos()
+        public async Task<DataTable> ObtenerTodosAsync()
         {
             DataTable dt = new DataTable();
             try
             {
                 using (SqlConnection con = Conexion.ObtenerConexion())
                 {
-                    con.Open();
+                    await con.OpenAsync();
                     SqlDataAdapter da = new SqlDataAdapter(
                         "SELECT IdPaciente, Cedula, Nombre, Apellido, FechaNacimiento, Telefono, TieneSeguro FROM Pacientes", con);
-                    da.Fill(dt);
+                    await Task.Run(() => da.Fill(dt));
                 }
             }
             catch (Exception ex)
@@ -26,14 +28,14 @@ namespace ClinicaMedica.Datos
             return dt;
         }
 
-        public bool Insertar(string cedula, string nombre, string apellido,
-                            DateTime fechaNac, string telefono, bool tieneSeguro)
+        public async Task<bool> InsertarAsync(string cedula, string nombre, string apellido,
+                                              DateTime fechaNac, string telefono, bool tieneSeguro)
         {
             try
             {
                 using (SqlConnection con = Conexion.ObtenerConexion())
                 {
-                    con.Open();
+                    await con.OpenAsync();
                     SqlCommand cmd = new SqlCommand(
                         "INSERT INTO Pacientes (Cedula, Nombre, Apellido, FechaNacimiento, Telefono, TieneSeguro) " +
                         "VALUES (@cedula, @nombre, @apellido, @fechaNac, @telefono, @seguro)", con);
@@ -43,7 +45,7 @@ namespace ClinicaMedica.Datos
                     cmd.Parameters.AddWithValue("@fechaNac", fechaNac);
                     cmd.Parameters.AddWithValue("@telefono", telefono);
                     cmd.Parameters.AddWithValue("@seguro", tieneSeguro);
-                    cmd.ExecuteNonQuery();
+                    await cmd.ExecuteNonQueryAsync();
                     return true;
                 }
             }
@@ -53,14 +55,14 @@ namespace ClinicaMedica.Datos
             }
         }
 
-        public bool Actualizar(int id, string cedula, string nombre, string apellido,
-                              DateTime fechaNac, string telefono, bool tieneSeguro)
+        public async Task<bool> ActualizarAsync(int id, string cedula, string nombre, string apellido,
+                                                DateTime fechaNac, string telefono, bool tieneSeguro)
         {
             try
             {
                 using (SqlConnection con = Conexion.ObtenerConexion())
                 {
-                    con.Open();
+                    await con.OpenAsync();
                     SqlCommand cmd = new SqlCommand(
                         "UPDATE Pacientes SET Cedula=@cedula, Nombre=@nombre, Apellido=@apellido, " +
                         "FechaNacimiento=@fechaNac, Telefono=@telefono, TieneSeguro=@seguro " +
@@ -72,7 +74,7 @@ namespace ClinicaMedica.Datos
                     cmd.Parameters.AddWithValue("@fechaNac", fechaNac);
                     cmd.Parameters.AddWithValue("@telefono", telefono);
                     cmd.Parameters.AddWithValue("@seguro", tieneSeguro);
-                    cmd.ExecuteNonQuery();
+                    await cmd.ExecuteNonQueryAsync();
                     return true;
                 }
             }
@@ -82,25 +84,23 @@ namespace ClinicaMedica.Datos
             }
         }
 
-        public bool Eliminar(int id)
+        // Elimina primero las Citas relacionadas para evitar error de clave foranea
+        public async Task<bool> EliminarAsync(int id)
         {
             try
             {
                 using (SqlConnection con = Conexion.ObtenerConexion())
                 {
-                    con.Open();
-
-                    // Primero eliminar las citas del paciente
+                    await con.OpenAsync();
                     SqlCommand cmdCitas = new SqlCommand(
                         "DELETE FROM Citas WHERE IdPaciente=@id", con);
                     cmdCitas.Parameters.AddWithValue("@id", id);
-                    cmdCitas.ExecuteNonQuery();
+                    await cmdCitas.ExecuteNonQueryAsync();
 
-                    // Luego eliminar el paciente
                     SqlCommand cmd = new SqlCommand(
                         "DELETE FROM Pacientes WHERE IdPaciente=@id", con);
                     cmd.Parameters.AddWithValue("@id", id);
-                    cmd.ExecuteNonQuery();
+                    await cmd.ExecuteNonQueryAsync();
                     return true;
                 }
             }

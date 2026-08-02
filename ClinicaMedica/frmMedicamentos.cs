@@ -1,10 +1,12 @@
 using System;
 using System.Data;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using ClinicaMedica.Negocio;
 
 namespace ClinicaMedica
 {
+    // Formulario de entrada para registrar nuevos medicamentos en el inventario
     public partial class frmMedicamentos : Form
     {
         private MedicamentosNegocio _negocio = new MedicamentosNegocio();
@@ -13,15 +15,16 @@ namespace ClinicaMedica
         public frmMedicamentos()
         {
             InitializeComponent();
-            CargarProveedores();
+            // Carga los proveedores al abrir el formulario para poblar el combo
+            this.Load += async (s, e) => await CargarProveedoresAsync();
         }
 
-        // Carga los proveedores en el combo al abrir el formulario.
-        private void CargarProveedores()
+        // Carga las opciones del combo de proveedores desde la base de datos
+        private async Task CargarProveedoresAsync()
         {
             try
             {
-                DataTable dt = _negocioProveedores.ObtenerTodos();
+                DataTable dt = await _negocioProveedores.ObtenerTodosAsync();
                 cboProveedor.DataSource = dt;
                 cboProveedor.DisplayMember = "Nombre";
                 cboProveedor.ValueMember = "IdProveedor";
@@ -33,7 +36,7 @@ namespace ClinicaMedica
             }
         }
 
-        // Al cargar, deshabilita todos los controles de entrada.
+        // Inicia con todos los campos deshabilitados hasta que el usuario presione Habilitar
         private void frmMedicamentos_Load(object sender, EventArgs e)
         {
             cboProveedor.Enabled = false;
@@ -47,7 +50,6 @@ namespace ClinicaMedica
             btnHabilitar.Enabled = true;
         }
 
-        // Habilita todos los controles de entrada.
         private void btnHabilitar_Click(object sender, EventArgs e)
         {
             cboProveedor.Enabled = true;
@@ -63,8 +65,7 @@ namespace ClinicaMedica
             txtNombre.Focus();
         }
 
-        // Deshabilita los controles, limpia los campos y reactiva el boton Habilitar.
-        private void btnDeshabilitar_Click(object sender, EventArgs e)
+        private async void btnDeshabilitar_Click(object sender, EventArgs e)
         {
             cboProveedor.Enabled = false;
             txtNombre.Enabled = false;
@@ -76,11 +77,10 @@ namespace ClinicaMedica
             btnGuardar.Enabled = false;
             btnDeshabilitar.Enabled = false;
             btnHabilitar.Enabled = true;
-            LimpiarCampos();
+            await LimpiarCamposAsync();
         }
 
-        // Valida y guarda el nuevo medicamento.
-        private void btnGuardar_Click(object sender, EventArgs e)
+        private async void btnGuardar_Click(object sender, EventArgs e)
         {
             try
             {
@@ -98,7 +98,7 @@ namespace ClinicaMedica
                     return;
                 }
 
-                string resultado = _negocio.RegistrarMedicamento(
+                string resultado = await _negocio.RegistrarMedicamentoAsync(
                     Convert.ToInt32(cboProveedor.SelectedValue),
                     txtNombre.Text.Trim(),
                     txtPresentacion.Text.Trim(),
@@ -111,7 +111,7 @@ namespace ClinicaMedica
                 {
                     MessageBox.Show("Medicamento guardado correctamente.", "Exito",
                         MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    LimpiarCampos();
+                    await LimpiarCamposAsync();
                 }
                 else
                 {
@@ -126,9 +126,9 @@ namespace ClinicaMedica
             }
         }
 
-        private void btnLimpiar_Click(object sender, EventArgs e)
+        private async void btnLimpiar_Click(object sender, EventArgs e)
         {
-            LimpiarCampos();
+            await LimpiarCamposAsync();
         }
 
         private void btnVolver_Click(object sender, EventArgs e)
@@ -136,8 +136,8 @@ namespace ClinicaMedica
             this.Close();
         }
 
-        // Limpia todos los campos de entrada.
-        private void LimpiarCampos()
+        // Limpia los campos y recarga el combo de proveedores
+        private async Task LimpiarCamposAsync()
         {
             txtNombre.Clear();
             txtPresentacion.Clear();
@@ -145,17 +145,17 @@ namespace ClinicaMedica
             txtStock.Clear();
             txtPrecio.Clear();
             dtpFechaVencimiento.Value = DateTime.Now;
-            CargarProveedores();
+            await CargarProveedoresAsync();
         }
 
-        // Solo permite digitos en campos numericos enteros.
+        // Solo permite digitos y retroceso en campos numericos enteros
         private void txtNumerico_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!char.IsDigit(e.KeyChar) && e.KeyChar != (char)Keys.Back)
                 e.Handled = true;
         }
 
-        // Solo permite digitos y punto decimal en campos de precio.
+        // Permite digitos, punto decimal y retroceso en el campo precio
         private void txtDecimal_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!char.IsDigit(e.KeyChar) && e.KeyChar != '.' && e.KeyChar != (char)Keys.Back)

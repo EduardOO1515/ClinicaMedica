@@ -1,10 +1,12 @@
 using System;
 using System.Data;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using ClinicaMedica.Negocio;
 
 namespace ClinicaMedica
 {
+    // Formulario de entrada para registrar nuevos doctores
     public partial class frmDoctores : Form
     {
         private DoctoresNegocio _negocio = new DoctoresNegocio();
@@ -12,9 +14,11 @@ namespace ClinicaMedica
         public frmDoctores()
         {
             InitializeComponent();
-            CargarEspecialidades();
+            // Carga las especialidades al abrir el formulario para poblar el combo
+            this.Load += async (s, e) => await CargarEspecialidadesAsync();
         }
 
+        // Inicia con todos los campos deshabilitados hasta que el usuario presione Habilitar
         private void frmDoctores_Load(object sender, EventArgs e)
         {
             txtCedula.Enabled = false;
@@ -41,7 +45,7 @@ namespace ClinicaMedica
             txtCedula.Focus();
         }
 
-        private void btnDeshabilitar_Click(object sender, EventArgs e)
+        private async void btnDeshabilitar_Click(object sender, EventArgs e)
         {
             txtCedula.Enabled = false;
             txtNombre.Enabled = false;
@@ -52,14 +56,15 @@ namespace ClinicaMedica
             btnGuardar.Enabled = false;
             btnDeshabilitar.Enabled = false;
             btnHabilitar.Enabled = true;
-            LimpiarCampos();
+            await LimpiarCamposAsync();
         }
 
-        private void CargarEspecialidades()
+        // Carga las opciones de especialidad desde la base de datos
+        private async Task CargarEspecialidadesAsync()
         {
             try
             {
-                DataTable dt = _negocio.ObtenerEspecialidades();
+                DataTable dt = await _negocio.ObtenerEspecialidadesAsync();
                 cmbEspecialidad.DataSource = dt;
                 cmbEspecialidad.DisplayMember = "Nombre";
                 cmbEspecialidad.ValueMember = "IdEspecialidad";
@@ -71,30 +76,30 @@ namespace ClinicaMedica
             }
         }
 
-        private void btnGuardar_Click(object sender, EventArgs e)
+        private async void btnGuardar_Click(object sender, EventArgs e)
         {
             try
             {
                 if (string.IsNullOrWhiteSpace(txtCedula.Text) || txtCedula.Text.Length != 13)
                 {
-                    MessageBox.Show("La cédula debe tener 13 dígitos.", "Advertencia",
+                    MessageBox.Show("La cedula debe tener 13 digitos.", "Advertencia",
                         MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
                 if (string.IsNullOrWhiteSpace(txtNombre.Text))
                 {
-                    MessageBox.Show("El nombre no puede estar vacío.", "Advertencia",
+                    MessageBox.Show("El nombre no puede estar vacio.", "Advertencia",
                         MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
                 if (string.IsNullOrWhiteSpace(txtApellido.Text))
                 {
-                    MessageBox.Show("El apellido no puede estar vacío.", "Advertencia",
+                    MessageBox.Show("El apellido no puede estar vacio.", "Advertencia",
                         MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
 
-                string resultado = _negocio.RegistrarDoctor(
+                string resultado = await _negocio.RegistrarDoctorAsync(
                     txtCedula.Text, txtNombre.Text, txtApellido.Text,
                     Convert.ToInt32(cmbEspecialidad.SelectedValue),
                     txtTelefono.Text, txtEmail.Text);
@@ -103,7 +108,7 @@ namespace ClinicaMedica
                 {
                     MessageBox.Show("Doctor guardado correctamente.", "Exito",
                         MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    LimpiarCampos();
+                    await LimpiarCamposAsync();
                 }
                 else
                 {
@@ -118,9 +123,9 @@ namespace ClinicaMedica
             }
         }
 
-        private void btnLimpiar_Click(object sender, EventArgs e)
+        private async void btnLimpiar_Click(object sender, EventArgs e)
         {
-            LimpiarCampos();
+            await LimpiarCamposAsync();
         }
 
         private void btnVolver_Click(object sender, EventArgs e)
@@ -128,22 +133,25 @@ namespace ClinicaMedica
             this.Close();
         }
 
-        private void LimpiarCampos()
+        // Limpia los campos de texto y recarga el combo de especialidades
+        private async Task LimpiarCamposAsync()
         {
             txtCedula.Clear();
             txtNombre.Clear();
             txtApellido.Clear();
             txtTelefono.Clear();
             txtEmail.Clear();
-            CargarEspecialidades();
+            await CargarEspecialidadesAsync();
         }
 
+        // Solo permite digitos y retroceso en el campo cedula
         private void txtCedula_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!char.IsDigit(e.KeyChar) && e.KeyChar != (char)Keys.Back)
                 e.Handled = true;
         }
 
+        // Aplica formato 000-0000000-0 mientras el usuario escribe
         private void txtCedula_TextChanged(object sender, EventArgs e)
         {
             string solo = "";
@@ -181,6 +189,7 @@ namespace ClinicaMedica
                 e.Handled = true;
         }
 
+        // Aplica formato 000-000-0000 mientras el usuario escribe
         private void txtTelefono_TextChanged(object sender, EventArgs e)
         {
             string solo = "";
@@ -200,6 +209,7 @@ namespace ClinicaMedica
             txtTelefono.TextChanged += txtTelefono_TextChanged;
         }
 
+        // Valida el formato del email al perder el foco el campo
         private void txtEmail_Leave(object sender, EventArgs e)
         {
             string email = txtEmail.Text.Trim();
@@ -210,12 +220,13 @@ namespace ClinicaMedica
                 email.IndexOf(".") < email.IndexOf("@") + 2 ||
                 email.EndsWith("."))
             {
-                MessageBox.Show("El email no es válido. Ejemplo: nombre@correo.com", "Advertencia",
+                MessageBox.Show("El email no es valido. Ejemplo: nombre@correo.com", "Advertencia",
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 txtEmail.Focus();
             }
         }
 
+        // Bloquea la escritura directa en el combo de especialidades
         private void cmbEspecialidad_KeyPress(object sender, KeyPressEventArgs e)
         {
             e.Handled = true;

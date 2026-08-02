@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -8,16 +8,13 @@ namespace ClinicaMedica
 {
     internal static class Program
     {
-        /// <summary>
-        /// Punto de entrada principal para la aplicación.
-        /// </summary>
+        // Punto de entrada de la aplicacion.
+        // frmPrincipal se crea primero y muestra frmLogin antes de hacerse visible.
         [STAThread]
         static void Main()
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            // El principal es el primero en instanciarse 
-            // El login se abre desde adentro de frmPrincipal antes de mostrarse.
             Application.Run(new frmPrincipal());
         }
     }

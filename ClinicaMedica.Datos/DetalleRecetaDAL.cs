@@ -1,22 +1,22 @@
 using System;
 using System.Data;
+using System.Threading.Tasks;
 using Microsoft.Data.SqlClient;
 
 namespace ClinicaMedica.Datos
 {
-    // Acceso a datos para la tabla DetalleReceta.
-    // Tabla: DetalleReceta (IdDetalle, IdReceta, IdMedicamento, Dosis, Frecuencia, Duracion, Observaciones)
-    public class DetalleRecetaDAL
+    // Acceso a datos para la tabla DetalleReceta (lineas de medicamentos por receta)
+    public class DetalleRecetaDAL : IDetalleRecetaRepositorio
     {
-        // Inserta una linea de detalle para una receta existente.
-        public bool Insertar(int idReceta, int idMedicamento, string dosis,
-                             string frecuencia, string duracion, string observaciones)
+        // Agrega una linea de medicamento a la receta indicada por idReceta
+        public async Task<bool> InsertarAsync(int idReceta, int idMedicamento, string dosis,
+                                             string frecuencia, string duracion, string observaciones)
         {
             try
             {
                 using (SqlConnection con = Conexion.ObtenerConexion())
                 {
-                    con.Open();
+                    await con.OpenAsync();
                     SqlCommand cmd = new SqlCommand(
                         "INSERT INTO DetalleReceta (IdReceta, IdMedicamento, Dosis, Frecuencia, Duracion, Observaciones) " +
                         "VALUES (@idReceta, @idMedicamento, @dosis, @frecuencia, @duracion, @observaciones)", con);
@@ -26,7 +26,7 @@ namespace ClinicaMedica.Datos
                     cmd.Parameters.AddWithValue("@frecuencia", frecuencia);
                     cmd.Parameters.AddWithValue("@duracion", duracion);
                     cmd.Parameters.AddWithValue("@observaciones", observaciones);
-                    cmd.ExecuteNonQuery();
+                    await cmd.ExecuteNonQueryAsync();
                     return true;
                 }
             }
@@ -36,23 +36,24 @@ namespace ClinicaMedica.Datos
             }
         }
 
-        // Retorna todos los detalles de una receta especifica con el nombre del medicamento.
-        public DataTable ConsultarPorReceta(int idReceta)
+        // Hace JOIN con Medicamentos para mostrar el nombre en lugar del ID
+        public async Task<DataTable> ConsultarPorRecetaAsync(int idReceta)
         {
             DataTable dt = new DataTable();
             try
             {
                 using (SqlConnection con = Conexion.ObtenerConexion())
                 {
-                    con.Open();
-                    SqlDataAdapter da = new SqlDataAdapter(
+                    await con.OpenAsync();
+                    SqlCommand cmd = new SqlCommand(
                         "SELECT d.IdDetalle, m.Nombre AS Medicamento, d.Dosis, " +
                         "d.Frecuencia, d.Duracion, d.Observaciones " +
                         "FROM DetalleReceta d " +
                         "INNER JOIN Medicamentos m ON d.IdMedicamento = m.IdMedicamento " +
                         "WHERE d.IdReceta = @idReceta", con);
-                    da.SelectCommand.Parameters.AddWithValue("@idReceta", idReceta);
-                    da.Fill(dt);
+                    cmd.Parameters.AddWithValue("@idReceta", idReceta);
+                    SqlDataAdapter da = new SqlDataAdapter(cmd);
+                    await Task.Run(() => da.Fill(dt));
                 }
             }
             catch (Exception ex)

@@ -1,8 +1,9 @@
-﻿using System;
+using System;
 using System.Windows.Forms;
 
 namespace ClinicaMedica
 {
+    // Formulario principal del sistema. Contiene el menu y el panel de contenido embebido.
     public partial class frmPrincipal : Form
     {
         public frmPrincipal()
@@ -16,6 +17,7 @@ namespace ClinicaMedica
             if (System.ComponentModel.LicenseManager.UsageMode == System.ComponentModel.LicenseUsageMode.Designtime)
                 return;
 
+            // Oculta el principal y muestra el login; si el usuario cancela, sale de la app
             this.Hide();
 
             using (frmLogin login = new frmLogin())
@@ -31,11 +33,10 @@ namespace ClinicaMedica
             }
         }
 
-        // Convierte un formulario cualquiera en contenido embebido dentro
-        // de pnlContenido, en vez de abrirlo como ventana nueva (ShowDialog).
+        // Embebe un formulario dentro de pnlContenido en lugar de abrirlo como ventana nueva
         private void AbrirFormulario(Form frm)
         {
-            // Cierra y quita lo que estuviera abierto antes en el panel
+            // Cierra y elimina el formulario que estuviera abierto antes en el panel
             foreach (Control control in pnlContenido.Controls)
             {
                 if (control is Form formAbierto)
@@ -54,7 +55,6 @@ namespace ClinicaMedica
         }
 
         // --- ENTRADA ---
-        // TODO: cuando cada modulo tenga su frmXEntrada, cambiar aqui la clase que se abre.
 
         private void mnuEntradaPacientes_Click(object sender, EventArgs e)
         {
@@ -136,8 +136,7 @@ namespace ClinicaMedica
         }
 
         // --- SISTEMA ---
-        // Acerca de SI se queda como ventana emergente (ShowDialog) -- no tiene
-        // sentido embeberla, es solo informativa y se cierra sola.
+        // frmAcercaDe se abre como ventana emergente (ShowDialog), no embebida
 
         private void mnuSistemaAcercaDe_Click(object sender, EventArgs e)
         {
@@ -157,6 +156,7 @@ namespace ClinicaMedica
             }
         }
 
+        // Oculta el principal y vuelve a mostrar el login para cambio de sesion
         private void CerrarSesion()
         {
             this.Hide();
@@ -174,6 +174,7 @@ namespace ClinicaMedica
             }
         }
 
+        // Manejador provisional para elementos de menu que aun no tienen modulo
         private void mnuPendiente_Click(object sender, EventArgs e)
         {
             MessageBox.Show("Este modulo todavia esta en construccion.", "Proximamente",

@@ -1,10 +1,12 @@
 using System;
 using System.Data;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using ClinicaMedica.Negocio;
 
 namespace ClinicaMedica
 {
+    // Formulario de entrada para registrar recetas medicas con detalle de medicamentos
     public partial class frmRecetas : Form
     {
         private RecetasNegocio _negocio = new RecetasNegocio();
@@ -14,16 +16,19 @@ namespace ClinicaMedica
         public frmRecetas()
         {
             InitializeComponent();
-            CargarCitas();
-            CargarMedicamentos();
+            this.Load += async (s, e) =>
+            {
+                await CargarCitasAsync();
+                await CargarMedicamentosAsync();
+            };
         }
 
-        // Carga las citas disponibles en el combo con una descripcion legible.
-        private void CargarCitas()
+        // Construye una descripcion legible para cada cita y la usa como texto del combo
+        private async Task CargarCitasAsync()
         {
             try
             {
-                DataTable dt = _negocioCitas.ObtenerTodos();
+                DataTable dt = await _negocioCitas.ObtenerTodosAsync();
                 dt.Columns.Add("Descripcion", typeof(string));
                 foreach (DataRow fila in dt.Rows)
                 {
@@ -41,12 +46,12 @@ namespace ClinicaMedica
             }
         }
 
-        // Carga los medicamentos disponibles como origen de datos del combo de la grilla.
-        private void CargarMedicamentos()
+        // Carga los medicamentos como fuente de datos del DataGridViewComboBoxColumn del detalle
+        private async Task CargarMedicamentosAsync()
         {
             try
             {
-                DataTable dt = _negocioMedicamentos.ObtenerTodos();
+                DataTable dt = await _negocioMedicamentos.ObtenerTodosAsync();
                 colMedicamento.DataSource = dt;
                 colMedicamento.DisplayMember = "Nombre";
                 colMedicamento.ValueMember = "IdMedicamento";
@@ -58,7 +63,7 @@ namespace ClinicaMedica
             }
         }
 
-        // Al cargar, deshabilita todos los controles de entrada.
+        // Inicia con todos los campos deshabilitados hasta que el usuario presione Habilitar
         private void frmRecetas_Load(object sender, EventArgs e)
         {
             cboCita.Enabled = false;
@@ -71,7 +76,6 @@ namespace ClinicaMedica
             btnHabilitar.Enabled = true;
         }
 
-        // Habilita todos los controles de entrada.
         private void btnHabilitar_Click(object sender, EventArgs e)
         {
             cboCita.Enabled = true;
@@ -86,8 +90,7 @@ namespace ClinicaMedica
             txtIndicaciones.Focus();
         }
 
-        // Deshabilita los controles, limpia los campos y reactiva el boton Habilitar.
-        private void btnDeshabilitar_Click(object sender, EventArgs e)
+        private async void btnDeshabilitar_Click(object sender, EventArgs e)
         {
             cboCita.Enabled = false;
             dtpFecha.Enabled = false;
@@ -98,16 +101,16 @@ namespace ClinicaMedica
             btnGuardar.Enabled = false;
             btnDeshabilitar.Enabled = false;
             btnHabilitar.Enabled = true;
-            LimpiarCampos();
+            await LimpiarCamposAsync();
         }
 
-        // Agrega una fila vacia al detalle para que el usuario la complete.
+        // Agrega una fila vacia al grid de detalle para que el usuario ingrese un medicamento
         private void btnAgregarLinea_Click(object sender, EventArgs e)
         {
             dgvDetalle.Rows.Add();
         }
 
-        // Elimina la fila seleccionada del detalle.
+        // Elimina la fila seleccionada del grid de detalle
         private void btnEliminarLinea_Click(object sender, EventArgs e)
         {
             if (dgvDetalle.CurrentRow != null && !dgvDetalle.CurrentRow.IsNewRow)
@@ -116,8 +119,8 @@ namespace ClinicaMedica
             }
         }
 
-        // Valida y guarda la receta con su detalle.
-        private void btnGuardar_Click(object sender, EventArgs e)
+        // Construye una DataTable con el detalle del grid y lo envia al negocio para guardar
+        private async void btnGuardar_Click(object sender, EventArgs e)
         {
             try
             {
@@ -128,7 +131,6 @@ namespace ClinicaMedica
                     return;
                 }
 
-                // Construye el DataTable de detalle a partir de las filas de la grilla.
                 DataTable detalles = new DataTable();
                 detalles.Columns.Add("IdMedicamento", typeof(int));
                 detalles.Columns.Add("Dosis", typeof(string));
@@ -151,7 +153,7 @@ namespace ClinicaMedica
                         fila.Cells["colObservaciones"].Value?.ToString() ?? "");
                 }
 
-                string resultado = _negocio.RegistrarReceta(
+                string resultado = await _negocio.RegistrarRecetaAsync(
                     Convert.ToInt32(cboCita.SelectedValue),
                     dtpFecha.Value,
                     txtIndicaciones.Text.Trim(),
@@ -161,7 +163,7 @@ namespace ClinicaMedica
                 {
                     MessageBox.Show("Receta guardada correctamente.", "Exito",
                         MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    LimpiarCampos();
+                    await LimpiarCamposAsync();
                 }
                 else
                 {
@@ -176,9 +178,9 @@ namespace ClinicaMedica
             }
         }
 
-        private void btnLimpiar_Click(object sender, EventArgs e)
+        private async void btnLimpiar_Click(object sender, EventArgs e)
         {
-            LimpiarCampos();
+            await LimpiarCamposAsync();
         }
 
         private void btnVolver_Click(object sender, EventArgs e)
@@ -186,13 +188,13 @@ namespace ClinicaMedica
             this.Close();
         }
 
-        // Limpia todos los campos y vacia la grilla de detalle.
-        private void LimpiarCampos()
+        // Limpia los campos y recarga el combo de citas; el grid de detalle se borra completamente
+        private async Task LimpiarCamposAsync()
         {
             txtIndicaciones.Clear();
             dtpFecha.Value = DateTime.Now;
             dgvDetalle.Rows.Clear();
-            CargarCitas();
+            await CargarCitasAsync();
         }
     }
 }

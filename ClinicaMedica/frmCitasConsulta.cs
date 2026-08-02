@@ -1,10 +1,12 @@
 using System;
 using System.Data;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using ClinicaMedica.Negocio;
 
 namespace ClinicaMedica
 {
+    // Formulario de consulta de citas con busqueda en memoria
     public partial class frmCitasConsulta : Form
     {
         private CitasNegocio _negocio = new CitasNegocio();
@@ -13,14 +15,14 @@ namespace ClinicaMedica
         public frmCitasConsulta()
         {
             InitializeComponent();
-            CargarCitas();
+            this.Load += async (s, e) => await CargarCitasAsync();
         }
 
-        private void CargarCitas()
+        private async Task CargarCitasAsync()
         {
             try
             {
-                _tablaCitas = _negocio.ObtenerTodos();
+                _tablaCitas = await _negocio.ObtenerTodosAsync();
                 dgvCitas.DataSource = _tablaCitas;
             }
             catch (Exception ex)
@@ -30,6 +32,7 @@ namespace ClinicaMedica
             }
         }
 
+        // Filtra por estado, tipo de consulta o fecha sobre la tabla ya cargada
         private void btnBuscar_Click(object sender, EventArgs e)
         {
             try
@@ -60,10 +63,10 @@ namespace ClinicaMedica
             }
         }
 
-        private void btnActualizar_Click(object sender, EventArgs e)
+        private async void btnActualizar_Click(object sender, EventArgs e)
         {
             txtBuscar.Clear();
-            CargarCitas();
+            await CargarCitasAsync();
         }
 
         private void btnCerrar_Click(object sender, EventArgs e)

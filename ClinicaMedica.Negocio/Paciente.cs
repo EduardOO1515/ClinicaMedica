@@ -1,7 +1,8 @@
-﻿using System;
+using System;
 
 namespace ClinicaMedica.Negocio
 {
+    // Representa un paciente. Extiende Persona con seguro medico y fecha de nacimiento.
     public class Paciente : Persona
     {
         private bool _tieneSeguro;
@@ -9,7 +10,7 @@ namespace ClinicaMedica.Negocio
         private int _idPaciente;
         private string _tipoConsulta = "";
 
-        //TODO Constructor completo
+        // Constructor completo con todos los campos
         public Paciente(string cedula, string nombre, string apellido,
                        string telefono, DateTime fechaNacimiento, bool tieneSeguro)
             : base(cedula, nombre, apellido, telefono)
@@ -18,7 +19,7 @@ namespace ClinicaMedica.Negocio
             _tieneSeguro = tieneSeguro;
         }
 
-        // Constructor alternativo
+        // Constructor alternativo - usa valores por defecto para los campos opcionales
         public Paciente(string cedula, string nombre, string apellido)
             : base(cedula, nombre, apellido)
         {
@@ -26,7 +27,7 @@ namespace ClinicaMedica.Negocio
             _tieneSeguro = false;
         }
 
-        //TODO Destructor
+        // Destructor
         ~Paciente()
         {
             Console.WriteLine($"Paciente {_nombre} {_apellido} liberado de memoria.");
@@ -37,7 +38,7 @@ namespace ClinicaMedica.Negocio
         public int IdPaciente { get => _idPaciente; set => _idPaciente = value; }
         public string TipoConsulta { get => _tipoConsulta; set => _tipoConsulta = value; }
 
-        // Retorna el costo de la consulta segun el tipo y aplica 50% de descuento si tiene seguro.
+        // Retorna el costo de la consulta segun el tipo y aplica 50% de descuento si tiene seguro
         public override decimal CalcularCosto()
         {
             decimal costoBase = 0m;
@@ -53,7 +54,7 @@ namespace ClinicaMedica.Negocio
             return costoBase * 0.5m;
         }
 
-        //TODO Sobreescritura del método virtual
+        // Sobreescritura de ObtenerInfo de Persona - agrega seguro y fecha de nacimiento
         public override string ObtenerInfo()
         {
             return $"PACIENTE — {base.ObtenerInfo()} | " +
@@ -61,7 +62,7 @@ namespace ClinicaMedica.Negocio
                    $"Fecha Nac: {_fechaNacimiento:dd/MM/yyyy}";
         }
 
-        //TODO Método normal
+        // Retorna la edad del paciente calculada en base al año de nacimiento
         public int CalcularEdad()
         {
             return DateTime.Now.Year - _fechaNacimiento.Year;

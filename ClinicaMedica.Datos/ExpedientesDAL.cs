@@ -1,29 +1,29 @@
 using System;
 using System.Data;
+using System.Threading.Tasks;
 using Microsoft.Data.SqlClient;
 
 namespace ClinicaMedica.Datos
 {
-    // Acceso a datos para la tabla Expedientes.
-    // Tabla: Expedientes (IdExpediente, IdPaciente, IdCita, Diagnostico, Tratamiento, FechaRegistro)
-    public class ExpedientesDAL
+    // Acceso a datos para la tabla Expedientes
+    public class ExpedientesDAL : IExpedientesRepositorio
     {
-        // Retorna todos los expedientes con el nombre completo del paciente.
-        public DataTable ObtenerTodos()
+        // Hace JOIN con Pacientes y ordena por fecha descendente
+        public async Task<DataTable> ObtenerTodosAsync()
         {
             DataTable dt = new DataTable();
             try
             {
                 using (SqlConnection con = Conexion.ObtenerConexion())
                 {
-                    con.Open();
+                    await con.OpenAsync();
                     SqlDataAdapter da = new SqlDataAdapter(
                         "SELECT e.IdExpediente, p.Nombre + ' ' + p.Apellido AS Paciente, " +
                         "e.IdCita, e.Diagnostico, e.Tratamiento, e.FechaRegistro " +
                         "FROM Expedientes e " +
                         "INNER JOIN Pacientes p ON e.IdPaciente = p.IdPaciente " +
                         "ORDER BY e.FechaRegistro DESC", con);
-                    da.Fill(dt);
+                    await Task.Run(() => da.Fill(dt));
                 }
             }
             catch (Exception ex)
@@ -33,14 +33,14 @@ namespace ClinicaMedica.Datos
             return dt;
         }
 
-        // Inserta un expediente. Obtiene el IdPaciente desde la tabla Citas usando el IdCita.
-        public bool Insertar(int idCita, string diagnostico, string tratamiento, DateTime fechaRegistro)
+        // Deriva IdPaciente desde Citas via subconsulta para no requerir el ID directamente
+        public async Task<bool> InsertarAsync(int idCita, string diagnostico, string tratamiento, DateTime fechaRegistro)
         {
             try
             {
                 using (SqlConnection con = Conexion.ObtenerConexion())
                 {
-                    con.Open();
+                    await con.OpenAsync();
                     SqlCommand cmd = new SqlCommand(
                         "INSERT INTO Expedientes (IdPaciente, IdCita, Diagnostico, Tratamiento, FechaRegistro) " +
                         "SELECT c.IdPaciente, @idCita, @diagnostico, @tratamiento, @fechaRegistro " +
@@ -49,7 +49,7 @@ namespace ClinicaMedica.Datos
                     cmd.Parameters.AddWithValue("@diagnostico", diagnostico);
                     cmd.Parameters.AddWithValue("@tratamiento", tratamiento);
                     cmd.Parameters.AddWithValue("@fechaRegistro", fechaRegistro);
-                    cmd.ExecuteNonQuery();
+                    await cmd.ExecuteNonQueryAsync();
                     return true;
                 }
             }
@@ -59,20 +59,20 @@ namespace ClinicaMedica.Datos
             }
         }
 
-        // Retorna todos los expedientes de un paciente especifico.
-        public DataTable ConsultarPorPaciente(int idPaciente)
+        public async Task<DataTable> ConsultarPorPacienteAsync(int idPaciente)
         {
             DataTable dt = new DataTable();
             try
             {
                 using (SqlConnection con = Conexion.ObtenerConexion())
                 {
-                    con.Open();
-                    SqlDataAdapter da = new SqlDataAdapter(
+                    await con.OpenAsync();
+                    SqlCommand cmd = new SqlCommand(
                         "SELECT IdExpediente, IdCita, Diagnostico, Tratamiento, FechaRegistro " +
                         "FROM Expedientes WHERE IdPaciente = @idPaciente ORDER BY FechaRegistro DESC", con);
-                    da.SelectCommand.Parameters.AddWithValue("@idPaciente", idPaciente);
-                    da.Fill(dt);
+                    cmd.Parameters.AddWithValue("@idPaciente", idPaciente);
+                    SqlDataAdapter da = new SqlDataAdapter(cmd);
+                    await Task.Run(() => da.Fill(dt));
                 }
             }
             catch (Exception ex)

@@ -1,9 +1,11 @@
 using System;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using ClinicaMedica.Negocio;
 
 namespace ClinicaMedica
 {
+    // Formulario de entrada para registrar nuevos pacientes
     public partial class frmPacientes : Form
     {
         private PacientesNegocio _negocio = new PacientesNegocio();
@@ -13,6 +15,7 @@ namespace ClinicaMedica
             InitializeComponent();
         }
 
+        // Inicia con todos los campos deshabilitados hasta que el usuario presione Habilitar
         private void frmPacientes_Load(object sender, EventArgs e)
         {
             txtCedula.Enabled = false;
@@ -53,30 +56,30 @@ namespace ClinicaMedica
             LimpiarCampos();
         }
 
-        private void btnGuardar_Click(object sender, EventArgs e)
+        private async void btnGuardar_Click(object sender, EventArgs e)
         {
             try
             {
                 if (string.IsNullOrWhiteSpace(txtCedula.Text) || txtCedula.Text.Length != 13)
                 {
-                    MessageBox.Show("La cédula debe tener 13  dígitos.", "Advertencia",
+                    MessageBox.Show("La cedula debe tener 13 digitos.", "Advertencia",
                         MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
                 if (string.IsNullOrWhiteSpace(txtNombre.Text))
                 {
-                    MessageBox.Show("El nombre no puede estar vacío.", "Advertencia",
+                    MessageBox.Show("El nombre no puede estar vacio.", "Advertencia",
                         MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
                 if (string.IsNullOrWhiteSpace(txtApellido.Text))
                 {
-                    MessageBox.Show("El apellido no puede estar vacío.", "Advertencia",
+                    MessageBox.Show("El apellido no puede estar vacio.", "Advertencia",
                         MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
 
-                string resultado = _negocio.RegistrarPaciente(
+                string resultado = await _negocio.RegistrarPacienteAsync(
                     txtCedula.Text, txtNombre.Text, txtApellido.Text,
                     dtpFechaNac.Value, txtTelefono.Text, chkSeguro.Checked);
 
@@ -109,6 +112,7 @@ namespace ClinicaMedica
             this.Close();
         }
 
+        // LimpiarCampos es sincrono porque no necesita llamar a la base de datos
         private void LimpiarCampos()
         {
             txtCedula.Clear();
@@ -119,6 +123,7 @@ namespace ClinicaMedica
             chkSeguro.Checked = false;
         }
 
+        // Solo permite digitos y la tecla de retroceso en el campo cedula
         private void txtCedula_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!char.IsDigit(e.KeyChar) && e.KeyChar != (char)Keys.Back)
@@ -128,6 +133,7 @@ namespace ClinicaMedica
             }
         }
 
+        // Aplica formato 000-0000000-0 mientras el usuario escribe
         private void txtCedula_TextChanged(object sender, EventArgs e)
         {
             string solo = "";
@@ -176,6 +182,7 @@ namespace ClinicaMedica
             }
         }
 
+        // Aplica formato 000-000-0000 mientras el usuario escribe
         private void txtTelefono_TextChanged(object sender, EventArgs e)
         {
             string solo = txtTelefono.Text.Replace("-", "");

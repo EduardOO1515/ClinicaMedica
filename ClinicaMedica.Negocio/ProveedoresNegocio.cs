@@ -1,22 +1,26 @@
 using System.Data;
+using System.Threading.Tasks;
 using ClinicaMedica.Datos;
 
 namespace ClinicaMedica.Negocio
 {
-    // Logica de negocio para el modulo de Proveedores.
+    // Logica de negocio para la gestion de proveedores de medicamentos
     public class ProveedoresNegocio
     {
-        private ProveedoresDAL _dal = new ProveedoresDAL();
+        private readonly IProveedoresRepositorio _dal;
 
-        // Retorna todos los proveedores sin filtro.
-        public DataTable ObtenerTodos()
+        public ProveedoresNegocio()
         {
-            return _dal.ObtenerTodos();
+            _dal = new ProveedoresDAL();
         }
 
-        // Valida los datos y registra un nuevo proveedor.
-        // Retorna "OK" si fue exitoso, o un mensaje de error si falla la validacion.
-        public string RegistrarProveedor(string nombre, string telefono, string email)
+        public async Task<DataTable> ObtenerTodosAsync()
+        {
+            return await _dal.ObtenerTodosAsync();
+        }
+
+        // Valida nombre y formato de email antes de insertar el proveedor
+        public async Task<string> RegistrarProveedorAsync(string nombre, string telefono, string email)
         {
             if (string.IsNullOrWhiteSpace(nombre))
                 return "El nombre del proveedor es obligatorio.";
@@ -27,7 +31,7 @@ namespace ClinicaMedica.Negocio
             if (!email.Contains("@"))
                 return "El email debe contener el caracter @.";
 
-            _dal.Insertar(nombre, telefono, email);
+            await _dal.InsertarAsync(nombre, telefono, email);
             return "OK";
         }
     }

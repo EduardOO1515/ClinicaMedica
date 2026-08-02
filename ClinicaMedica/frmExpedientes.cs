@@ -1,10 +1,12 @@
 using System;
 using System.Data;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using ClinicaMedica.Negocio;
 
 namespace ClinicaMedica
 {
+    // Formulario de entrada para registrar expedientes medicos
     public partial class frmExpedientes : Form
     {
         private ExpedientesNegocio _negocio = new ExpedientesNegocio();
@@ -13,16 +15,15 @@ namespace ClinicaMedica
         public frmExpedientes()
         {
             InitializeComponent();
-            CargarCitas();
+            this.Load += async (s, e) => await CargarCitasAsync();
         }
 
-        // Carga las citas disponibles en el combo con una descripcion legible.
-        private void CargarCitas()
+        // Construye una descripcion legible para cada cita y la usa como texto del combo
+        private async Task CargarCitasAsync()
         {
             try
             {
-                DataTable dt = _negocioCitas.ObtenerTodos();
-                // Columna de descripcion para mostrar en el combo.
+                DataTable dt = await _negocioCitas.ObtenerTodosAsync();
                 dt.Columns.Add("Descripcion", typeof(string));
                 foreach (DataRow fila in dt.Rows)
                 {
@@ -40,7 +41,7 @@ namespace ClinicaMedica
             }
         }
 
-        // Al cargar, deshabilita todos los controles de entrada.
+        // Inicia con todos los campos deshabilitados hasta que el usuario presione Habilitar
         private void frmExpedientes_Load(object sender, EventArgs e)
         {
             cboCita.Enabled = false;
@@ -50,7 +51,6 @@ namespace ClinicaMedica
             btnHabilitar.Enabled = true;
         }
 
-        // Habilita todos los controles de entrada.
         private void btnHabilitar_Click(object sender, EventArgs e)
         {
             cboCita.Enabled = true;
@@ -62,8 +62,7 @@ namespace ClinicaMedica
             txtDiagnostico.Focus();
         }
 
-        // Deshabilita los controles, limpia y reactiva el boton Habilitar.
-        private void btnDeshabilitar_Click(object sender, EventArgs e)
+        private async void btnDeshabilitar_Click(object sender, EventArgs e)
         {
             cboCita.Enabled = false;
             txtDiagnostico.Enabled = false;
@@ -71,11 +70,10 @@ namespace ClinicaMedica
             btnGuardar.Enabled = false;
             btnDeshabilitar.Enabled = false;
             btnHabilitar.Enabled = true;
-            LimpiarCampos();
+            await LimpiarCamposAsync();
         }
 
-        // Valida y guarda el nuevo expediente.
-        private void btnGuardar_Click(object sender, EventArgs e)
+        private async void btnGuardar_Click(object sender, EventArgs e)
         {
             try
             {
@@ -86,7 +84,7 @@ namespace ClinicaMedica
                     return;
                 }
 
-                string resultado = _negocio.RegistrarExpediente(
+                string resultado = await _negocio.RegistrarExpedienteAsync(
                     Convert.ToInt32(cboCita.SelectedValue),
                     txtDiagnostico.Text.Trim(),
                     txtTratamiento.Text.Trim());
@@ -95,7 +93,7 @@ namespace ClinicaMedica
                 {
                     MessageBox.Show("Expediente guardado correctamente.", "Exito",
                         MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    LimpiarCampos();
+                    await LimpiarCamposAsync();
                 }
                 else
                 {
@@ -110,9 +108,9 @@ namespace ClinicaMedica
             }
         }
 
-        private void btnLimpiar_Click(object sender, EventArgs e)
+        private async void btnLimpiar_Click(object sender, EventArgs e)
         {
-            LimpiarCampos();
+            await LimpiarCamposAsync();
         }
 
         private void btnVolver_Click(object sender, EventArgs e)
@@ -120,12 +118,12 @@ namespace ClinicaMedica
             this.Close();
         }
 
-        // Limpia los campos y recarga el combo de citas.
-        private void LimpiarCampos()
+        // Limpia los campos de texto y recarga el combo de citas
+        private async Task LimpiarCamposAsync()
         {
             txtDiagnostico.Clear();
             txtTratamiento.Clear();
-            CargarCitas();
+            await CargarCitasAsync();
         }
     }
 }

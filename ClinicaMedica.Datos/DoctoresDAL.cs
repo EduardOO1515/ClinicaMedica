@@ -1,24 +1,27 @@
-﻿using System;
+using System;
 using System.Data;
+using System.Threading.Tasks;
 using Microsoft.Data.SqlClient;
 
 namespace ClinicaMedica.Datos
 {
-    public class DoctoresDAL
+    // Acceso a datos para la tabla Doctores
+    public class DoctoresDAL : IDoctoresRepositorio
     {
-        public DataTable ObtenerTodos()
+        // Hace JOIN con Especialidades para incluir el nombre de la especialidad en el resultado
+        public async Task<DataTable> ObtenerTodosAsync()
         {
             DataTable dt = new DataTable();
             try
             {
                 using (SqlConnection con = Conexion.ObtenerConexion())
                 {
-                    con.Open();
+                    await con.OpenAsync();
                     SqlDataAdapter da = new SqlDataAdapter(
                         "SELECT d.IdDoctor, d.Cedula, d.Nombre, d.Apellido, " +
                         "e.Nombre AS Especialidad, d.Telefono, d.Email, d.IdEspecialidad " +
                         "FROM Doctores d INNER JOIN Especialidades e ON d.IdEspecialidad = e.IdEspecialidad", con);
-                    da.Fill(dt);
+                    await Task.Run(() => da.Fill(dt));
                 }
             }
             catch (Exception ex)
@@ -28,14 +31,35 @@ namespace ClinicaMedica.Datos
             return dt;
         }
 
-        public bool Insertar(string cedula, string nombre, string apellido,
-                            int idEspecialidad, string telefono, string email)
+        // Carga las opciones disponibles para el combo de especialidades
+        public async Task<DataTable> ObtenerEspecialidadesAsync()
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                using (SqlConnection con = Conexion.ObtenerConexion())
+                {
+                    await con.OpenAsync();
+                    SqlDataAdapter da = new SqlDataAdapter(
+                        "SELECT IdEspecialidad, Nombre FROM Especialidades", con);
+                    await Task.Run(() => da.Fill(dt));
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al obtener especialidades: " + ex.Message);
+            }
+            return dt;
+        }
+
+        public async Task<bool> InsertarAsync(string cedula, string nombre, string apellido,
+                                              int idEspecialidad, string telefono, string email)
         {
             try
             {
                 using (SqlConnection con = Conexion.ObtenerConexion())
                 {
-                    con.Open();
+                    await con.OpenAsync();
                     SqlCommand cmd = new SqlCommand(
                         "INSERT INTO Doctores (Cedula, Nombre, Apellido, IdEspecialidad, Telefono, Email) " +
                         "VALUES (@cedula, @nombre, @apellido, @idEsp, @telefono, @email)", con);
@@ -45,7 +69,7 @@ namespace ClinicaMedica.Datos
                     cmd.Parameters.AddWithValue("@idEsp", idEspecialidad);
                     cmd.Parameters.AddWithValue("@telefono", telefono);
                     cmd.Parameters.AddWithValue("@email", email);
-                    cmd.ExecuteNonQuery();
+                    await cmd.ExecuteNonQueryAsync();
                     return true;
                 }
             }
@@ -55,14 +79,14 @@ namespace ClinicaMedica.Datos
             }
         }
 
-        public bool Actualizar(int id, string cedula, string nombre, string apellido,
-                              int idEspecialidad, string telefono, string email)
+        public async Task<bool> ActualizarAsync(int id, string cedula, string nombre, string apellido,
+                                                int idEspecialidad, string telefono, string email)
         {
             try
             {
                 using (SqlConnection con = Conexion.ObtenerConexion())
                 {
-                    con.Open();
+                    await con.OpenAsync();
                     SqlCommand cmd = new SqlCommand(
                         "UPDATE Doctores SET Cedula=@cedula, Nombre=@nombre, Apellido=@apellido, " +
                         "IdEspecialidad=@idEsp, Telefono=@telefono, Email=@email " +
@@ -74,7 +98,7 @@ namespace ClinicaMedica.Datos
                     cmd.Parameters.AddWithValue("@idEsp", idEspecialidad);
                     cmd.Parameters.AddWithValue("@telefono", telefono);
                     cmd.Parameters.AddWithValue("@email", email);
-                    cmd.ExecuteNonQuery();
+                    await cmd.ExecuteNonQueryAsync();
                     return true;
                 }
             }
@@ -84,17 +108,17 @@ namespace ClinicaMedica.Datos
             }
         }
 
-        public bool Eliminar(int id)
+        public async Task<bool> EliminarAsync(int id)
         {
             try
             {
                 using (SqlConnection con = Conexion.ObtenerConexion())
                 {
-                    con.Open();
+                    await con.OpenAsync();
                     SqlCommand cmd = new SqlCommand(
                         "DELETE FROM Doctores WHERE IdDoctor=@id", con);
                     cmd.Parameters.AddWithValue("@id", id);
-                    cmd.ExecuteNonQuery();
+                    await cmd.ExecuteNonQueryAsync();
                     return true;
                 }
             }
@@ -102,26 +126,6 @@ namespace ClinicaMedica.Datos
             {
                 throw new Exception("Error al eliminar doctor: " + ex.Message);
             }
-        }
-
-        public DataTable ObtenerEspecialidades()
-        {
-            DataTable dt = new DataTable();
-            try
-            {
-                using (SqlConnection con = Conexion.ObtenerConexion())
-                {
-                    con.Open();
-                    SqlDataAdapter da = new SqlDataAdapter(
-                        "SELECT IdEspecialidad, Nombre FROM Especialidades", con);
-                    da.Fill(dt);
-                }
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Error al obtener especialidades: " + ex.Message);
-            }
-            return dt;
         }
     }
 }

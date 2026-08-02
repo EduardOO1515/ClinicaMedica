@@ -1,29 +1,29 @@
 using System;
 using System.Data;
 using System.Drawing;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using ClinicaMedica.Negocio;
 
 namespace ClinicaMedica
 {
+    // Formulario de consulta de medicamentos con busqueda en memoria y alertas visuales
     public partial class frmMedicamentosConsulta : Form
     {
         private MedicamentosNegocio _negocio = new MedicamentosNegocio();
-        // Tabla completa en memoria usada como base para filtrar.
         private DataTable _tablaMedicamentos;
 
         public frmMedicamentosConsulta()
         {
             InitializeComponent();
-            CargarMedicamentos();
+            this.Load += async (s, e) => await CargarMedicamentosAsync();
         }
 
-        // Carga todos los medicamentos desde la base de datos.
-        private void CargarMedicamentos()
+        private async Task CargarMedicamentosAsync()
         {
             try
             {
-                _tablaMedicamentos = _negocio.ObtenerTodos();
+                _tablaMedicamentos = await _negocio.ObtenerTodosAsync();
                 dgvMedicamentos.DataSource = _tablaMedicamentos;
             }
             catch (Exception ex)
@@ -33,7 +33,7 @@ namespace ClinicaMedica
             }
         }
 
-        // Filtra en memoria por nombre o proveedor segun el texto ingresado.
+        // Filtra por nombre del medicamento o nombre del proveedor sobre la tabla ya cargada
         private void btnBuscar_Click(object sender, EventArgs e)
         {
             try
@@ -63,11 +63,10 @@ namespace ClinicaMedica
             }
         }
 
-        // Limpia el buscador y recarga todos los registros.
-        private void btnActualizar_Click(object sender, EventArgs e)
+        private async void btnActualizar_Click(object sender, EventArgs e)
         {
             txtBuscar.Clear();
-            CargarMedicamentos();
+            await CargarMedicamentosAsync();
         }
 
         private void btnCerrar_Click(object sender, EventArgs e)
@@ -75,8 +74,7 @@ namespace ClinicaMedica
             this.Close();
         }
 
-        // Resalta en rojo las filas con stock menor a 20 o con fecha de vencimiento
-        // a menos de 30 dias desde hoy.
+        // Resalta en rojo las filas con stock menor a 20 o que vencen en menos de 30 dias
         private void dgvMedicamentos_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
             try

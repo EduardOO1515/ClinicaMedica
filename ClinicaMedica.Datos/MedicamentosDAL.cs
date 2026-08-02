@@ -1,29 +1,29 @@
 using System;
 using System.Data;
+using System.Threading.Tasks;
 using Microsoft.Data.SqlClient;
 
 namespace ClinicaMedica.Datos
 {
-    // Acceso a datos para la tabla Medicamentos.
-    // Tabla: Medicamentos (IdMedicamento, IdProveedor, Nombre, Presentacion, Concentracion, Stock, Precio, FechaVencimiento)
-    public class MedicamentosDAL
+    // Acceso a datos para la tabla Medicamentos
+    public class MedicamentosDAL : IMedicamentosRepositorio
     {
-        // Retorna todos los medicamentos con el nombre del proveedor incluido.
-        public DataTable ObtenerTodos()
+        // Hace JOIN con Proveedores para mostrar el nombre del proveedor en los resultados
+        public async Task<DataTable> ObtenerTodosAsync()
         {
             DataTable dt = new DataTable();
             try
             {
                 using (SqlConnection con = Conexion.ObtenerConexion())
                 {
-                    con.Open();
+                    await con.OpenAsync();
                     SqlDataAdapter da = new SqlDataAdapter(
                         "SELECT m.IdMedicamento, p.Nombre AS Proveedor, m.Nombre, " +
                         "m.Presentacion, m.Concentracion, m.Stock, m.Precio, m.FechaVencimiento " +
                         "FROM Medicamentos m " +
                         "INNER JOIN Proveedores p ON m.IdProveedor = p.IdProveedor " +
                         "ORDER BY m.Nombre", con);
-                    da.Fill(dt);
+                    await Task.Run(() => da.Fill(dt));
                 }
             }
             catch (Exception ex)
@@ -33,15 +33,14 @@ namespace ClinicaMedica.Datos
             return dt;
         }
 
-        // Inserta un nuevo medicamento en la base de datos.
-        public bool Insertar(int idProveedor, string nombre, string presentacion,
-                             string concentracion, int stock, decimal precio, DateTime fechaVencimiento)
+        public async Task<bool> InsertarAsync(int idProveedor, string nombre, string presentacion,
+                                             string concentracion, int stock, decimal precio, DateTime fechaVencimiento)
         {
             try
             {
                 using (SqlConnection con = Conexion.ObtenerConexion())
                 {
-                    con.Open();
+                    await con.OpenAsync();
                     SqlCommand cmd = new SqlCommand(
                         "INSERT INTO Medicamentos (IdProveedor, Nombre, Presentacion, Concentracion, Stock, Precio, FechaVencimiento) " +
                         "VALUES (@idProveedor, @nombre, @presentacion, @concentracion, @stock, @precio, @fechaVencimiento)", con);
@@ -52,7 +51,7 @@ namespace ClinicaMedica.Datos
                     cmd.Parameters.AddWithValue("@stock", stock);
                     cmd.Parameters.AddWithValue("@precio", precio);
                     cmd.Parameters.AddWithValue("@fechaVencimiento", fechaVencimiento);
-                    cmd.ExecuteNonQuery();
+                    await cmd.ExecuteNonQueryAsync();
                     return true;
                 }
             }
@@ -62,23 +61,23 @@ namespace ClinicaMedica.Datos
             }
         }
 
-        // Busca medicamentos cuyo nombre contenga el texto indicado.
-        public DataTable BuscarPorNombre(string nombre)
+        public async Task<DataTable> BuscarPorNombreAsync(string nombre)
         {
             DataTable dt = new DataTable();
             try
             {
                 using (SqlConnection con = Conexion.ObtenerConexion())
                 {
-                    con.Open();
-                    SqlDataAdapter da = new SqlDataAdapter(
+                    await con.OpenAsync();
+                    SqlCommand cmd = new SqlCommand(
                         "SELECT m.IdMedicamento, p.Nombre AS Proveedor, m.Nombre, " +
                         "m.Presentacion, m.Concentracion, m.Stock, m.Precio, m.FechaVencimiento " +
                         "FROM Medicamentos m " +
                         "INNER JOIN Proveedores p ON m.IdProveedor = p.IdProveedor " +
                         "WHERE m.Nombre LIKE @nombre ORDER BY m.Nombre", con);
-                    da.SelectCommand.Parameters.AddWithValue("@nombre", "%" + nombre + "%");
-                    da.Fill(dt);
+                    cmd.Parameters.AddWithValue("@nombre", "%" + nombre + "%");
+                    SqlDataAdapter da = new SqlDataAdapter(cmd);
+                    await Task.Run(() => da.Fill(dt));
                 }
             }
             catch (Exception ex)

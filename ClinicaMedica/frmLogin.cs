@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Data;
 using System.Drawing;
 using System.Windows.Forms;
@@ -6,6 +6,7 @@ using ClinicaMedica.Negocio;
 
 namespace ClinicaMedica
 {
+    // Formulario de inicio de sesion. Se abre desde frmPrincipal antes de hacerse visible.
     public partial class frmLogin : Form
     {
         private UsuariosNegocio _negocio = new UsuariosNegocio();
@@ -39,8 +40,7 @@ namespace ClinicaMedica
                 {
                     MessageBox.Show($"Bienvenido, {txtUsuario.Text}!",
                        "Acceso Correcto", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    // Ya no crea/muestra frmPrincipal aqui: frmPrincipal ya existe
-                    // (fue creado por Program.cs) y esta esperando este resultado.
+                    // DialogResult.OK indica exito a frmPrincipal para que se muestre
                     this.DialogResult = DialogResult.OK;
                     this.Close();
                 }
@@ -61,6 +61,7 @@ namespace ClinicaMedica
 
         private void btnCancelar_Click(object sender, EventArgs e)
         {
+            // DialogResult.Cancel cierra la aplicacion desde frmPrincipal
             this.DialogResult = DialogResult.Cancel;
             this.Close();
         }

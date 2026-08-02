@@ -5,6 +5,7 @@ using ClinicaMedica.Datos;
 
 namespace ClinicaMedica.Negocio
 {
+    // Logica de negocio para autenticacion de usuarios
     public class UsuariosNegocio
     {
         private readonly IUsuariosRepositorio _dal;
@@ -14,6 +15,7 @@ namespace ClinicaMedica.Negocio
             _dal = new UsuariosDAL();
         }
 
+        // Valida que los campos no esten vacios antes de consultar la base de datos
         public async Task<DataTable> ValidarUsuarioAsync(string usuario, string contrasena)
         {
             if (string.IsNullOrWhiteSpace(usuario))

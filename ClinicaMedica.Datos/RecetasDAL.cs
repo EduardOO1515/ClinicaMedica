@@ -1,26 +1,25 @@
 using System;
 using System.Data;
+using System.Threading.Tasks;
 using Microsoft.Data.SqlClient;
 
 namespace ClinicaMedica.Datos
 {
-    // Acceso a datos para la tabla Recetas.
-    // Tabla: Recetas (IdReceta, IdCita, Fecha, Indicaciones)
-    public class RecetasDAL
+    // Acceso a datos para la tabla Recetas
+    public class RecetasDAL : IRecetasRepositorio
     {
-        // Retorna todas las recetas registradas.
-        public DataTable ObtenerTodos()
+        public async Task<DataTable> ObtenerTodosAsync()
         {
             DataTable dt = new DataTable();
             try
             {
                 using (SqlConnection con = Conexion.ObtenerConexion())
                 {
-                    con.Open();
+                    await con.OpenAsync();
                     SqlDataAdapter da = new SqlDataAdapter(
                         "SELECT IdReceta, IdCita, Fecha, Indicaciones " +
                         "FROM Recetas ORDER BY Fecha DESC", con);
-                    da.Fill(dt);
+                    await Task.Run(() => da.Fill(dt));
                 }
             }
             catch (Exception ex)
@@ -30,14 +29,15 @@ namespace ClinicaMedica.Datos
             return dt;
         }
 
-        // Inserta una nueva receta y retorna el IdReceta generado.
-        public int Insertar(int idCita, DateTime fecha, string indicaciones)
+        // Inserta la receta y retorna el IdReceta generado por SCOPE_IDENTITY
+        // El id es necesario para insertar el detalle de medicamentos a continuacion
+        public async Task<int> InsertarAsync(int idCita, DateTime fecha, string indicaciones)
         {
             try
             {
                 using (SqlConnection con = Conexion.ObtenerConexion())
                 {
-                    con.Open();
+                    await con.OpenAsync();
                     SqlCommand cmd = new SqlCommand(
                         "INSERT INTO Recetas (IdCita, Fecha, Indicaciones) " +
                         "VALUES (@idCita, @fecha, @indicaciones); " +
@@ -45,7 +45,7 @@ namespace ClinicaMedica.Datos
                     cmd.Parameters.AddWithValue("@idCita", idCita);
                     cmd.Parameters.AddWithValue("@fecha", fecha);
                     cmd.Parameters.AddWithValue("@indicaciones", indicaciones);
-                    object resultado = cmd.ExecuteScalar();
+                    object resultado = await cmd.ExecuteScalarAsync();
                     return Convert.ToInt32(resultado);
                 }
             }

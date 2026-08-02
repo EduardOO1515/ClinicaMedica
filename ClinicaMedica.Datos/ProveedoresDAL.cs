@@ -1,25 +1,24 @@
 using System;
 using System.Data;
+using System.Threading.Tasks;
 using Microsoft.Data.SqlClient;
 
 namespace ClinicaMedica.Datos
 {
-    // Acceso a datos para la tabla Proveedores.
-    // Tabla esperada: Proveedores (IdProveedor INT PK IDENTITY, Nombre NVARCHAR(100), Telefono NVARCHAR(20), Email NVARCHAR(100))
-    public class ProveedoresDAL
+    // Acceso a datos para la tabla Proveedores
+    public class ProveedoresDAL : IProveedoresRepositorio
     {
-        // Retorna todos los proveedores registrados.
-        public DataTable ObtenerTodos()
+        public async Task<DataTable> ObtenerTodosAsync()
         {
             DataTable dt = new DataTable();
             try
             {
                 using (SqlConnection con = Conexion.ObtenerConexion())
                 {
-                    con.Open();
+                    await con.OpenAsync();
                     SqlDataAdapter da = new SqlDataAdapter(
                         "SELECT IdProveedor, Nombre, Telefono, Email FROM Proveedores ORDER BY Nombre", con);
-                    da.Fill(dt);
+                    await Task.Run(() => da.Fill(dt));
                 }
             }
             catch (Exception ex)
@@ -29,20 +28,19 @@ namespace ClinicaMedica.Datos
             return dt;
         }
 
-        // Inserta un nuevo proveedor en la base de datos.
-        public bool Insertar(string nombre, string telefono, string email)
+        public async Task<bool> InsertarAsync(string nombre, string telefono, string email)
         {
             try
             {
                 using (SqlConnection con = Conexion.ObtenerConexion())
                 {
-                    con.Open();
+                    await con.OpenAsync();
                     SqlCommand cmd = new SqlCommand(
                         "INSERT INTO Proveedores (Nombre, Telefono, Email) VALUES (@nombre, @telefono, @email)", con);
                     cmd.Parameters.AddWithValue("@nombre", nombre);
                     cmd.Parameters.AddWithValue("@telefono", telefono);
                     cmd.Parameters.AddWithValue("@email", email);
-                    cmd.ExecuteNonQuery();
+                    await cmd.ExecuteNonQueryAsync();
                     return true;
                 }
             }
@@ -52,19 +50,20 @@ namespace ClinicaMedica.Datos
             }
         }
 
-        // Busca proveedores cuyo nombre contenga el texto indicado.
-        public DataTable BuscarPorNombre(string nombre)
+        // Busqueda parcial usando LIKE con comodines a ambos lados del termino
+        public async Task<DataTable> BuscarPorNombreAsync(string nombre)
         {
             DataTable dt = new DataTable();
             try
             {
                 using (SqlConnection con = Conexion.ObtenerConexion())
                 {
-                    con.Open();
-                    SqlDataAdapter da = new SqlDataAdapter(
+                    await con.OpenAsync();
+                    SqlCommand cmd = new SqlCommand(
                         "SELECT IdProveedor, Nombre, Telefono, Email FROM Proveedores WHERE Nombre LIKE @nombre ORDER BY Nombre", con);
-                    da.SelectCommand.Parameters.AddWithValue("@nombre", "%" + nombre + "%");
-                    da.Fill(dt);
+                    cmd.Parameters.AddWithValue("@nombre", "%" + nombre + "%");
+                    SqlDataAdapter da = new SqlDataAdapter(cmd);
+                    await Task.Run(() => da.Fill(dt));
                 }
             }
             catch (Exception ex)

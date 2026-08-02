@@ -1,25 +1,30 @@
 using System;
 using System.Data;
+using System.Threading.Tasks;
 using ClinicaMedica.Datos;
 
 namespace ClinicaMedica.Negocio
 {
-    // Logica de negocio para el modulo de Recetas.
+    // Logica de negocio para la gestion de recetas medicas
     public class RecetasNegocio
     {
-        private RecetasDAL _dalRecetas = new RecetasDAL();
-        private DetalleRecetaDAL _dalDetalle = new DetalleRecetaDAL();
+        private readonly IRecetasRepositorio _dalRecetas;
+        private readonly IDetalleRecetaRepositorio _dalDetalle;
 
-        // Retorna todas las recetas sin filtro.
-        public DataTable ObtenerTodos()
+        public RecetasNegocio()
         {
-            return _dalRecetas.ObtenerTodos();
+            _dalRecetas = new RecetasDAL();
+            _dalDetalle = new DetalleRecetaDAL();
         }
 
-        // Valida los datos, inserta la receta y luego inserta cada linea de detalle.
-        // detalles es un DataTable con columnas: IdMedicamento, Dosis, Frecuencia, Duracion, Observaciones
-        // Retorna "OK" si fue exitoso o un mensaje de error si falla la validacion.
-        public string RegistrarReceta(int idCita, DateTime fecha, string indicaciones, DataTable detalles)
+        public async Task<DataTable> ObtenerTodosAsync()
+        {
+            return await _dalRecetas.ObtenerTodosAsync();
+        }
+
+        // Inserta la cabecera de la receta, obtiene el IdReceta generado,
+        // y luego inserta cada linea de medicamento del detalle
+        public async Task<string> RegistrarRecetaAsync(int idCita, DateTime fecha, string indicaciones, DataTable detalles)
         {
             if (idCita <= 0)
                 return "Debe seleccionar una cita.";
@@ -30,10 +35,9 @@ namespace ClinicaMedica.Negocio
             if (detalles == null || detalles.Rows.Count == 0)
                 return "Debe agregar al menos un medicamento al detalle.";
 
-            // Inserta la receta y obtiene el Id generado.
-            int idReceta = _dalRecetas.Insertar(idCita, fecha, indicaciones);
+            int idReceta = await _dalRecetas.InsertarAsync(idCita, fecha, indicaciones);
 
-            // Inserta cada linea de detalle usando el Id de la receta recien creada.
+            // Itera las filas del detalle y guarda cada medicamento con su dosis
             foreach (DataRow fila in detalles.Rows)
             {
                 int idMedicamento = Convert.ToInt32(fila["IdMedicamento"]);
@@ -41,7 +45,7 @@ namespace ClinicaMedica.Negocio
                 string frecuencia = fila["Frecuencia"].ToString();
                 string duracion = fila["Duracion"].ToString();
                 string observaciones = fila["Observaciones"].ToString();
-                _dalDetalle.Insertar(idReceta, idMedicamento, dosis, frecuencia, duracion, observaciones);
+                await _dalDetalle.InsertarAsync(idReceta, idMedicamento, dosis, frecuencia, duracion, observaciones);
             }
 
             return "OK";

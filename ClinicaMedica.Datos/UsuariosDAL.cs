@@ -5,8 +5,10 @@ using Microsoft.Data.SqlClient;
 
 namespace ClinicaMedica.Datos
 {
+    // Acceso a datos para autenticacion de usuarios
     public class UsuariosDAL : IUsuariosRepositorio
     {
+        // Retorna tabla con el usuario si las credenciales coinciden; tabla vacia si no
         public async Task<DataTable> ValidarUsuarioAsync(string usuario, string contrasena)
         {
             DataTable dt = new DataTable();

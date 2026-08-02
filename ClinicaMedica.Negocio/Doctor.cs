@@ -1,7 +1,8 @@
-﻿using System;
+using System;
 
 namespace ClinicaMedica.Negocio
 {
+    // Representa un doctor. Extiende Persona con especialidad y correo electronico.
     public class Doctor : Persona
     {
         private string _especialidad;
@@ -9,7 +10,7 @@ namespace ClinicaMedica.Negocio
         private int _idDoctor;
         private int _idEspecialidad;
 
-        //TODO Constructor completo
+        // Constructor completo con todos los campos
         public Doctor(string cedula, string nombre, string apellido,
                      string telefono, string especialidad, string email)
             : base(cedula, nombre, apellido, telefono)
@@ -18,7 +19,7 @@ namespace ClinicaMedica.Negocio
             _email = email;
         }
 
-        //TODO Constructor alternativo
+        // Constructor alternativo - email queda como valor por defecto
         public Doctor(string cedula, string nombre, string apellido, string especialidad)
             : base(cedula, nombre, apellido)
         {
@@ -31,7 +32,7 @@ namespace ClinicaMedica.Negocio
         public int IdDoctor { get => _idDoctor; set => _idDoctor = value; }
         public int IdEspecialidad { get => _idEspecialidad; set => _idEspecialidad = value; }
 
-        //TODO Implementación del método abstracto
+        // Implementacion del metodo abstracto de Persona - el costo varia por especialidad
         public override decimal CalcularCosto()
         {
             if (_especialidad == "Cardiología" || _especialidad == "Neurología")
@@ -40,7 +41,7 @@ namespace ClinicaMedica.Negocio
                 return 1500m;
         }
 
-        //TODO Sobreescritura del método virtual
+        // Sobreescritura de ObtenerInfo de Persona - agrega especialidad y correo
         public override string ObtenerInfo()
         {
             return $"DOCTOR — {base.ObtenerInfo()} | " +
@@ -48,7 +49,7 @@ namespace ClinicaMedica.Negocio
                    $"Email: {_email}";
         }
 
-        //TODO Método normal
+        // Retorna la firma del doctor usada en recetas
         public string ObtenerFirma()
         {
             return $"Dr. {_nombre} {_apellido} — {_especialidad}";

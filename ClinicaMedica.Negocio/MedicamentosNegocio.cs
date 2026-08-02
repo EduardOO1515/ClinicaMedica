@@ -1,25 +1,29 @@
 using System;
 using System.Data;
+using System.Threading.Tasks;
 using ClinicaMedica.Datos;
 
 namespace ClinicaMedica.Negocio
 {
-    // Logica de negocio para el modulo de Medicamentos.
+    // Logica de negocio para la gestion del inventario de medicamentos
     public class MedicamentosNegocio
     {
-        private MedicamentosDAL _dal = new MedicamentosDAL();
+        private readonly IMedicamentosRepositorio _dal;
 
-        // Retorna todos los medicamentos sin filtro.
-        public DataTable ObtenerTodos()
+        public MedicamentosNegocio()
         {
-            return _dal.ObtenerTodos();
+            _dal = new MedicamentosDAL();
         }
 
-        // Valida los datos y registra un nuevo medicamento.
-        // Retorna "OK" si fue exitoso o un mensaje de error si falla la validacion.
-        public string RegistrarMedicamento(int idProveedor, string nombre, string presentacion,
-                                           string concentracion, int stock, decimal precio,
-                                           DateTime fechaVencimiento)
+        public async Task<DataTable> ObtenerTodosAsync()
+        {
+            return await _dal.ObtenerTodosAsync();
+        }
+
+        // Valida que el stock y el precio no sean negativos antes de guardar
+        public async Task<string> RegistrarMedicamentoAsync(int idProveedor, string nombre, string presentacion,
+                                                            string concentracion, int stock, decimal precio,
+                                                            DateTime fechaVencimiento)
         {
             if (string.IsNullOrWhiteSpace(nombre))
                 return "El nombre del medicamento es obligatorio.";
@@ -33,7 +37,7 @@ namespace ClinicaMedica.Negocio
             if (precio < 0)
                 return "El precio no puede ser negativo.";
 
-            _dal.Insertar(idProveedor, nombre, presentacion, concentracion, stock, precio, fechaVencimiento);
+            await _dal.InsertarAsync(idProveedor, nombre, presentacion, concentracion, stock, precio, fechaVencimiento);
             return "OK";
         }
     }
