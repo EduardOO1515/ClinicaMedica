@@ -31,31 +31,59 @@ namespace ClinicaMedica
             }
         }
 
-        private void btnPacientes_Click(object sender, EventArgs e)
+        // --- ENTRADA ---
+        // TODO: cuando cada modulo tenga su frmXEntrada, cambiar aqui la clase que se abre.
+
+        private void mnuEntradaPacientes_Click(object sender, EventArgs e)
         {
-            frmPacientes frm = new frmPacientes();
-            frm.ShowDialog();
+            new frmPacientes().ShowDialog();
         }
 
-        private void btnDoctores_Click(object sender, EventArgs e)
+        private void mnuEntradaDoctores_Click(object sender, EventArgs e)
         {
-            frmDoctores frm = new frmDoctores();
-            frm.ShowDialog();
+            new frmDoctores().ShowDialog();
         }
 
-        private void btnCitas_Click(object sender, EventArgs e)
+        private void mnuEntradaCitas_Click(object sender, EventArgs e)
         {
-            frmCitas frm = new frmCitas();
-            frm.ShowDialog();
+            new frmCitas().ShowDialog();
         }
 
-        private void btnReportes_Click(object sender, EventArgs e)
+        // --- CONSULTA ---
+        // TODO: cuando cada modulo tenga su frmXConsulta, cambiar aqui la clase que se abre.
+
+        private void mnuConsultaPacientes_Click(object sender, EventArgs e)
         {
-            frmReportes frm = new frmReportes();
-            frm.ShowDialog();
+            new frmPacientes().ShowDialog();
         }
 
-        private void btnSalir_Click(object sender, EventArgs e)
+        private void mnuConsultaDoctores_Click(object sender, EventArgs e)
+        {
+            new frmDoctores().ShowDialog();
+        }
+
+        private void mnuConsultaCitas_Click(object sender, EventArgs e)
+        {
+            new frmCitas().ShowDialog();
+        }
+
+        // --- REPORTES ---
+
+        private void mnuReportes_Click(object sender, EventArgs e)
+        {
+            new frmReportes().ShowDialog();
+        }
+
+        // --- SISTEMA ---
+
+        private void mnuSistemaAcercaDe_Click(object sender, EventArgs e)
+        {
+            new frmAcercaDe().ShowDialog();
+        }
+
+        // --- SALIR ---
+
+        private void mnuSalir_Click(object sender, EventArgs e)
         {
             DialogResult res = MessageBox.Show("¿Desea cerrar sesión?", "Cerrar Sesión",
                 MessageBoxButtons.YesNo, MessageBoxIcon.Question);
@@ -82,10 +110,13 @@ namespace ClinicaMedica
                 }
             }
         }
-        private void frmPrincipal_Load_1(object sender, EventArgs e)
-        {
 
+        // Opciones de modulos que todavia no tienen formulario (Medicamentos,
+        // Proveedores, Recetas, Expedientes) -- se reemplaza cuando existan.
+        private void mnuPendiente_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Este modulo todavia esta en construccion.", "Proximamente",
+                MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
     }
-
 }
