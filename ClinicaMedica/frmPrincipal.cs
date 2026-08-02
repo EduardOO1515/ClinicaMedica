@@ -81,12 +81,12 @@ namespace ClinicaMedica
 
         private void mnuConsultaDoctores_Click(object sender, EventArgs e)
         {
-            AbrirFormulario(new frmDoctores());
+            AbrirFormulario(new frmDoctoresConsulta());
         }
 
         private void mnuConsultaCitas_Click(object sender, EventArgs e)
         {
-            AbrirFormulario(new frmCitas());
+            AbrirFormulario(new frmCitasConsulta());
         }
 
         // --- REPORTES ---

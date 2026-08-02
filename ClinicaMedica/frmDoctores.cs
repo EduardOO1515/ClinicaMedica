@@ -1,6 +1,5 @@
-﻿using System;
+using System;
 using System.Data;
-using System.Drawing;
 using System.Windows.Forms;
 using ClinicaMedica.Negocio;
 
@@ -9,13 +8,51 @@ namespace ClinicaMedica
     public partial class frmDoctores : Form
     {
         private DoctoresNegocio _negocio = new DoctoresNegocio();
-        private int _idSeleccionado = 0;
 
         public frmDoctores()
         {
             InitializeComponent();
             CargarEspecialidades();
-            CargarDoctores();
+        }
+
+        private void frmDoctores_Load(object sender, EventArgs e)
+        {
+            txtCedula.Enabled = false;
+            txtNombre.Enabled = false;
+            txtApellido.Enabled = false;
+            txtTelefono.Enabled = false;
+            txtEmail.Enabled = false;
+            cmbEspecialidad.Enabled = false;
+            btnGuardar.Enabled = false;
+            btnHabilitar.Enabled = true;
+        }
+
+        private void btnHabilitar_Click(object sender, EventArgs e)
+        {
+            txtCedula.Enabled = true;
+            txtNombre.Enabled = true;
+            txtApellido.Enabled = true;
+            txtTelefono.Enabled = true;
+            txtEmail.Enabled = true;
+            cmbEspecialidad.Enabled = true;
+            btnGuardar.Enabled = true;
+            btnHabilitar.Enabled = false;
+            btnDeshabilitar.Enabled = true;
+            txtCedula.Focus();
+        }
+
+        private void btnDeshabilitar_Click(object sender, EventArgs e)
+        {
+            txtCedula.Enabled = false;
+            txtNombre.Enabled = false;
+            txtApellido.Enabled = false;
+            txtTelefono.Enabled = false;
+            txtEmail.Enabled = false;
+            cmbEspecialidad.Enabled = false;
+            btnGuardar.Enabled = false;
+            btnDeshabilitar.Enabled = false;
+            btnHabilitar.Enabled = true;
+            LimpiarCampos();
         }
 
         private void CargarEspecialidades()
@@ -31,34 +68,6 @@ namespace ClinicaMedica
             {
                 MessageBox.Show("Error al cargar especialidades: " + ex.Message, "Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
-        private void CargarDoctores()
-        {
-            try
-            {
-                dgvDoctores.DataSource = _negocio.ObtenerTodos();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error al cargar doctores: " + ex.Message, "Error",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
-        private void dgvDoctores_CellClick(object sender, DataGridViewCellMouseEventArgs e)
-        {
-            if (e.RowIndex >= 0 && dgvDoctores.Rows[e.RowIndex].Cells["IdDoctor"].Value != DBNull.Value)
-            {
-                DataGridViewRow fila = dgvDoctores.Rows[e.RowIndex];
-                _idSeleccionado = Convert.ToInt32(fila.Cells["IdDoctor"].Value);
-                txtCedula.Text = fila.Cells["Cedula"].Value.ToString();
-                txtNombre.Text = fila.Cells["Nombre"].Value.ToString();
-                txtApellido.Text = fila.Cells["Apellido"].Value.ToString();
-                txtTelefono.Text = fila.Cells["Telefono"].Value.ToString();
-                txtEmail.Text = fila.Cells["Email"].Value.ToString();
-                cmbEspecialidad.SelectedValue = Convert.ToInt32(fila.Cells["IdEspecialidad"].Value);
             }
         }
 
@@ -85,59 +94,21 @@ namespace ClinicaMedica
                     return;
                 }
 
-                string resultado;
-                if (_idSeleccionado == 0)
-                    resultado = _negocio.RegistrarDoctor(txtCedula.Text, txtNombre.Text,
-                        txtApellido.Text, Convert.ToInt32(cmbEspecialidad.SelectedValue),
-                        txtTelefono.Text, txtEmail.Text);
-                else
-                    resultado = _negocio.ActualizarDoctor(_idSeleccionado, txtCedula.Text,
-                        txtNombre.Text, txtApellido.Text,
-                        Convert.ToInt32(cmbEspecialidad.SelectedValue),
-                        txtTelefono.Text, txtEmail.Text);
+                string resultado = _negocio.RegistrarDoctor(
+                    txtCedula.Text, txtNombre.Text, txtApellido.Text,
+                    Convert.ToInt32(cmbEspecialidad.SelectedValue),
+                    txtTelefono.Text, txtEmail.Text);
 
                 if (resultado == "OK")
                 {
-                    MessageBox.Show("Doctor guardado correctamente.", "Éxito",
+                    MessageBox.Show("Doctor guardado correctamente.", "Exito",
                         MessageBoxButtons.OK, MessageBoxIcon.Information);
                     LimpiarCampos();
-                    CargarDoctores();
                 }
                 else
                 {
                     MessageBox.Show(resultado, "Advertencia",
                         MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error: " + ex.Message, "Error",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
-        private void btnEliminar_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                if (_idSeleccionado == 0)
-                {
-                    MessageBox.Show("Seleccione un doctor.", "Advertencia",
-                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return;
-                }
-                DialogResult res = MessageBox.Show("¿Eliminar este doctor?",
-                    "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                if (res == DialogResult.Yes)
-                {
-                    string resultado = _negocio.EliminarDoctor(_idSeleccionado);
-                    if (resultado == "OK")
-                    {
-                        MessageBox.Show("Doctor eliminado.", "Éxito",
-                            MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        LimpiarCampos();
-                        CargarDoctores();
-                    }
                 }
             }
             catch (Exception ex)
@@ -159,19 +130,15 @@ namespace ClinicaMedica
 
         private void LimpiarCampos()
         {
-            _idSeleccionado = 0;
             txtCedula.Clear();
             txtNombre.Clear();
             txtApellido.Clear();
             txtTelefono.Clear();
             txtEmail.Clear();
             CargarEspecialidades();
-
         }
-    
 
-
-    private void txtCedula_KeyPress(object sender, KeyPressEventArgs e)
+        private void txtCedula_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!char.IsDigit(e.KeyChar) && e.KeyChar != (char)Keys.Back)
                 e.Handled = true;
@@ -251,9 +218,7 @@ namespace ClinicaMedica
 
         private void cmbEspecialidad_KeyPress(object sender, KeyPressEventArgs e)
         {
-            e.Handled = true; // No permite escribir
+            e.Handled = true;
         }
-
-       
     }
 }
