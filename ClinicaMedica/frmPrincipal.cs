@@ -71,8 +71,27 @@ namespace ClinicaMedica
             AbrirFormulario(new frmCitas());
         }
 
+        private void mnuEntradaProveedores_Click(object sender, EventArgs e)
+        {
+            AbrirFormulario(new frmProveedores());
+        }
+
+        private void mnuEntradaExpedientes_Click(object sender, EventArgs e)
+        {
+            AbrirFormulario(new frmExpedientes());
+        }
+
+        private void mnuEntradaMedicamentos_Click(object sender, EventArgs e)
+        {
+            AbrirFormulario(new frmMedicamentos());
+        }
+
+        private void mnuEntradaRecetas_Click(object sender, EventArgs e)
+        {
+            AbrirFormulario(new frmRecetas());
+        }
+
         // --- CONSULTA ---
-        // TODO: cuando cada modulo tenga su frmXConsulta, cambiar aqui la clase que se abre.
 
         private void mnuConsultaPacientes_Click(object sender, EventArgs e)
         {
@@ -87,6 +106,26 @@ namespace ClinicaMedica
         private void mnuConsultaCitas_Click(object sender, EventArgs e)
         {
             AbrirFormulario(new frmCitasConsulta());
+        }
+
+        private void mnuConsultaProveedores_Click(object sender, EventArgs e)
+        {
+            AbrirFormulario(new frmProveedoresConsulta());
+        }
+
+        private void mnuConsultaExpedientes_Click(object sender, EventArgs e)
+        {
+            AbrirFormulario(new frmExpedientesConsulta());
+        }
+
+        private void mnuConsultaMedicamentos_Click(object sender, EventArgs e)
+        {
+            AbrirFormulario(new frmMedicamentosConsulta());
+        }
+
+        private void mnuConsultaRecetas_Click(object sender, EventArgs e)
+        {
+            AbrirFormulario(new frmRecetasConsulta());
         }
 
         // --- REPORTES ---

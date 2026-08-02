@@ -36,11 +36,13 @@
             mnuEntradaCitas = new System.Windows.Forms.ToolStripMenuItem();
             mnuEntradaMedicamentos = new System.Windows.Forms.ToolStripMenuItem();
             mnuEntradaProveedores = new System.Windows.Forms.ToolStripMenuItem();
+            mnuEntradaExpedientes = new System.Windows.Forms.ToolStripMenuItem();
             mnuEntradaRecetas = new System.Windows.Forms.ToolStripMenuItem();
             mnuConsulta = new System.Windows.Forms.ToolStripMenuItem();
             mnuConsultaPacientes = new System.Windows.Forms.ToolStripMenuItem();
             mnuConsultaDoctores = new System.Windows.Forms.ToolStripMenuItem();
             mnuConsultaCitas = new System.Windows.Forms.ToolStripMenuItem();
+            mnuConsultaProveedores = new System.Windows.Forms.ToolStripMenuItem();
             mnuConsultaExpedientes = new System.Windows.Forms.ToolStripMenuItem();
             mnuConsultaMedicamentos = new System.Windows.Forms.ToolStripMenuItem();
             mnuConsultaRecetas = new System.Windows.Forms.ToolStripMenuItem();
@@ -70,7 +72,7 @@
             // 
             // mnuEntrada
             // 
-            mnuEntrada.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { mnuEntradaPacientes, mnuEntradaDoctores, mnuEntradaCitas, mnuEntradaMedicamentos, mnuEntradaProveedores, mnuEntradaRecetas });
+            mnuEntrada.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { mnuEntradaPacientes, mnuEntradaDoctores, mnuEntradaCitas, mnuEntradaMedicamentos, mnuEntradaProveedores, mnuEntradaExpedientes, mnuEntradaRecetas });
             mnuEntrada.Name = "mnuEntrada";
             mnuEntrada.Size = new System.Drawing.Size(74, 24);
             mnuEntrada.Text = "Entrada";
@@ -101,25 +103,35 @@
             mnuEntradaMedicamentos.Name = "mnuEntradaMedicamentos";
             mnuEntradaMedicamentos.Size = new System.Drawing.Size(190, 26);
             mnuEntradaMedicamentos.Text = "Medicamentos";
-            mnuEntradaMedicamentos.Click += mnuPendiente_Click;
+            mnuEntradaMedicamentos.Click += mnuEntradaMedicamentos_Click;
             // 
             // mnuEntradaProveedores
             // 
             mnuEntradaProveedores.Name = "mnuEntradaProveedores";
             mnuEntradaProveedores.Size = new System.Drawing.Size(190, 26);
             mnuEntradaProveedores.Text = "Proveedores";
-            mnuEntradaProveedores.Click += mnuPendiente_Click;
+            mnuEntradaProveedores.Click += mnuEntradaProveedores_Click;
             // 
             // mnuEntradaRecetas
             // 
+            //
+            // mnuEntradaExpedientes
+            //
+            mnuEntradaExpedientes.Name = "mnuEntradaExpedientes";
+            mnuEntradaExpedientes.Size = new System.Drawing.Size(190, 26);
+            mnuEntradaExpedientes.Text = "Expedientes";
+            mnuEntradaExpedientes.Click += mnuEntradaExpedientes_Click;
+            //
+            // mnuEntradaRecetas
+            //
             mnuEntradaRecetas.Name = "mnuEntradaRecetas";
             mnuEntradaRecetas.Size = new System.Drawing.Size(190, 26);
             mnuEntradaRecetas.Text = "Recetas";
-            mnuEntradaRecetas.Click += mnuPendiente_Click;
+            mnuEntradaRecetas.Click += mnuEntradaRecetas_Click;
             // 
             // mnuConsulta
             // 
-            mnuConsulta.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { mnuConsultaPacientes, mnuConsultaDoctores, mnuConsultaCitas, mnuConsultaExpedientes, mnuConsultaMedicamentos, mnuConsultaRecetas });
+            mnuConsulta.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { mnuConsultaPacientes, mnuConsultaDoctores, mnuConsultaCitas, mnuConsultaProveedores, mnuConsultaExpedientes, mnuConsultaMedicamentos, mnuConsultaRecetas });
             mnuConsulta.Name = "mnuConsulta";
             mnuConsulta.Size = new System.Drawing.Size(80, 24);
             mnuConsulta.Text = "Consulta";
@@ -144,27 +156,34 @@
             mnuConsultaCitas.Size = new System.Drawing.Size(190, 26);
             mnuConsultaCitas.Text = "Citas";
             mnuConsultaCitas.Click += mnuConsultaCitas_Click;
-            // 
+            //
+            // mnuConsultaProveedores
+            //
+            mnuConsultaProveedores.Name = "mnuConsultaProveedores";
+            mnuConsultaProveedores.Size = new System.Drawing.Size(190, 26);
+            mnuConsultaProveedores.Text = "Proveedores";
+            mnuConsultaProveedores.Click += mnuConsultaProveedores_Click;
+            //
             // mnuConsultaExpedientes
-            // 
+            //
             mnuConsultaExpedientes.Name = "mnuConsultaExpedientes";
             mnuConsultaExpedientes.Size = new System.Drawing.Size(190, 26);
             mnuConsultaExpedientes.Text = "Expedientes";
-            mnuConsultaExpedientes.Click += mnuPendiente_Click;
-            // 
+            mnuConsultaExpedientes.Click += mnuConsultaExpedientes_Click;
+            //
             // mnuConsultaMedicamentos
-            // 
+            //
             mnuConsultaMedicamentos.Name = "mnuConsultaMedicamentos";
             mnuConsultaMedicamentos.Size = new System.Drawing.Size(190, 26);
             mnuConsultaMedicamentos.Text = "Medicamentos";
-            mnuConsultaMedicamentos.Click += mnuPendiente_Click;
-            // 
+            mnuConsultaMedicamentos.Click += mnuConsultaMedicamentos_Click;
+            //
             // mnuConsultaRecetas
-            // 
+            //
             mnuConsultaRecetas.Name = "mnuConsultaRecetas";
             mnuConsultaRecetas.Size = new System.Drawing.Size(190, 26);
             mnuConsultaRecetas.Text = "Recetas";
-            mnuConsultaRecetas.Click += mnuPendiente_Click;
+            mnuConsultaRecetas.Click += mnuConsultaRecetas_Click;
             // 
             // mnuReportes
             // 
@@ -259,11 +278,13 @@
         private System.Windows.Forms.ToolStripMenuItem mnuEntradaCitas;
         private System.Windows.Forms.ToolStripMenuItem mnuEntradaMedicamentos;
         private System.Windows.Forms.ToolStripMenuItem mnuEntradaProveedores;
+        private System.Windows.Forms.ToolStripMenuItem mnuEntradaExpedientes;
         private System.Windows.Forms.ToolStripMenuItem mnuEntradaRecetas;
         private System.Windows.Forms.ToolStripMenuItem mnuConsulta;
         private System.Windows.Forms.ToolStripMenuItem mnuConsultaPacientes;
         private System.Windows.Forms.ToolStripMenuItem mnuConsultaDoctores;
         private System.Windows.Forms.ToolStripMenuItem mnuConsultaCitas;
+        private System.Windows.Forms.ToolStripMenuItem mnuConsultaProveedores;
         private System.Windows.Forms.ToolStripMenuItem mnuConsultaExpedientes;
         private System.Windows.Forms.ToolStripMenuItem mnuConsultaMedicamentos;
         private System.Windows.Forms.ToolStripMenuItem mnuConsultaRecetas;
