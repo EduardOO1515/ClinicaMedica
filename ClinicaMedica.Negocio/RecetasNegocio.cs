@@ -24,6 +24,7 @@ namespace ClinicaMedica.Negocio
 
         // Inserta la cabecera de la receta, obtiene el IdReceta generado,
         // y luego inserta cada linea de medicamento del detalle
+        // TODO: mejora futura, implementar una transaccion de BD para que cabecera y detalle se guarden de forma atomica
         public async Task<string> RegistrarRecetaAsync(int idCita, DateTime fecha, string indicaciones, DataTable detalles)
         {
             if (idCita <= 0)

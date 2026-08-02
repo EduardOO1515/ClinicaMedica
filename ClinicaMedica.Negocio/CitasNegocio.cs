@@ -22,6 +22,7 @@ namespace ClinicaMedica.Negocio
         }
 
         // Valida que la cita tenga paciente, doctor y fecha futura antes de guardar
+        // TODO: mejora futura, agregar validacion de citas duplicadas para el mismo paciente, doctor y fecha
         public async Task<string> RegistrarCitaAsync(int idPaciente, int idDoctor, DateTime fechaCita,
                                                      string estado, string tipoConsulta, decimal costo)
         {

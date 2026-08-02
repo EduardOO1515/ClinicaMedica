@@ -75,6 +75,7 @@ namespace ClinicaMedica
         }
 
         // Resalta en rojo las filas con stock menor a 20 o que vencen en menos de 30 dias
+        // TODO: mejora futura, hacer los umbrales de alerta configurables desde una tabla de parametros
         private void dgvMedicamentos_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
             try

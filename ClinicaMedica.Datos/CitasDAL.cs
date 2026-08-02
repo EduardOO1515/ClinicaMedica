@@ -9,6 +9,7 @@ namespace ClinicaMedica.Datos
     public class CitasDAL : ICitasRepositorio
     {
         // Hace JOIN con Pacientes y Doctores para mostrar los nombres en la consulta
+        // TODO: mejora futura, implementar paginacion (OFFSET/FETCH NEXT) para optimizar el rendimiento con grandes volumenes de datos
         public async Task<DataTable> ObtenerTodosAsync()
         {
             DataTable dt = new DataTable();

@@ -16,6 +16,7 @@ namespace ClinicaMedica
             InitializeComponent();
         }
 
+        // TODO: mejora futura, agregar un limite de intentos de inicio de sesion para mayor seguridad
         private async void btnEntrar_Click(object sender, EventArgs e)
         {
             try

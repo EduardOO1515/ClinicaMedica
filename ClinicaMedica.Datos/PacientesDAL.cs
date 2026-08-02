@@ -85,6 +85,7 @@ namespace ClinicaMedica.Datos
         }
 
         // Elimina primero las Citas relacionadas para evitar error de clave foranea
+        // TODO: mejora futura, usar SqlTransaction para que la eliminacion de Citas y Paciente sea atomica
         public async Task<bool> EliminarAsync(int id)
         {
             try

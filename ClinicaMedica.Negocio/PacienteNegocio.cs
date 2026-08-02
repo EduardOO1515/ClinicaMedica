@@ -44,6 +44,7 @@ namespace ClinicaMedica.Negocio
             return "OK";
         }
 
+        // TODO: pendiente, este metodo debe llamar a ActualizarAsync en lugar de InsertarAsync
         public async Task<string> ActualizarPacienteAsync(int id, string cedula, string nombre, string apellido,
                                                           DateTime fechaNac, string telefono, bool tieneSeguro)
         {
