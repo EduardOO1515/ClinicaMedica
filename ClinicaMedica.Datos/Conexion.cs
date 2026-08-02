@@ -5,7 +5,7 @@ namespace ClinicaMedica.Datos
     public class Conexion
     {
         private static string cadena =
-            "Server=.;Database=ClinicaMedica;Trusted_Connection=True;";
+            "Server=.;Database=ClinicaMedica;Trusted_Connection=True;TrustServerCertificate=True;";
 
         public static SqlConnection ObtenerConexion()
         {
