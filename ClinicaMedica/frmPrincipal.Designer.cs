@@ -28,210 +28,228 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.menuPrincipal = new System.Windows.Forms.MenuStrip();
-            this.mnuEntrada = new System.Windows.Forms.ToolStripMenuItem();
-            this.mnuEntradaPacientes = new System.Windows.Forms.ToolStripMenuItem();
-            this.mnuEntradaDoctores = new System.Windows.Forms.ToolStripMenuItem();
-            this.mnuEntradaCitas = new System.Windows.Forms.ToolStripMenuItem();
-            this.mnuEntradaMedicamentos = new System.Windows.Forms.ToolStripMenuItem();
-            this.mnuEntradaProveedores = new System.Windows.Forms.ToolStripMenuItem();
-            this.mnuEntradaRecetas = new System.Windows.Forms.ToolStripMenuItem();
-            this.mnuConsulta = new System.Windows.Forms.ToolStripMenuItem();
-            this.mnuConsultaPacientes = new System.Windows.Forms.ToolStripMenuItem();
-            this.mnuConsultaDoctores = new System.Windows.Forms.ToolStripMenuItem();
-            this.mnuConsultaCitas = new System.Windows.Forms.ToolStripMenuItem();
-            this.mnuConsultaExpedientes = new System.Windows.Forms.ToolStripMenuItem();
-            this.mnuConsultaMedicamentos = new System.Windows.Forms.ToolStripMenuItem();
-            this.mnuConsultaRecetas = new System.Windows.Forms.ToolStripMenuItem();
-            this.mnuReportes = new System.Windows.Forms.ToolStripMenuItem();
-            this.mnuSistema = new System.Windows.Forms.ToolStripMenuItem();
-            this.mnuSistemaAcercaDe = new System.Windows.Forms.ToolStripMenuItem();
-            this.mnuSalir = new System.Windows.Forms.ToolStripMenuItem();
-            this.pnlContenido = new System.Windows.Forms.Panel();
-            this.lblTitulo = new System.Windows.Forms.Label();
-            this.picLogo = new System.Windows.Forms.PictureBox();
-            this.menuPrincipal.SuspendLayout();
-            this.pnlContenido.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.picLogo)).BeginInit();
-            this.SuspendLayout();
-            //
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmPrincipal));
+            menuPrincipal = new System.Windows.Forms.MenuStrip();
+            mnuEntrada = new System.Windows.Forms.ToolStripMenuItem();
+            mnuEntradaPacientes = new System.Windows.Forms.ToolStripMenuItem();
+            mnuEntradaDoctores = new System.Windows.Forms.ToolStripMenuItem();
+            mnuEntradaCitas = new System.Windows.Forms.ToolStripMenuItem();
+            mnuEntradaMedicamentos = new System.Windows.Forms.ToolStripMenuItem();
+            mnuEntradaProveedores = new System.Windows.Forms.ToolStripMenuItem();
+            mnuEntradaRecetas = new System.Windows.Forms.ToolStripMenuItem();
+            mnuConsulta = new System.Windows.Forms.ToolStripMenuItem();
+            mnuConsultaPacientes = new System.Windows.Forms.ToolStripMenuItem();
+            mnuConsultaDoctores = new System.Windows.Forms.ToolStripMenuItem();
+            mnuConsultaCitas = new System.Windows.Forms.ToolStripMenuItem();
+            mnuConsultaExpedientes = new System.Windows.Forms.ToolStripMenuItem();
+            mnuConsultaMedicamentos = new System.Windows.Forms.ToolStripMenuItem();
+            mnuConsultaRecetas = new System.Windows.Forms.ToolStripMenuItem();
+            mnuReportes = new System.Windows.Forms.ToolStripMenuItem();
+            mnuSistema = new System.Windows.Forms.ToolStripMenuItem();
+            mnuSistemaAcercaDe = new System.Windows.Forms.ToolStripMenuItem();
+            mnuSalir = new System.Windows.Forms.ToolStripMenuItem();
+            pnlContenido = new System.Windows.Forms.Panel();
+            picLogo = new System.Windows.Forms.PictureBox();
+            lblTitulo = new System.Windows.Forms.Label();
+            menuPrincipal.SuspendLayout();
+            pnlContenido.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)picLogo).BeginInit();
+            SuspendLayout();
+            // 
             // menuPrincipal
-            //
-            this.menuPrincipal.BackColor = System.Drawing.Color.FromArgb(5, 40, 90);
-            this.menuPrincipal.ForeColor = System.Drawing.Color.White;
-            this.menuPrincipal.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-        this.mnuEntrada, this.mnuConsulta, this.mnuReportes, this.mnuSistema, this.mnuSalir});
-            this.menuPrincipal.Location = new System.Drawing.Point(0, 0);
-            this.menuPrincipal.Name = "menuPrincipal";
-            this.menuPrincipal.Size = new System.Drawing.Size(900, 28);
-            this.menuPrincipal.TabIndex = 0;
-            //
+            // 
+            menuPrincipal.BackColor = System.Drawing.Color.FromArgb(5, 40, 90);
+            menuPrincipal.ForeColor = System.Drawing.Color.White;
+            menuPrincipal.ImageScalingSize = new System.Drawing.Size(20, 20);
+            menuPrincipal.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { mnuEntrada, mnuConsulta, mnuReportes, mnuSistema, mnuSalir });
+            menuPrincipal.Location = new System.Drawing.Point(0, 0);
+            menuPrincipal.Name = "menuPrincipal";
+            menuPrincipal.Padding = new System.Windows.Forms.Padding(8, 3, 0, 3);
+            menuPrincipal.Size = new System.Drawing.Size(1200, 30);
+            menuPrincipal.TabIndex = 0;
+            // 
             // mnuEntrada
-            //
-            this.mnuEntrada.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-        this.mnuEntradaPacientes, this.mnuEntradaDoctores, this.mnuEntradaCitas,
-        this.mnuEntradaMedicamentos, this.mnuEntradaProveedores, this.mnuEntradaRecetas});
-            this.mnuEntrada.Name = "mnuEntrada";
-            this.mnuEntrada.Text = "Entrada";
-            //
+            // 
+            mnuEntrada.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { mnuEntradaPacientes, mnuEntradaDoctores, mnuEntradaCitas, mnuEntradaMedicamentos, mnuEntradaProveedores, mnuEntradaRecetas });
+            mnuEntrada.Name = "mnuEntrada";
+            mnuEntrada.Size = new System.Drawing.Size(74, 24);
+            mnuEntrada.Text = "Entrada";
+            // 
             // mnuEntradaPacientes
-            //
-            this.mnuEntradaPacientes.Name = "mnuEntradaPacientes";
-            this.mnuEntradaPacientes.Text = "Pacientes";
-            this.mnuEntradaPacientes.Click += new System.EventHandler(this.mnuEntradaPacientes_Click);
-            //
+            // 
+            mnuEntradaPacientes.Name = "mnuEntradaPacientes";
+            mnuEntradaPacientes.Size = new System.Drawing.Size(190, 26);
+            mnuEntradaPacientes.Text = "Pacientes";
+            mnuEntradaPacientes.Click += mnuEntradaPacientes_Click;
+            // 
             // mnuEntradaDoctores
-            //
-            this.mnuEntradaDoctores.Name = "mnuEntradaDoctores";
-            this.mnuEntradaDoctores.Text = "Doctores";
-            this.mnuEntradaDoctores.Click += new System.EventHandler(this.mnuEntradaDoctores_Click);
-            //
+            // 
+            mnuEntradaDoctores.Name = "mnuEntradaDoctores";
+            mnuEntradaDoctores.Size = new System.Drawing.Size(190, 26);
+            mnuEntradaDoctores.Text = "Doctores";
+            mnuEntradaDoctores.Click += mnuEntradaDoctores_Click;
+            // 
             // mnuEntradaCitas
-            //
-            this.mnuEntradaCitas.Name = "mnuEntradaCitas";
-            this.mnuEntradaCitas.Text = "Citas";
-            this.mnuEntradaCitas.Click += new System.EventHandler(this.mnuEntradaCitas_Click);
-            //
+            // 
+            mnuEntradaCitas.Name = "mnuEntradaCitas";
+            mnuEntradaCitas.Size = new System.Drawing.Size(190, 26);
+            mnuEntradaCitas.Text = "Citas";
+            mnuEntradaCitas.Click += mnuEntradaCitas_Click;
+            // 
             // mnuEntradaMedicamentos
-            //
-            this.mnuEntradaMedicamentos.Name = "mnuEntradaMedicamentos";
-            this.mnuEntradaMedicamentos.Text = "Medicamentos";
-            this.mnuEntradaMedicamentos.Click += new System.EventHandler(this.mnuPendiente_Click);
-            //
+            // 
+            mnuEntradaMedicamentos.Name = "mnuEntradaMedicamentos";
+            mnuEntradaMedicamentos.Size = new System.Drawing.Size(190, 26);
+            mnuEntradaMedicamentos.Text = "Medicamentos";
+            mnuEntradaMedicamentos.Click += mnuPendiente_Click;
+            // 
             // mnuEntradaProveedores
-            //
-            this.mnuEntradaProveedores.Name = "mnuEntradaProveedores";
-            this.mnuEntradaProveedores.Text = "Proveedores";
-            this.mnuEntradaProveedores.Click += new System.EventHandler(this.mnuPendiente_Click);
-            //
+            // 
+            mnuEntradaProveedores.Name = "mnuEntradaProveedores";
+            mnuEntradaProveedores.Size = new System.Drawing.Size(190, 26);
+            mnuEntradaProveedores.Text = "Proveedores";
+            mnuEntradaProveedores.Click += mnuPendiente_Click;
+            // 
             // mnuEntradaRecetas
-            //
-            this.mnuEntradaRecetas.Name = "mnuEntradaRecetas";
-            this.mnuEntradaRecetas.Text = "Recetas";
-            this.mnuEntradaRecetas.Click += new System.EventHandler(this.mnuPendiente_Click);
-            //
+            // 
+            mnuEntradaRecetas.Name = "mnuEntradaRecetas";
+            mnuEntradaRecetas.Size = new System.Drawing.Size(190, 26);
+            mnuEntradaRecetas.Text = "Recetas";
+            mnuEntradaRecetas.Click += mnuPendiente_Click;
+            // 
             // mnuConsulta
-            //
-            this.mnuConsulta.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-        this.mnuConsultaPacientes, this.mnuConsultaDoctores, this.mnuConsultaCitas,
-        this.mnuConsultaExpedientes, this.mnuConsultaMedicamentos, this.mnuConsultaRecetas});
-            this.mnuConsulta.Name = "mnuConsulta";
-            this.mnuConsulta.Text = "Consulta";
-            //
+            // 
+            mnuConsulta.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { mnuConsultaPacientes, mnuConsultaDoctores, mnuConsultaCitas, mnuConsultaExpedientes, mnuConsultaMedicamentos, mnuConsultaRecetas });
+            mnuConsulta.Name = "mnuConsulta";
+            mnuConsulta.Size = new System.Drawing.Size(80, 24);
+            mnuConsulta.Text = "Consulta";
+            // 
             // mnuConsultaPacientes
-            //
-            this.mnuConsultaPacientes.Name = "mnuConsultaPacientes";
-            this.mnuConsultaPacientes.Text = "Pacientes";
-            this.mnuConsultaPacientes.Click += new System.EventHandler(this.mnuConsultaPacientes_Click);
-            //
+            // 
+            mnuConsultaPacientes.Name = "mnuConsultaPacientes";
+            mnuConsultaPacientes.Size = new System.Drawing.Size(190, 26);
+            mnuConsultaPacientes.Text = "Pacientes";
+            mnuConsultaPacientes.Click += mnuConsultaPacientes_Click;
+            // 
             // mnuConsultaDoctores
-            //
-            this.mnuConsultaDoctores.Name = "mnuConsultaDoctores";
-            this.mnuConsultaDoctores.Text = "Doctores";
-            this.mnuConsultaDoctores.Click += new System.EventHandler(this.mnuConsultaDoctores_Click);
-            //
+            // 
+            mnuConsultaDoctores.Name = "mnuConsultaDoctores";
+            mnuConsultaDoctores.Size = new System.Drawing.Size(190, 26);
+            mnuConsultaDoctores.Text = "Doctores";
+            mnuConsultaDoctores.Click += mnuConsultaDoctores_Click;
+            // 
             // mnuConsultaCitas
-            //
-            this.mnuConsultaCitas.Name = "mnuConsultaCitas";
-            this.mnuConsultaCitas.Text = "Citas";
-            this.mnuConsultaCitas.Click += new System.EventHandler(this.mnuConsultaCitas_Click);
-            //
+            // 
+            mnuConsultaCitas.Name = "mnuConsultaCitas";
+            mnuConsultaCitas.Size = new System.Drawing.Size(190, 26);
+            mnuConsultaCitas.Text = "Citas";
+            mnuConsultaCitas.Click += mnuConsultaCitas_Click;
+            // 
             // mnuConsultaExpedientes
-            //
-            this.mnuConsultaExpedientes.Name = "mnuConsultaExpedientes";
-            this.mnuConsultaExpedientes.Text = "Expedientes";
-            this.mnuConsultaExpedientes.Click += new System.EventHandler(this.mnuPendiente_Click);
-            //
+            // 
+            mnuConsultaExpedientes.Name = "mnuConsultaExpedientes";
+            mnuConsultaExpedientes.Size = new System.Drawing.Size(190, 26);
+            mnuConsultaExpedientes.Text = "Expedientes";
+            mnuConsultaExpedientes.Click += mnuPendiente_Click;
+            // 
             // mnuConsultaMedicamentos
-            //
-            this.mnuConsultaMedicamentos.Name = "mnuConsultaMedicamentos";
-            this.mnuConsultaMedicamentos.Text = "Medicamentos";
-            this.mnuConsultaMedicamentos.Click += new System.EventHandler(this.mnuPendiente_Click);
-            //
+            // 
+            mnuConsultaMedicamentos.Name = "mnuConsultaMedicamentos";
+            mnuConsultaMedicamentos.Size = new System.Drawing.Size(190, 26);
+            mnuConsultaMedicamentos.Text = "Medicamentos";
+            mnuConsultaMedicamentos.Click += mnuPendiente_Click;
+            // 
             // mnuConsultaRecetas
-            //
-            this.mnuConsultaRecetas.Name = "mnuConsultaRecetas";
-            this.mnuConsultaRecetas.Text = "Recetas";
-            this.mnuConsultaRecetas.Click += new System.EventHandler(this.mnuPendiente_Click);
-            //
+            // 
+            mnuConsultaRecetas.Name = "mnuConsultaRecetas";
+            mnuConsultaRecetas.Size = new System.Drawing.Size(190, 26);
+            mnuConsultaRecetas.Text = "Recetas";
+            mnuConsultaRecetas.Click += mnuPendiente_Click;
+            // 
             // mnuReportes
-            //
-            this.mnuReportes.Name = "mnuReportes";
-            this.mnuReportes.Text = "Reportes";
-            this.mnuReportes.Click += new System.EventHandler(this.mnuReportes_Click);
-            //
+            // 
+            mnuReportes.Name = "mnuReportes";
+            mnuReportes.Size = new System.Drawing.Size(82, 24);
+            mnuReportes.Text = "Reportes";
+            mnuReportes.Click += mnuReportes_Click;
+            // 
             // mnuSistema
-            //
-            this.mnuSistema.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-        this.mnuSistemaAcercaDe});
-            this.mnuSistema.Name = "mnuSistema";
-            this.mnuSistema.Text = "Sistema";
-            //
+            // 
+            mnuSistema.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { mnuSistemaAcercaDe });
+            mnuSistema.Name = "mnuSistema";
+            mnuSistema.Size = new System.Drawing.Size(75, 24);
+            mnuSistema.Text = "Sistema";
+            // 
             // mnuSistemaAcercaDe
-            //
-            this.mnuSistemaAcercaDe.Name = "mnuSistemaAcercaDe";
-            this.mnuSistemaAcercaDe.Text = "Acerca de";
-            this.mnuSistemaAcercaDe.Click += new System.EventHandler(this.mnuSistemaAcercaDe_Click);
-            //
+            // 
+            mnuSistemaAcercaDe.Name = "mnuSistemaAcercaDe";
+            mnuSistemaAcercaDe.Size = new System.Drawing.Size(158, 26);
+            mnuSistemaAcercaDe.Text = "Acerca de";
+            mnuSistemaAcercaDe.Click += mnuSistemaAcercaDe_Click;
+            // 
             // mnuSalir
-            //
-            this.mnuSalir.Name = "mnuSalir";
-            this.mnuSalir.Text = "Salir";
-            this.mnuSalir.Click += new System.EventHandler(this.mnuSalir_Click);
-            //
+            // 
+            mnuSalir.Name = "mnuSalir";
+            mnuSalir.Size = new System.Drawing.Size(52, 24);
+            mnuSalir.Text = "Salir";
+            mnuSalir.Click += mnuSalir_Click;
+            // 
             // pnlContenido
-            //
-            this.pnlContenido.BackColor = System.Drawing.Color.FromArgb(10, 60, 120);
-            this.pnlContenido.Controls.Add(this.picLogo);
-            this.pnlContenido.Controls.Add(this.lblTitulo);
-            this.pnlContenido.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlContenido.Location = new System.Drawing.Point(0, 28);
-            this.pnlContenido.Name = "pnlContenido";
-            this.pnlContenido.Size = new System.Drawing.Size(900, 572);
-            this.pnlContenido.TabIndex = 1;
-            //
-            // lblTitulo
-            //
-            this.lblTitulo.AutoSize = false;
-            this.lblTitulo.Font = new System.Drawing.Font("Segoe UI", 20F, System.Drawing.FontStyle.Bold);
-            this.lblTitulo.ForeColor = System.Drawing.Color.White;
-            this.lblTitulo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.lblTitulo.Location = new System.Drawing.Point(290, 180);
-            this.lblTitulo.Name = "lblTitulo";
-            this.lblTitulo.Size = new System.Drawing.Size(320, 60);
-            this.lblTitulo.TabIndex = 1;
-            this.lblTitulo.Text = "Clínica Médica";
-            //
+            // 
+            pnlContenido.BackColor = System.Drawing.Color.FromArgb(10, 60, 120);
+            pnlContenido.Controls.Add(picLogo);
+            pnlContenido.Controls.Add(lblTitulo);
+            pnlContenido.Dock = System.Windows.Forms.DockStyle.Fill;
+            pnlContenido.Location = new System.Drawing.Point(0, 30);
+            pnlContenido.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            pnlContenido.Name = "pnlContenido";
+            pnlContenido.Size = new System.Drawing.Size(1200, 893);
+            pnlContenido.TabIndex = 1;
+            // 
             // picLogo
-            //
-            this.picLogo.BackColor = System.Drawing.Color.Transparent;
-            this.picLogo.Location = new System.Drawing.Point(330, 260);
-            this.picLogo.Name = "picLogo";
-            this.picLogo.Size = new System.Drawing.Size(240, 240);
-            this.picLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.picLogo.TabIndex = 2;
-            this.picLogo.TabStop = false;
-            //
+            // 
+            picLogo.BackColor = System.Drawing.Color.Transparent;
+            picLogo.Image = (System.Drawing.Image)resources.GetObject("picLogo.Image");
+            picLogo.Location = new System.Drawing.Point(444, 275);
+            picLogo.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            picLogo.Name = "picLogo";
+            picLogo.Size = new System.Drawing.Size(320, 369);
+            picLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            picLogo.TabIndex = 2;
+            picLogo.TabStop = false;
+            // 
+            // lblTitulo
+            // 
+            lblTitulo.Font = new System.Drawing.Font("Segoe UI", 20F, System.Drawing.FontStyle.Bold);
+            lblTitulo.ForeColor = System.Drawing.Color.White;
+            lblTitulo.Location = new System.Drawing.Point(386, 202);
+            lblTitulo.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblTitulo.Name = "lblTitulo";
+            lblTitulo.Size = new System.Drawing.Size(427, 92);
+            lblTitulo.TabIndex = 1;
+            lblTitulo.Text = "Clínica Médica";
+            lblTitulo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // frmPrincipal
-            //
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.FromArgb(10, 60, 120);
-            this.ClientSize = new System.Drawing.Size(900, 600);
-            this.Controls.Add(this.pnlContenido);
-            this.Controls.Add(this.menuPrincipal);
-            this.MainMenuStrip = this.menuPrincipal;
-            this.MaximizeBox = true;
-            this.MinimumSize = new System.Drawing.Size(700, 500);
-            this.Name = "frmPrincipal";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Clínica Médica — Panel Principal";
-            this.menuPrincipal.ResumeLayout(false);
-            this.menuPrincipal.PerformLayout();
-            this.pnlContenido.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.picLogo)).EndInit();
-            this.ResumeLayout(false);
-            this.PerformLayout();
+            // 
+            AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            BackColor = System.Drawing.Color.FromArgb(10, 60, 120);
+            ClientSize = new System.Drawing.Size(1200, 923);
+            Controls.Add(pnlContenido);
+            Controls.Add(menuPrincipal);
+            MainMenuStrip = menuPrincipal;
+            Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            MinimumSize = new System.Drawing.Size(927, 744);
+            Name = "frmPrincipal";
+            StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            Text = "Clínica Médica — Panel Principal";
+            menuPrincipal.ResumeLayout(false);
+            menuPrincipal.PerformLayout();
+            pnlContenido.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)picLogo).EndInit();
+            ResumeLayout(false);
+            PerformLayout();
         }
 
         private System.Windows.Forms.MenuStrip menuPrincipal;
