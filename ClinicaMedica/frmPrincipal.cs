@@ -76,7 +76,7 @@ namespace ClinicaMedica
 
         private void mnuConsultaPacientes_Click(object sender, EventArgs e)
         {
-            AbrirFormulario(new frmPacientes());
+            AbrirFormulario(new frmPacientesConsulta());
         }
 
         private void mnuConsultaDoctores_Click(object sender, EventArgs e)

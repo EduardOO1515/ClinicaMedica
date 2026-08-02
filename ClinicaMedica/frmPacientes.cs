@@ -1,49 +1,56 @@
-﻿using System;
-using System.Data;
-using System.Drawing;
+using System;
 using System.Windows.Forms;
 using ClinicaMedica.Negocio;
-using System.Linq;
 
 namespace ClinicaMedica
 {
     public partial class frmPacientes : Form
     {
         private PacientesNegocio _negocio = new PacientesNegocio();
-        private int _idSeleccionado = 0;
 
         public frmPacientes()
         {
             InitializeComponent();
-            CargarPacientes();
         }
 
-        private void CargarPacientes()
+        private void frmPacientes_Load(object sender, EventArgs e)
         {
-            try
-            {
-                dgvPacientes.DataSource = _negocio.ObtenerTodos();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error al cargar: " + ex.Message, "Error",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            txtCedula.Enabled = false;
+            txtNombre.Enabled = false;
+            txtApellido.Enabled = false;
+            txtTelefono.Enabled = false;
+            dtpFechaNac.Enabled = false;
+            chkSeguro.Enabled = false;
+            btnGuardar.Enabled = false;
+            btnHabilitar.Enabled = true;
         }
 
-        private void dgvPacientes_CellClick(object sender, DataGridViewCellMouseEventArgs e)
+        private void btnHabilitar_Click(object sender, EventArgs e)
         {
-            if (e.RowIndex >= 0 && dgvPacientes.Rows[e.RowIndex].Cells["IdPaciente"].Value != DBNull.Value)
-            {
-                DataGridViewRow fila = dgvPacientes.Rows[e.RowIndex];
-                _idSeleccionado = Convert.ToInt32(fila.Cells["IdPaciente"].Value);
-                txtCedula.Text = fila.Cells["Cedula"].Value.ToString();
-                txtNombre.Text = fila.Cells["Nombre"].Value.ToString();
-                txtApellido.Text = fila.Cells["Apellido"].Value.ToString();
-                txtTelefono.Text = fila.Cells["Telefono"].Value.ToString();
-                dtpFechaNac.Value = Convert.ToDateTime(fila.Cells["FechaNacimiento"].Value);
-                chkSeguro.Checked = Convert.ToBoolean(fila.Cells["TieneSeguro"].Value);
-            }
+            txtCedula.Enabled = true;
+            txtNombre.Enabled = true;
+            txtApellido.Enabled = true;
+            txtTelefono.Enabled = true;
+            dtpFechaNac.Enabled = true;
+            chkSeguro.Enabled = true;
+            btnGuardar.Enabled = true;
+            btnHabilitar.Enabled = false;
+            btnDeshabilitar.Enabled = true;
+            txtCedula.Focus();
+        }
+
+        private void btnDeshabilitar_Click(object sender, EventArgs e)
+        {
+            txtCedula.Enabled = false;
+            txtNombre.Enabled = false;
+            txtApellido.Enabled = false;
+            txtTelefono.Enabled = false;
+            dtpFechaNac.Enabled = false;
+            chkSeguro.Enabled = false;
+            btnGuardar.Enabled = false;
+            btnDeshabilitar.Enabled = false;
+            btnHabilitar.Enabled = true;
+            LimpiarCampos();
         }
 
         private void btnGuardar_Click(object sender, EventArgs e)
@@ -69,21 +76,15 @@ namespace ClinicaMedica
                     return;
                 }
 
-                string resultado;
-                if (_idSeleccionado == 0)
-                    resultado = _negocio.RegistrarPaciente(txtCedula.Text, txtNombre.Text,
-                        txtApellido.Text, dtpFechaNac.Value, txtTelefono.Text, chkSeguro.Checked);
-                else
-                    resultado = _negocio.ActualizarPaciente(_idSeleccionado, txtCedula.Text,
-                        txtNombre.Text, txtApellido.Text, dtpFechaNac.Value,
-                        txtTelefono.Text, chkSeguro.Checked);
+                string resultado = _negocio.RegistrarPaciente(
+                    txtCedula.Text, txtNombre.Text, txtApellido.Text,
+                    dtpFechaNac.Value, txtTelefono.Text, chkSeguro.Checked);
 
                 if (resultado == "OK")
                 {
-                    MessageBox.Show("Paciente guardado correctamente.", "Éxito",
+                    MessageBox.Show("Paciente guardado correctamente.", "Exito",
                         MessageBoxButtons.OK, MessageBoxIcon.Information);
                     LimpiarCampos();
-                    CargarPacientes();
                 }
                 else
                 {
@@ -94,48 +95,6 @@ namespace ClinicaMedica
             catch (Exception ex)
             {
                 MessageBox.Show("Error: " + ex.Message, "Error",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
-        private void btnEliminar_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                if (_idSeleccionado == 0)
-                {
-                    MessageBox.Show("Seleccione un paciente de la tabla.", "Advertencia",
-                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return;
-                }
-
-                DialogResult res = MessageBox.Show(
-                    "⚠️ ¿Está seguro que desea eliminar este paciente?\n\n" +
-                    "Esta acción también eliminará todas las citas\n" +
-                    "asociadas a este paciente.\n\n" +
-                    "Esta acción no se puede deshacer.",
-                    "Confirmar Eliminación",
-                    MessageBoxButtons.YesNo,
-                    MessageBoxIcon.Warning);
-
-                if (res == DialogResult.Yes)
-                {
-                    string resultado = _negocio.EliminarPaciente(_idSeleccionado);
-                    if (resultado == "OK")
-                    {
-                        MessageBox.Show("✅ Paciente eliminado correctamente.\n" +
-                            "Sus citas también fueron eliminadas del sistema.",
-                            "Eliminación Exitosa",
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Information);
-                        LimpiarCampos();
-                        CargarPacientes();
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("❌ Error al eliminar: " + ex.Message, "Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -152,7 +111,6 @@ namespace ClinicaMedica
 
         private void LimpiarCampos()
         {
-            _idSeleccionado = 0;
             txtCedula.Clear();
             txtNombre.Clear();
             txtApellido.Clear();
@@ -160,7 +118,7 @@ namespace ClinicaMedica
             dtpFechaNac.Value = DateTime.Now;
             chkSeguro.Checked = false;
         }
-        // Cédula dominicana automática: 000-0000000-0
+
         private void txtCedula_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!char.IsDigit(e.KeyChar) && e.KeyChar != (char)Keys.Back)
@@ -172,7 +130,9 @@ namespace ClinicaMedica
 
         private void txtCedula_TextChanged(object sender, EventArgs e)
         {
-            string solo = new string(txtCedula.Text.Where(c => char.IsDigit(c)).ToArray());
+            string solo = "";
+            foreach (char c in txtCedula.Text)
+                if (char.IsDigit(c)) solo += c;
             if (solo.Length > 11) solo = solo.Substring(0, 11);
 
             string formateado = solo;
@@ -187,7 +147,6 @@ namespace ClinicaMedica
             txtCedula.TextChanged += txtCedula_TextChanged;
         }
 
-        // Solo letras en Nombre — mínimo 2 caracteres
         private void txtNombre_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!char.IsLetter(e.KeyChar) && e.KeyChar != ' ' && e.KeyChar != (char)Keys.Back)
@@ -198,7 +157,6 @@ namespace ClinicaMedica
             }
         }
 
-        // Solo letras en Apellido
         private void txtApellido_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!char.IsLetter(e.KeyChar) && e.KeyChar != ' ' && e.KeyChar != (char)Keys.Back)
@@ -209,7 +167,6 @@ namespace ClinicaMedica
             }
         }
 
-        // Teléfono dominicano automático: 000-000-0000
         private void txtTelefono_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!char.IsDigit(e.KeyChar) && e.KeyChar != (char)Keys.Back)
@@ -235,7 +192,5 @@ namespace ClinicaMedica
             txtTelefono.SelectionStart = txtTelefono.Text.Length;
             txtTelefono.TextChanged += txtTelefono_TextChanged;
         }
-
-       
     }
 }
