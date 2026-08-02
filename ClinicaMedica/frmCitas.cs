@@ -154,12 +154,12 @@ namespace ClinicaMedica
                 DataRowView fila = cmbPaciente.SelectedItem as DataRowView;
                 bool tieneSeguro = Convert.ToBoolean(fila?.Row["TieneSeguro"]);
 
-                decimal costoBase = 0;
-                if (tipo == "General") costoBase = 1500m;
-                else if (tipo == "Especialidad") costoBase = 3000m;
-                else if (tipo == "Emergencia") costoBase = 5000m;
-                else if (tipo == "Control") costoBase = 800m;
-                else if (tipo == "Laboratorio") costoBase = 1200m;
+                // Usa Paciente.CalcularCosto() para obtener el precio base segun el tipo de consulta.
+                // TieneSeguro queda en false (valor por defecto del constructor) para que el metodo
+                // devuelva el precio completo sin descuento; el descuento se aplica abajo visualmente.
+                Paciente paciente = new Paciente("", "", "");
+                paciente.TipoConsulta = tipo;
+                decimal costoBase = paciente.CalcularCosto();
 
                 decimal descuento = tieneSeguro ? costoBase / 2 : 0;
                 decimal costoFinal = costoBase - descuento;

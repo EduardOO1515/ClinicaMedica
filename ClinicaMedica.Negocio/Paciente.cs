@@ -7,6 +7,7 @@ namespace ClinicaMedica.Negocio
         private bool _tieneSeguro;
         private DateTime _fechaNacimiento;
         private int _idPaciente;
+        private string _tipoConsulta = "";
 
         //TODO Constructor completo
         public Paciente(string cedula, string nombre, string apellido,
@@ -34,14 +35,19 @@ namespace ClinicaMedica.Negocio
         public bool TieneSeguro { get => _tieneSeguro; set => _tieneSeguro = value; }
         public DateTime FechaNacimiento { get => _fechaNacimiento; set => _fechaNacimiento = value; }
         public int IdPaciente { get => _idPaciente; set => _idPaciente = value; }
+        public string TipoConsulta { get => _tipoConsulta; set => _tipoConsulta = value; }
 
-        // Implementación del método abstracto
+        // Retorna el costo de la consulta segun el tipo y aplica 50% de descuento si tiene seguro.
         public override decimal CalcularCosto()
         {
-            if (_tieneSeguro)
-                return 500m;
-            else
-                return 1500m;
+            decimal costoBase = 0m;
+            if (_tipoConsulta == "General") costoBase = 1500m;
+            else if (_tipoConsulta == "Especialidad") costoBase = 3000m;
+            else if (_tipoConsulta == "Emergencia") costoBase = 5000m;
+            else if (_tipoConsulta == "Control") costoBase = 800m;
+            else if (_tipoConsulta == "Laboratorio") costoBase = 1200m;
+
+            return _tieneSeguro ? costoBase * 0.5m : costoBase;
         }
 
         //TODO Sobreescritura del método virtual
