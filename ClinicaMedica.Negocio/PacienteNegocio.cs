@@ -44,7 +44,6 @@ namespace ClinicaMedica.Negocio
             return "OK";
         }
 
-        // TODO: pendiente, este metodo debe llamar a ActualizarAsync en lugar de InsertarAsync
         public async Task<string> ActualizarPacienteAsync(int id, string cedula, string nombre, string apellido,
                                                           DateTime fechaNac, string telefono, bool tieneSeguro)
         {
@@ -63,7 +62,7 @@ namespace ClinicaMedica.Negocio
             if (string.IsNullOrWhiteSpace(telefono) || telefono.Length != 12)
                 return "El telefono debe tener formato 000-000-0000.";
 
-            await _dal.InsertarAsync(cedula, nombre, apellido, fechaNac, telefono, tieneSeguro);
+            await _dal.ActualizarAsync(id, cedula, nombre, apellido, fechaNac, telefono, tieneSeguro);
             return "OK";
         }
 

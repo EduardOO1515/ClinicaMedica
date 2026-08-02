@@ -78,7 +78,7 @@ namespace ClinicaMedica.Negocio
             if (!email.Contains("@") || !email.Contains("."))
                 return "El email no tiene un formato valido. Ejemplo: nombre@correo.com";
 
-            await _dal.InsertarAsync(cedula, nombre, apellido, idEspecialidad, telefono, email);
+            await _dal.ActualizarAsync(id, cedula, nombre, apellido, idEspecialidad, telefono, email);
             return "OK";
         }
 
