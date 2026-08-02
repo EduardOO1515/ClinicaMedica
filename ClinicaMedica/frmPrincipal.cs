@@ -8,16 +8,13 @@ namespace ClinicaMedica
     {
         public frmPrincipal()
         {
-            InitializeComponent();
+            InitializeComponent();   // <-- esta línea faltaba
             ConfigurarFormulario();
-            this.Load += frmPrincipal_Load;   // <-- LINEA NUEVA
+            this.Load += frmPrincipal_Load;
         }
 
-        // <-- METODO NUEVO, se agrega completo -->
         private void frmPrincipal_Load(object sender, EventArgs e)
         {
-            //  el principal es el primero en instanciarse,
-            // pero se queda oculto hasta que el login valide correctamente.
             this.Hide();
 
             using (frmLogin login = new frmLogin())
@@ -109,13 +106,25 @@ namespace ClinicaMedica
             {
                 if (login.ShowDialog() == DialogResult.OK)
                 {
-                    this.Show();   // vuelve a mostrar el mismo frmPrincipal
+                    this.Show();
                 }
                 else
                 {
-                    Application.Exit();   // solo aqui se cierra el programa completo
+                    Application.Exit();
                 }
             }
+        }
+
+        private void InitializeComponent()
+        {
+            this.SuspendLayout();
+            // 
+            // frmPrincipal
+            // 
+            this.ClientSize = new System.Drawing.Size(826, 471);
+            this.Name = "frmPrincipal";
+            this.ResumeLayout(false);
+
         }
     }
 }
