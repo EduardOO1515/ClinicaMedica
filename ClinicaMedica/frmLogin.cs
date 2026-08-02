@@ -15,7 +15,7 @@ namespace ClinicaMedica
             InitializeComponent();
         }
 
-        private void btnEntrar_Click(object sender, EventArgs e)
+        private async void btnEntrar_Click(object sender, EventArgs e)
         {
             try
             {
@@ -27,12 +27,12 @@ namespace ClinicaMedica
                 }
                 if (string.IsNullOrWhiteSpace(txtContrasena.Text))
                 {
-                    MessageBox.Show("Ingrese la contraseña.", "Advertencia",
+                    MessageBox.Show("Ingrese la contrasena.", "Advertencia",
                         MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
 
-                DataTable dt = _negocio.ValidarUsuario(
+                DataTable dt = await _negocio.ValidarUsuarioAsync(
                     txtUsuario.Text.Trim(), txtContrasena.Text.Trim());
 
                 if (dt.Rows.Count > 0)

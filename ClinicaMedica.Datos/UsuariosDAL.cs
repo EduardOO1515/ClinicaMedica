@@ -1,26 +1,27 @@
-﻿using System;
+using System;
 using System.Data;
+using System.Threading.Tasks;
 using Microsoft.Data.SqlClient;
 
 namespace ClinicaMedica.Datos
 {
-    public class UsuariosDAL
+    public class UsuariosDAL : IUsuariosRepositorio
     {
-        public DataTable ValidarUsuario(string usuario, string contrasena)
+        public async Task<DataTable> ValidarUsuarioAsync(string usuario, string contrasena)
         {
             DataTable dt = new DataTable();
             try
             {
                 using (SqlConnection con = Conexion.ObtenerConexion())
                 {
-                    con.Open();
+                    await con.OpenAsync();
                     SqlCommand cmd = new SqlCommand(
-                    "SELECT IdUsuario, Usuario FROM Usuarios " +
-                     "WHERE Usuario=@usuario AND Contrasena=@contrasena", con);
+                        "SELECT IdUsuario, Usuario FROM Usuarios " +
+                        "WHERE Usuario=@usuario AND Contrasena=@contrasena", con);
                     cmd.Parameters.AddWithValue("@usuario", usuario);
                     cmd.Parameters.AddWithValue("@contrasena", contrasena);
                     SqlDataAdapter da = new SqlDataAdapter(cmd);
-                    da.Fill(dt);
+                    await Task.Run(() => da.Fill(dt));
                 }
             }
             catch (Exception ex)

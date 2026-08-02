@@ -1,21 +1,27 @@
-﻿using System;
+using System;
 using System.Data;
+using System.Threading.Tasks;
 using ClinicaMedica.Datos;
 
 namespace ClinicaMedica.Negocio
 {
     public class UsuariosNegocio
     {
-        private UsuariosDAL _dal = new UsuariosDAL();
+        private readonly IUsuariosRepositorio _dal;
 
-        public DataTable ValidarUsuario(string usuario, string contrasena)
+        public UsuariosNegocio()
+        {
+            _dal = new UsuariosDAL();
+        }
+
+        public async Task<DataTable> ValidarUsuarioAsync(string usuario, string contrasena)
         {
             if (string.IsNullOrWhiteSpace(usuario))
-                throw new Exception("El usuario no puede estar vacío.");
+                throw new Exception("El usuario no puede estar vacio.");
             if (string.IsNullOrWhiteSpace(contrasena))
-                throw new Exception("La contraseña no puede estar vacía.");
+                throw new Exception("La contrasena no puede estar vacia.");
 
-            return _dal.ValidarUsuario(usuario, contrasena);
+            return await _dal.ValidarUsuarioAsync(usuario, contrasena);
         }
     }
 }
