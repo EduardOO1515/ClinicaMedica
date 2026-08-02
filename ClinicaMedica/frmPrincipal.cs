@@ -10,6 +10,27 @@ namespace ClinicaMedica
         {
             InitializeComponent();
             ConfigurarFormulario();
+            this.Load += frmPrincipal_Load;   // <-- LINEA NUEVA
+        }
+
+        // <-- METODO NUEVO, se agrega completo -->
+        private void frmPrincipal_Load(object sender, EventArgs e)
+        {
+            //  el principal es el primero en instanciarse,
+            // pero se queda oculto hasta que el login valide correctamente.
+            this.Hide();
+
+            using (frmLogin login = new frmLogin())
+            {
+                if (login.ShowDialog() == DialogResult.OK)
+                {
+                    this.Show();
+                }
+                else
+                {
+                    Application.Exit();
+                }
+            }
         }
 
         private void ConfigurarFormulario()
@@ -73,8 +94,28 @@ namespace ClinicaMedica
         {
             DialogResult res = MessageBox.Show("¿Desea cerrar sesión?", "Cerrar Sesión",
                 MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
             if (res == DialogResult.Yes)
-                Application.Restart();
+            {
+                CerrarSesion();
+            }
+        }
+
+        private void CerrarSesion()
+        {
+            this.Hide();
+
+            using (frmLogin login = new frmLogin())
+            {
+                if (login.ShowDialog() == DialogResult.OK)
+                {
+                    this.Show();   // vuelve a mostrar el mismo frmPrincipal
+                }
+                else
+                {
+                    Application.Exit();   // solo aqui se cierra el programa completo
+                }
+            }
         }
     }
 }

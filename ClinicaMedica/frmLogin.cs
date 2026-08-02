@@ -105,9 +105,10 @@ namespace ClinicaMedica
                 {
                     MessageBox.Show($"Bienvenido, {txtUsuario.Text}!",
                        "Acceso Correcto", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    frmPrincipal principal = new frmPrincipal();
-                    principal.Show();
-                    this.Hide();
+                    // Ya no crea/muestra frmPrincipal aqui: frmPrincipal ya existe
+                    // (fue creado por Program.cs) y esta esperando este resultado.
+                    this.DialogResult = DialogResult.OK;
+                    this.Close();
                 }
                 else
                 {
@@ -126,7 +127,8 @@ namespace ClinicaMedica
 
         private void btnCancelar_Click(object sender, EventArgs e)
         {
-            Application.Exit();
+            this.DialogResult = DialogResult.Cancel;
+            this.Close();
         }
     }
 }

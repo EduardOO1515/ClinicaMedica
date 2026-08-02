@@ -16,7 +16,9 @@ namespace ClinicaMedica
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new frmLogin());
+            // El principal es el primero en instanciarse 
+            // El login se abre desde adentro de frmPrincipal antes de mostrarse.
+            Application.Run(new frmPrincipal());
         }
     }
 }
