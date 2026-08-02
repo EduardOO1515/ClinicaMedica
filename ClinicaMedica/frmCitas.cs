@@ -110,6 +110,9 @@ namespace ClinicaMedica
             ConfigurarBoton(btnEliminar, Color.FromArgb(180, 30, 30), new Point(160, 585));
             ConfigurarBoton(btnLimpiar, Color.FromArgb(70, 130, 180), new Point(290, 585));
             ConfigurarBoton(btnVolver, Color.FromArgb(0, 100, 60), new Point(420, 585));
+
+            // Se llama UNA sola vez (antes se repetia 4 veces dentro de ConfigurarBoton)
+            PosicionarPanelCostos();
         }
 
         private void PosicionarLabel(Label lbl, int x, int y)
@@ -141,8 +144,13 @@ namespace ClinicaMedica
             btn.Cursor = Cursors.Hand;
             btn.Size = new Size(120, 38);
             btn.Location = location;
+        }
 
-            // Panel de costos
+        // Antes este posicionamiento estaba metido dentro de ConfigurarBoton,
+        // por lo que se repetia una vez por cada boton (4 veces sin necesidad).
+        // Ahora se llama una sola vez desde ConfigurarFormulario().
+        private void PosicionarPanelCostos()
+        {
             lblCostoOriginal.Location = new Point(30, 650);
             lblCostoOriginal.Font = new Font("Segoe UI", 10, FontStyle.Bold);
             lblCostoOriginal.ForeColor = Color.FromArgb(173, 216, 230);
