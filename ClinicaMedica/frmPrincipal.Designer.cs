@@ -47,9 +47,11 @@
             this.mnuSistema = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuSistemaAcercaDe = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuSalir = new System.Windows.Forms.ToolStripMenuItem();
+            this.pnlContenido = new System.Windows.Forms.Panel();
             this.lblTitulo = new System.Windows.Forms.Label();
             this.picLogo = new System.Windows.Forms.PictureBox();
             this.menuPrincipal.SuspendLayout();
+            this.pnlContenido.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picLogo)).BeginInit();
             this.SuspendLayout();
             //
@@ -61,7 +63,7 @@
         this.mnuEntrada, this.mnuConsulta, this.mnuReportes, this.mnuSistema, this.mnuSalir});
             this.menuPrincipal.Location = new System.Drawing.Point(0, 0);
             this.menuPrincipal.Name = "menuPrincipal";
-            this.menuPrincipal.Size = new System.Drawing.Size(500, 28);
+            this.menuPrincipal.Size = new System.Drawing.Size(900, 28);
             this.menuPrincipal.TabIndex = 0;
             //
             // mnuEntrada
@@ -177,13 +179,24 @@
             this.mnuSalir.Text = "Salir";
             this.mnuSalir.Click += new System.EventHandler(this.mnuSalir_Click);
             //
+            // pnlContenido
+            //
+            this.pnlContenido.BackColor = System.Drawing.Color.FromArgb(10, 60, 120);
+            this.pnlContenido.Controls.Add(this.picLogo);
+            this.pnlContenido.Controls.Add(this.lblTitulo);
+            this.pnlContenido.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlContenido.Location = new System.Drawing.Point(0, 28);
+            this.pnlContenido.Name = "pnlContenido";
+            this.pnlContenido.Size = new System.Drawing.Size(900, 572);
+            this.pnlContenido.TabIndex = 1;
+            //
             // lblTitulo
             //
             this.lblTitulo.AutoSize = false;
             this.lblTitulo.Font = new System.Drawing.Font("Segoe UI", 20F, System.Drawing.FontStyle.Bold);
             this.lblTitulo.ForeColor = System.Drawing.Color.White;
             this.lblTitulo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.lblTitulo.Location = new System.Drawing.Point(150, 60);
+            this.lblTitulo.Location = new System.Drawing.Point(290, 180);
             this.lblTitulo.Name = "lblTitulo";
             this.lblTitulo.Size = new System.Drawing.Size(320, 60);
             this.lblTitulo.TabIndex = 1;
@@ -192,9 +205,9 @@
             // picLogo
             //
             this.picLogo.BackColor = System.Drawing.Color.Transparent;
-            this.picLogo.Location = new System.Drawing.Point(190, 150);
+            this.picLogo.Location = new System.Drawing.Point(330, 260);
             this.picLogo.Name = "picLogo";
-            this.picLogo.Size = new System.Drawing.Size(120, 120);
+            this.picLogo.Size = new System.Drawing.Size(240, 240);
             this.picLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.picLogo.TabIndex = 2;
             this.picLogo.TabStop = false;
@@ -204,18 +217,18 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(10, 60, 120);
-            this.ClientSize = new System.Drawing.Size(500, 400);
-            this.Controls.Add(this.picLogo);
-            this.Controls.Add(this.lblTitulo);
+            this.ClientSize = new System.Drawing.Size(900, 600);
+            this.Controls.Add(this.pnlContenido);
             this.Controls.Add(this.menuPrincipal);
             this.MainMenuStrip = this.menuPrincipal;
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.MaximizeBox = false;
+            this.MaximizeBox = true;
+            this.MinimumSize = new System.Drawing.Size(700, 500);
             this.Name = "frmPrincipal";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Clínica Médica — Panel Principal";
             this.menuPrincipal.ResumeLayout(false);
             this.menuPrincipal.PerformLayout();
+            this.pnlContenido.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.picLogo)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -240,6 +253,7 @@
         private System.Windows.Forms.ToolStripMenuItem mnuSistema;
         private System.Windows.Forms.ToolStripMenuItem mnuSistemaAcercaDe;
         private System.Windows.Forms.ToolStripMenuItem mnuSalir;
+        private System.Windows.Forms.Panel pnlContenido;
         private System.Windows.Forms.Label lblTitulo;
         private System.Windows.Forms.PictureBox picLogo;
         #endregion
