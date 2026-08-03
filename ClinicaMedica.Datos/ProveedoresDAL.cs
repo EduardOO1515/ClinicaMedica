@@ -50,6 +50,29 @@ namespace ClinicaMedica.Datos
             }
         }
 
+        public async Task ActualizarAsync(int idProveedor, string nombre, string telefono, string email)
+        {
+            try
+            {
+                using (SqlConnection con = Conexion.ObtenerConexion())
+                {
+                    await con.OpenAsync();
+                    SqlCommand cmd = new SqlCommand(
+                        "UPDATE Proveedores SET Nombre=@nombre, Telefono=@telefono, Email=@email " +
+                        "WHERE IdProveedor=@idProveedor", con);
+                    cmd.Parameters.AddWithValue("@idProveedor", idProveedor);
+                    cmd.Parameters.AddWithValue("@nombre", nombre);
+                    cmd.Parameters.AddWithValue("@telefono", telefono);
+                    cmd.Parameters.AddWithValue("@email", email);
+                    await cmd.ExecuteNonQueryAsync();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al actualizar proveedor: " + ex.Message);
+            }
+        }
+
         // Busqueda parcial usando LIKE con comodines a ambos lados del termino
         public async Task<DataTable> BuscarPorNombreAsync(string nombre)
         {

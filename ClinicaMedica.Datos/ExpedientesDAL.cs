@@ -59,6 +59,28 @@ namespace ClinicaMedica.Datos
             }
         }
 
+        public async Task ActualizarAsync(int idExpediente, string diagnostico, string tratamiento)
+        {
+            try
+            {
+                using (SqlConnection con = Conexion.ObtenerConexion())
+                {
+                    await con.OpenAsync();
+                    SqlCommand cmd = new SqlCommand(
+                        "UPDATE Expedientes SET Diagnostico=@diagnostico, Tratamiento=@tratamiento " +
+                        "WHERE IdExpediente=@idExpediente", con);
+                    cmd.Parameters.AddWithValue("@idExpediente", idExpediente);
+                    cmd.Parameters.AddWithValue("@diagnostico", diagnostico);
+                    cmd.Parameters.AddWithValue("@tratamiento", tratamiento);
+                    await cmd.ExecuteNonQueryAsync();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al actualizar expediente: " + ex.Message);
+            }
+        }
+
         public async Task<DataTable> ConsultarPorPacienteAsync(int idPaciente)
         {
             DataTable dt = new DataTable();

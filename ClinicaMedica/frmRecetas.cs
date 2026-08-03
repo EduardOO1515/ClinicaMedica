@@ -12,6 +12,7 @@ namespace ClinicaMedica
         private RecetasNegocio _negocio = new RecetasNegocio();
         private CitasNegocio _negocioCitas = new CitasNegocio();
         private MedicamentosNegocio _negocioMedicamentos = new MedicamentosNegocio();
+        private int _idEditando = 0;
 
         public frmRecetas()
         {
@@ -76,9 +77,10 @@ namespace ClinicaMedica
             btnHabilitar.Enabled = true;
         }
 
-        private void btnHabilitar_Click(object sender, EventArgs e)
+        private void HabilitarCampos()
         {
-            cboCita.Enabled = true;
+            // cboCita solo se habilita en modo agregar; en edicion queda bloqueado
+            cboCita.Enabled = _idEditando == 0;
             dtpFecha.Enabled = true;
             txtIndicaciones.Enabled = true;
             dgvDetalle.Enabled = true;
@@ -87,6 +89,23 @@ namespace ClinicaMedica
             btnGuardar.Enabled = true;
             btnHabilitar.Enabled = false;
             btnDeshabilitar.Enabled = true;
+            btnGuardar.Text = _idEditando == 0 ? "Guardar" : "Actualizar";
+        }
+
+        private void btnHabilitar_Click(object sender, EventArgs e)
+        {
+            HabilitarCampos();
+            txtIndicaciones.Focus();
+        }
+
+        // Carga los datos de una receta existente y activa el modo edicion (solo cabecera)
+        public void CargarParaEditar(DataRow fila)
+        {
+            _idEditando = Convert.ToInt32(fila["IdReceta"]);
+            cboCita.SelectedValue = Convert.ToInt32(fila["IdCita"]);
+            dtpFecha.Value = Convert.ToDateTime(fila["Fecha"]);
+            txtIndicaciones.Text = fila["Indicaciones"].ToString();
+            HabilitarCampos();
             txtIndicaciones.Focus();
         }
 
@@ -101,6 +120,8 @@ namespace ClinicaMedica
             btnGuardar.Enabled = false;
             btnDeshabilitar.Enabled = false;
             btnHabilitar.Enabled = true;
+            _idEditando = 0;
+            btnGuardar.Text = "Guardar";
             await LimpiarCamposAsync();
         }
 
@@ -153,16 +174,30 @@ namespace ClinicaMedica
                         fila.Cells["colObservaciones"].Value?.ToString() ?? "");
                 }
 
-                string resultado = await _negocio.RegistrarRecetaAsync(
-                    Convert.ToInt32(cboCita.SelectedValue),
-                    dtpFecha.Value,
-                    txtIndicaciones.Text.Trim(),
-                    detalles);
+                string resultado;
+
+                if (_idEditando == 0)
+                {
+                    resultado = await _negocio.RegistrarRecetaAsync(
+                        Convert.ToInt32(cboCita.SelectedValue),
+                        dtpFecha.Value,
+                        txtIndicaciones.Text.Trim(),
+                        detalles);
+                }
+                else
+                {
+                    resultado = await _negocio.ActualizarRecetaAsync(
+                        _idEditando,
+                        dtpFecha.Value,
+                        txtIndicaciones.Text.Trim());
+                }
 
                 if (resultado == "OK")
                 {
-                    MessageBox.Show("Receta guardada correctamente.", "Exito",
-                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    string msg = _idEditando == 0 ? "Receta guardada correctamente." : "Receta actualizada correctamente.";
+                    MessageBox.Show(msg, "Exito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    _idEditando = 0;
+                    btnGuardar.Text = "Guardar";
                     await LimpiarCamposAsync();
                 }
                 else

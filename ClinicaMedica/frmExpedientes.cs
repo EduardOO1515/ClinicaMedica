@@ -11,6 +11,7 @@ namespace ClinicaMedica
     {
         private ExpedientesNegocio _negocio = new ExpedientesNegocio();
         private CitasNegocio _negocioCitas = new CitasNegocio();
+        private int _idEditando = 0;
 
         public frmExpedientes()
         {
@@ -51,14 +52,32 @@ namespace ClinicaMedica
             btnHabilitar.Enabled = true;
         }
 
-        private void btnHabilitar_Click(object sender, EventArgs e)
+        private void HabilitarCampos()
         {
-            cboCita.Enabled = true;
+            // cboCita solo se habilita en modo agregar; en edicion queda bloqueado
+            cboCita.Enabled = _idEditando == 0;
             txtDiagnostico.Enabled = true;
             txtTratamiento.Enabled = true;
             btnGuardar.Enabled = true;
             btnHabilitar.Enabled = false;
             btnDeshabilitar.Enabled = true;
+            btnGuardar.Text = _idEditando == 0 ? "Guardar" : "Actualizar";
+        }
+
+        private void btnHabilitar_Click(object sender, EventArgs e)
+        {
+            HabilitarCampos();
+            txtDiagnostico.Focus();
+        }
+
+        // Carga los datos de un expediente existente y activa el modo edicion
+        public void CargarParaEditar(DataRow fila)
+        {
+            _idEditando = Convert.ToInt32(fila["IdExpediente"]);
+            cboCita.SelectedValue = Convert.ToInt32(fila["IdCita"]);
+            txtDiagnostico.Text = fila["Diagnostico"].ToString();
+            txtTratamiento.Text = fila["Tratamiento"].ToString();
+            HabilitarCampos();
             txtDiagnostico.Focus();
         }
 
@@ -70,6 +89,8 @@ namespace ClinicaMedica
             btnGuardar.Enabled = false;
             btnDeshabilitar.Enabled = false;
             btnHabilitar.Enabled = true;
+            _idEditando = 0;
+            btnGuardar.Text = "Guardar";
             await LimpiarCamposAsync();
         }
 
@@ -84,15 +105,29 @@ namespace ClinicaMedica
                     return;
                 }
 
-                string resultado = await _negocio.RegistrarExpedienteAsync(
-                    Convert.ToInt32(cboCita.SelectedValue),
-                    txtDiagnostico.Text.Trim(),
-                    txtTratamiento.Text.Trim());
+                string resultado;
+
+                if (_idEditando == 0)
+                {
+                    resultado = await _negocio.RegistrarExpedienteAsync(
+                        Convert.ToInt32(cboCita.SelectedValue),
+                        txtDiagnostico.Text.Trim(),
+                        txtTratamiento.Text.Trim());
+                }
+                else
+                {
+                    resultado = await _negocio.ActualizarExpedienteAsync(
+                        _idEditando,
+                        txtDiagnostico.Text.Trim(),
+                        txtTratamiento.Text.Trim());
+                }
 
                 if (resultado == "OK")
                 {
-                    MessageBox.Show("Expediente guardado correctamente.", "Exito",
-                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    string msg = _idEditando == 0 ? "Expediente guardado correctamente." : "Expediente actualizado correctamente.";
+                    MessageBox.Show(msg, "Exito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    _idEditando = 0;
+                    btnGuardar.Text = "Guardar";
                     await LimpiarCamposAsync();
                 }
                 else

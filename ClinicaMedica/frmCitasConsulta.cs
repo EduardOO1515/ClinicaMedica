@@ -11,10 +11,12 @@ namespace ClinicaMedica
     {
         private CitasNegocio _negocio = new CitasNegocio();
         private DataTable _tablaCitas;
+        private frmPrincipal _principal;
 
-        public frmCitasConsulta()
+        public frmCitasConsulta(frmPrincipal principal)
         {
             InitializeComponent();
+            _principal = principal;
             this.Load += async (s, e) => await CargarCitasAsync();
         }
 
@@ -67,6 +69,13 @@ namespace ClinicaMedica
         {
             txtBuscar.Clear();
             await CargarCitasAsync();
+        }
+
+        private void btnEditar_Click(object sender, EventArgs e)
+        {
+            if (dgvCitas.CurrentRow == null) return;
+            DataRow fila = ((DataRowView)dgvCitas.CurrentRow.DataBoundItem).Row;
+            _principal.AbrirCitaParaEditar(fila);
         }
 
         private void btnCerrar_Click(object sender, EventArgs e)

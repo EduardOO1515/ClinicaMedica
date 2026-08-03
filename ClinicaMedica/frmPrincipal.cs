@@ -1,4 +1,5 @@
 using System;
+using System.Data;
 using System.Windows.Forms;
 
 namespace ClinicaMedica
@@ -95,37 +96,87 @@ namespace ClinicaMedica
 
         private void mnuConsultaPacientes_Click(object sender, EventArgs e)
         {
-            AbrirFormulario(new frmPacientesConsulta());
+            AbrirFormulario(new frmPacientesConsulta(this));
+        }
+
+        // Abre frmPacientes embebido y carga el registro seleccionado para edicion
+        public void AbrirPacienteParaEditar(DataRow fila)
+        {
+            frmPacientes frm = new frmPacientes();
+            AbrirFormulario(frm);
+            frm.CargarParaEditar(fila);
         }
 
         private void mnuConsultaDoctores_Click(object sender, EventArgs e)
         {
-            AbrirFormulario(new frmDoctoresConsulta());
+            AbrirFormulario(new frmDoctoresConsulta(this));
+        }
+
+        public void AbrirDoctorParaEditar(DataRow fila)
+        {
+            frmDoctores frm = new frmDoctores();
+            AbrirFormulario(frm);
+            frm.CargarParaEditar(fila);
         }
 
         private void mnuConsultaCitas_Click(object sender, EventArgs e)
         {
-            AbrirFormulario(new frmCitasConsulta());
+            AbrirFormulario(new frmCitasConsulta(this));
+        }
+
+        public void AbrirCitaParaEditar(DataRow fila)
+        {
+            frmCitas frm = new frmCitas();
+            AbrirFormulario(frm);
+            frm.CargarParaEditar(fila);
         }
 
         private void mnuConsultaProveedores_Click(object sender, EventArgs e)
         {
-            AbrirFormulario(new frmProveedoresConsulta());
+            AbrirFormulario(new frmProveedoresConsulta(this));
+        }
+
+        public void AbrirProveedorParaEditar(DataRow fila)
+        {
+            frmProveedores frm = new frmProveedores();
+            AbrirFormulario(frm);
+            frm.CargarParaEditar(fila);
         }
 
         private void mnuConsultaExpedientes_Click(object sender, EventArgs e)
         {
-            AbrirFormulario(new frmExpedientesConsulta());
+            AbrirFormulario(new frmExpedientesConsulta(this));
+        }
+
+        public void AbrirExpedienteParaEditar(DataRow fila)
+        {
+            frmExpedientes frm = new frmExpedientes();
+            AbrirFormulario(frm);
+            frm.CargarParaEditar(fila);
         }
 
         private void mnuConsultaMedicamentos_Click(object sender, EventArgs e)
         {
-            AbrirFormulario(new frmMedicamentosConsulta());
+            AbrirFormulario(new frmMedicamentosConsulta(this));
+        }
+
+        public void AbrirMedicamentoParaEditar(DataRow fila)
+        {
+            frmMedicamentos frm = new frmMedicamentos();
+            AbrirFormulario(frm);
+            frm.CargarParaEditar(fila);
         }
 
         private void mnuConsultaRecetas_Click(object sender, EventArgs e)
         {
-            AbrirFormulario(new frmRecetasConsulta());
+            AbrirFormulario(new frmRecetasConsulta(this));
+        }
+
+        public void AbrirRecetaParaEditar(DataRow fila)
+        {
+            frmRecetas frm = new frmRecetas();
+            AbrirFormulario(frm);
+            frm.CargarParaEditar(fila);
         }
 
         // --- REPORTES ---

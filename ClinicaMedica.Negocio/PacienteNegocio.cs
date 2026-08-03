@@ -25,8 +25,8 @@ namespace ClinicaMedica.Negocio
         public async Task<string> RegistrarPacienteAsync(string cedula, string nombre, string apellido,
                                                          DateTime fechaNac, string telefono, bool tieneSeguro)
         {
-            if (string.IsNullOrWhiteSpace(cedula) || cedula.Length != 13)
-                return "La cedula debe tener formato 000-0000000-0.";
+            if (string.IsNullOrWhiteSpace(cedula) || cedula.Length != 11)
+                return "La cedula debe tener 11 digitos.";
 
             if (string.IsNullOrWhiteSpace(nombre) || nombre.Trim().Length < 2)
                 return "El nombre no puede estar vacio.";
@@ -37,8 +37,8 @@ namespace ClinicaMedica.Negocio
             if (fechaNac >= DateTime.Now)
                 return "La fecha de nacimiento no es valida.";
 
-            if (string.IsNullOrWhiteSpace(telefono) || telefono.Length != 12)
-                return "El telefono debe tener formato 000-000-0000.";
+            if (string.IsNullOrWhiteSpace(telefono) || telefono.Length != 10)
+                return "El telefono debe tener 10 digitos.";
 
             await _dal.InsertarAsync(cedula, nombre, apellido, fechaNac, telefono, tieneSeguro);
             return "OK";
@@ -47,8 +47,8 @@ namespace ClinicaMedica.Negocio
         public async Task<string> ActualizarPacienteAsync(int id, string cedula, string nombre, string apellido,
                                                           DateTime fechaNac, string telefono, bool tieneSeguro)
         {
-            if (string.IsNullOrWhiteSpace(cedula) || cedula.Length != 13)
-                return "La cedula debe tener formato 000-0000000-0.";
+            if (string.IsNullOrWhiteSpace(cedula) || cedula.Length != 11)
+                return "La cedula debe tener 11 digitos.";
 
             if (string.IsNullOrWhiteSpace(nombre) || nombre.Trim().Length < 2)
                 return "El nombre no puede estar vacio.";
@@ -59,8 +59,8 @@ namespace ClinicaMedica.Negocio
             if (fechaNac >= DateTime.Now)
                 return "La fecha de nacimiento no es valida.";
 
-            if (string.IsNullOrWhiteSpace(telefono) || telefono.Length != 12)
-                return "El telefono debe tener formato 000-000-0000.";
+            if (string.IsNullOrWhiteSpace(telefono) || telefono.Length != 10)
+                return "El telefono debe tener 10 digitos.";
 
             await _dal.ActualizarAsync(id, cedula, nombre, apellido, fechaNac, telefono, tieneSeguro);
             return "OK";

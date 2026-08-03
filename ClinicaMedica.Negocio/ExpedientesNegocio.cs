@@ -32,5 +32,17 @@ namespace ClinicaMedica.Negocio
             await _dal.InsertarAsync(idCita, diagnostico, tratamiento, DateTime.Now);
             return "OK";
         }
+
+        public async Task<string> ActualizarExpedienteAsync(int id, string diagnostico, string tratamiento)
+        {
+            if (id <= 0)
+                return "ID de expediente no valido.";
+
+            if (string.IsNullOrWhiteSpace(diagnostico))
+                return "El diagnostico es obligatorio.";
+
+            await _dal.ActualizarAsync(id, diagnostico, tratamiento);
+            return "OK";
+        }
     }
 }

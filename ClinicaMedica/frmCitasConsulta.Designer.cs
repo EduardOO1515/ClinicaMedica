@@ -20,6 +20,7 @@ namespace ClinicaMedica
             this.txtBuscar = new System.Windows.Forms.TextBox();
             this.btnBuscar = new System.Windows.Forms.Button();
             this.btnActualizar = new System.Windows.Forms.Button();
+            this.btnEditar = new System.Windows.Forms.Button();
             this.btnCerrar = new System.Windows.Forms.Button();
             this.dgvCitas = new System.Windows.Forms.DataGridView();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCitas)).BeginInit();
@@ -89,6 +90,22 @@ namespace ClinicaMedica
             this.btnActualizar.UseVisualStyleBackColor = false;
             this.btnActualizar.Click += new System.EventHandler(this.btnActualizar_Click);
             //
+            // btnEditar
+            //
+            this.btnEditar.BackColor = System.Drawing.Color.FromArgb(180, 100, 0);
+            this.btnEditar.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnEditar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnEditar.FlatAppearance.BorderSize = 0;
+            this.btnEditar.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            this.btnEditar.ForeColor = System.Drawing.Color.White;
+            this.btnEditar.Location = new System.Drawing.Point(650, 65);
+            this.btnEditar.Name = "btnEditar";
+            this.btnEditar.Size = new System.Drawing.Size(110, 35);
+            this.btnEditar.TabIndex = 5;
+            this.btnEditar.Text = "Editar";
+            this.btnEditar.UseVisualStyleBackColor = false;
+            this.btnEditar.Click += new System.EventHandler(this.btnEditar_Click);
+            //
             // btnCerrar
             //
             this.btnCerrar.BackColor = System.Drawing.Color.FromArgb(0, 100, 60);
@@ -97,10 +114,10 @@ namespace ClinicaMedica
             this.btnCerrar.FlatAppearance.BorderSize = 0;
             this.btnCerrar.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
             this.btnCerrar.ForeColor = System.Drawing.Color.White;
-            this.btnCerrar.Location = new System.Drawing.Point(650, 65);
+            this.btnCerrar.Location = new System.Drawing.Point(770, 65);
             this.btnCerrar.Name = "btnCerrar";
             this.btnCerrar.Size = new System.Drawing.Size(110, 35);
-            this.btnCerrar.TabIndex = 5;
+            this.btnCerrar.TabIndex = 6;
             this.btnCerrar.Text = "Cerrar";
             this.btnCerrar.UseVisualStyleBackColor = false;
             this.btnCerrar.Click += new System.EventHandler(this.btnCerrar_Click);
@@ -139,6 +156,7 @@ namespace ClinicaMedica
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Controls.Add(this.dgvCitas);
             this.Controls.Add(this.btnCerrar);
+            this.Controls.Add(this.btnEditar);
             this.Controls.Add(this.btnActualizar);
             this.Controls.Add(this.btnBuscar);
             this.Controls.Add(this.txtBuscar);
@@ -158,6 +176,7 @@ namespace ClinicaMedica
         private System.Windows.Forms.TextBox txtBuscar;
         private System.Windows.Forms.Button btnBuscar;
         private System.Windows.Forms.Button btnActualizar;
+        private System.Windows.Forms.Button btnEditar;
         private System.Windows.Forms.Button btnCerrar;
         private System.Windows.Forms.DataGridView dgvCitas;
     }

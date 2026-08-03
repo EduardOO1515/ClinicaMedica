@@ -11,6 +11,7 @@ namespace ClinicaMedica
     {
         private MedicamentosNegocio _negocio = new MedicamentosNegocio();
         private ProveedoresNegocio _negocioProveedores = new ProveedoresNegocio();
+        private int _idEditando = 0;
 
         public frmMedicamentos()
         {
@@ -50,7 +51,7 @@ namespace ClinicaMedica
             btnHabilitar.Enabled = true;
         }
 
-        private void btnHabilitar_Click(object sender, EventArgs e)
+        private void HabilitarCampos()
         {
             cboProveedor.Enabled = true;
             txtNombre.Enabled = true;
@@ -62,6 +63,27 @@ namespace ClinicaMedica
             btnGuardar.Enabled = true;
             btnHabilitar.Enabled = false;
             btnDeshabilitar.Enabled = true;
+            btnGuardar.Text = _idEditando == 0 ? "Guardar" : "Actualizar";
+        }
+
+        private void btnHabilitar_Click(object sender, EventArgs e)
+        {
+            HabilitarCampos();
+            txtNombre.Focus();
+        }
+
+        // Carga los datos de un medicamento existente y activa el modo edicion
+        public void CargarParaEditar(DataRow fila)
+        {
+            _idEditando = Convert.ToInt32(fila["IdMedicamento"]);
+            cboProveedor.SelectedValue = Convert.ToInt32(fila["IdProveedor"]);
+            txtNombre.Text = fila["Nombre"].ToString();
+            txtPresentacion.Text = fila["Presentacion"].ToString();
+            txtConcentracion.Text = fila["Concentracion"].ToString();
+            txtStock.Text = fila["Stock"].ToString();
+            txtPrecio.Text = fila["Precio"].ToString();
+            dtpFechaVencimiento.Value = Convert.ToDateTime(fila["FechaVencimiento"]);
+            HabilitarCampos();
             txtNombre.Focus();
         }
 
@@ -77,6 +99,8 @@ namespace ClinicaMedica
             btnGuardar.Enabled = false;
             btnDeshabilitar.Enabled = false;
             btnHabilitar.Enabled = true;
+            _idEditando = 0;
+            btnGuardar.Text = "Guardar";
             await LimpiarCamposAsync();
         }
 
@@ -98,19 +122,34 @@ namespace ClinicaMedica
                     return;
                 }
 
-                string resultado = await _negocio.RegistrarMedicamentoAsync(
-                    Convert.ToInt32(cboProveedor.SelectedValue),
-                    txtNombre.Text.Trim(),
-                    txtPresentacion.Text.Trim(),
-                    txtConcentracion.Text.Trim(),
-                    stock,
-                    precio,
-                    dtpFechaVencimiento.Value);
+                string resultado;
+
+                if (_idEditando == 0)
+                {
+                    resultado = await _negocio.RegistrarMedicamentoAsync(
+                        Convert.ToInt32(cboProveedor.SelectedValue),
+                        txtNombre.Text.Trim(),
+                        txtPresentacion.Text.Trim(),
+                        txtConcentracion.Text.Trim(),
+                        stock, precio, dtpFechaVencimiento.Value);
+                }
+                else
+                {
+                    resultado = await _negocio.ActualizarMedicamentoAsync(
+                        _idEditando,
+                        Convert.ToInt32(cboProveedor.SelectedValue),
+                        txtNombre.Text.Trim(),
+                        txtPresentacion.Text.Trim(),
+                        txtConcentracion.Text.Trim(),
+                        stock, precio, dtpFechaVencimiento.Value);
+                }
 
                 if (resultado == "OK")
                 {
-                    MessageBox.Show("Medicamento guardado correctamente.", "Exito",
-                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    string msg = _idEditando == 0 ? "Medicamento guardado correctamente." : "Medicamento actualizado correctamente.";
+                    MessageBox.Show(msg, "Exito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    _idEditando = 0;
+                    btnGuardar.Text = "Guardar";
                     await LimpiarCamposAsync();
                 }
                 else

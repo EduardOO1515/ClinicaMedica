@@ -12,10 +12,12 @@ namespace ClinicaMedica
         private DoctoresNegocio _negocio = new DoctoresNegocio();
         // _tablaDoctores guarda el conjunto completo; la busqueda filtra sobre esta tabla
         private DataTable _tablaDoctores;
+        private frmPrincipal _principal;
 
-        public frmDoctoresConsulta()
+        public frmDoctoresConsulta(frmPrincipal principal)
         {
             InitializeComponent();
+            _principal = principal;
             this.Load += async (s, e) => await CargarDoctoresAsync();
         }
 
@@ -68,6 +70,13 @@ namespace ClinicaMedica
         {
             txtBuscar.Clear();
             await CargarDoctoresAsync();
+        }
+
+        private void btnEditar_Click(object sender, EventArgs e)
+        {
+            if (dgvDoctores.CurrentRow == null) return;
+            DataRow fila = ((DataRowView)dgvDoctores.CurrentRow.DataBoundItem).Row;
+            _principal.AbrirDoctorParaEditar(fila);
         }
 
         private void btnCerrar_Click(object sender, EventArgs e)

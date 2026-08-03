@@ -11,10 +11,12 @@ namespace ClinicaMedica
     {
         private ExpedientesNegocio _negocio = new ExpedientesNegocio();
         private DataTable _tablaExpedientes;
+        private frmPrincipal _principal;
 
-        public frmExpedientesConsulta()
+        public frmExpedientesConsulta(frmPrincipal principal)
         {
             InitializeComponent();
+            _principal = principal;
             this.Load += async (s, e) => await CargarExpedientesAsync();
         }
 
@@ -66,6 +68,13 @@ namespace ClinicaMedica
         {
             txtBuscar.Clear();
             await CargarExpedientesAsync();
+        }
+
+        private void btnEditar_Click(object sender, EventArgs e)
+        {
+            if (dgvExpedientes.CurrentRow == null) return;
+            DataRow fila = ((DataRowView)dgvExpedientes.CurrentRow.DataBoundItem).Row;
+            _principal.AbrirExpedienteParaEditar(fila);
         }
 
         private void btnCerrar_Click(object sender, EventArgs e)

@@ -40,5 +40,28 @@ namespace ClinicaMedica.Negocio
             await _dal.InsertarAsync(idProveedor, nombre, presentacion, concentracion, stock, precio, fechaVencimiento);
             return "OK";
         }
+
+        public async Task<string> ActualizarMedicamentoAsync(int id, int idProveedor, string nombre,
+                                                             string presentacion, string concentracion,
+                                                             int stock, decimal precio, DateTime fechaVencimiento)
+        {
+            if (id <= 0)
+                return "ID de medicamento no valido.";
+
+            if (string.IsNullOrWhiteSpace(nombre))
+                return "El nombre del medicamento es obligatorio.";
+
+            if (idProveedor <= 0)
+                return "Debe seleccionar un proveedor.";
+
+            if (stock < 0)
+                return "El stock no puede ser negativo.";
+
+            if (precio < 0)
+                return "El precio no puede ser negativo.";
+
+            await _dal.ActualizarAsync(id, idProveedor, nombre, presentacion, concentracion, stock, precio, fechaVencimiento);
+            return "OK";
+        }
     }
 }

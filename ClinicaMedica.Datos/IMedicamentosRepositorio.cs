@@ -11,6 +11,8 @@ namespace ClinicaMedica.Datos
         Task<DataTable> ObtenerTodosAsync();
         Task<bool> InsertarAsync(int idProveedor, string nombre, string presentacion,
                                  string concentracion, int stock, decimal precio, DateTime fechaVencimiento);
+        Task ActualizarAsync(int idMedicamento, int idProveedor, string nombre, string presentacion,
+                             string concentracion, int stock, decimal precio, DateTime fechaVencimiento);
         Task<DataTable> BuscarPorNombreAsync(string nombre);
     }
 }

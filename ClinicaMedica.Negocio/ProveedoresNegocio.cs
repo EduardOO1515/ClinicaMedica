@@ -34,5 +34,23 @@ namespace ClinicaMedica.Negocio
             await _dal.InsertarAsync(nombre, telefono, email);
             return "OK";
         }
+
+        public async Task<string> ActualizarProveedorAsync(int id, string nombre, string telefono, string email)
+        {
+            if (id <= 0)
+                return "ID de proveedor no valido.";
+
+            if (string.IsNullOrWhiteSpace(nombre))
+                return "El nombre del proveedor es obligatorio.";
+
+            if (string.IsNullOrWhiteSpace(email))
+                return "El email es obligatorio.";
+
+            if (!email.Contains("@"))
+                return "El email debe contener el caracter @.";
+
+            await _dal.ActualizarAsync(id, nombre, telefono, email);
+            return "OK";
+        }
     }
 }

@@ -1,14 +1,17 @@
 using System;
+using System.Data;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using ClinicaMedica.Negocio;
 
 namespace ClinicaMedica
 {
-    // Formulario de entrada para registrar nuevos pacientes
+    // Formulario de entrada para registrar y editar pacientes
     public partial class frmPacientes : Form
     {
         private PacientesNegocio _negocio = new PacientesNegocio();
+        // 0 significa modo agregar; cualquier otro valor es el id del paciente en edicion
+        private int _idEditando = 0;
 
         public frmPacientes()
         {
@@ -28,7 +31,8 @@ namespace ClinicaMedica
             btnHabilitar.Enabled = true;
         }
 
-        private void btnHabilitar_Click(object sender, EventArgs e)
+        // Habilita todos los campos y ajusta el texto del boton segun el modo actual
+        private void HabilitarCampos()
         {
             txtCedula.Enabled = true;
             txtNombre.Enabled = true;
@@ -39,6 +43,12 @@ namespace ClinicaMedica
             btnGuardar.Enabled = true;
             btnHabilitar.Enabled = false;
             btnDeshabilitar.Enabled = true;
+            btnGuardar.Text = _idEditando == 0 ? "Guardar" : "Actualizar";
+        }
+
+        private void btnHabilitar_Click(object sender, EventArgs e)
+        {
+            HabilitarCampos();
             txtCedula.Focus();
         }
 
@@ -53,16 +63,41 @@ namespace ClinicaMedica
             btnGuardar.Enabled = false;
             btnDeshabilitar.Enabled = false;
             btnHabilitar.Enabled = true;
+            _idEditando = 0;
+            btnGuardar.Text = "Guardar";
             LimpiarCampos();
+        }
+
+        // Carga los datos de un paciente existente en los campos y activa el modo edicion
+        public void CargarParaEditar(DataRow fila)
+        {
+            _idEditando = Convert.ToInt32(fila["IdPaciente"]);
+
+            txtCedula.TextChanged -= txtCedula_TextChanged;
+            txtCedula.Text = fila["Cedula"].ToString();
+            txtCedula.TextChanged += txtCedula_TextChanged;
+
+            txtNombre.Text = fila["Nombre"].ToString();
+            txtApellido.Text = fila["Apellido"].ToString();
+
+            txtTelefono.TextChanged -= txtTelefono_TextChanged;
+            txtTelefono.Text = fila["Telefono"].ToString();
+            txtTelefono.TextChanged += txtTelefono_TextChanged;
+
+            dtpFechaNac.Value = Convert.ToDateTime(fila["FechaNacimiento"]);
+            chkSeguro.Checked = Convert.ToBoolean(fila["TieneSeguro"]);
+
+            HabilitarCampos();
+            txtNombre.Focus();
         }
 
         private async void btnGuardar_Click(object sender, EventArgs e)
         {
             try
             {
-                if (string.IsNullOrWhiteSpace(txtCedula.Text) || txtCedula.Text.Length != 13)
+                if (string.IsNullOrWhiteSpace(txtCedula.Text) || txtCedula.Text.Length != 11)
                 {
-                    MessageBox.Show("La cedula debe tener 13 digitos.", "Advertencia",
+                    MessageBox.Show("La cedula debe tener 11 digitos.", "Advertencia",
                         MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
@@ -79,14 +114,27 @@ namespace ClinicaMedica
                     return;
                 }
 
-                string resultado = await _negocio.RegistrarPacienteAsync(
-                    txtCedula.Text, txtNombre.Text, txtApellido.Text,
-                    dtpFechaNac.Value, txtTelefono.Text, chkSeguro.Checked);
+                string resultado;
+
+                if (_idEditando == 0)
+                {
+                    resultado = await _negocio.RegistrarPacienteAsync(
+                        txtCedula.Text, txtNombre.Text, txtApellido.Text,
+                        dtpFechaNac.Value, txtTelefono.Text, chkSeguro.Checked);
+                }
+                else
+                {
+                    resultado = await _negocio.ActualizarPacienteAsync(
+                        _idEditando, txtCedula.Text, txtNombre.Text, txtApellido.Text,
+                        dtpFechaNac.Value, txtTelefono.Text, chkSeguro.Checked);
+                }
 
                 if (resultado == "OK")
                 {
-                    MessageBox.Show("Paciente guardado correctamente.", "Exito",
-                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    string msg = _idEditando == 0 ? "Paciente guardado correctamente." : "Paciente actualizado correctamente.";
+                    MessageBox.Show(msg, "Exito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    _idEditando = 0;
+                    btnGuardar.Text = "Guardar";
                     LimpiarCampos();
                 }
                 else
@@ -104,6 +152,8 @@ namespace ClinicaMedica
 
         private void btnLimpiar_Click(object sender, EventArgs e)
         {
+            _idEditando = 0;
+            btnGuardar.Text = "Guardar";
             LimpiarCampos();
         }
 
@@ -133,7 +183,7 @@ namespace ClinicaMedica
             }
         }
 
-        // Aplica formato 000-0000000-0 mientras el usuario escribe
+        // Elimina cualquier caracter no numerico que pueda llegar por pegado de texto
         private void txtCedula_TextChanged(object sender, EventArgs e)
         {
             string solo = "";
@@ -141,14 +191,10 @@ namespace ClinicaMedica
                 if (char.IsDigit(c)) solo += c;
             if (solo.Length > 11) solo = solo.Substring(0, 11);
 
-            string formateado = solo;
-            if (solo.Length > 3)
-                formateado = solo.Substring(0, 3) + "-" + solo.Substring(3);
-            if (solo.Length > 10)
-                formateado = solo.Substring(0, 3) + "-" + solo.Substring(3, 7) + "-" + solo.Substring(10);
+            if (solo == txtCedula.Text) return;
 
             txtCedula.TextChanged -= txtCedula_TextChanged;
-            txtCedula.Text = formateado;
+            txtCedula.Text = solo;
             txtCedula.SelectionStart = txtCedula.Text.Length;
             txtCedula.TextChanged += txtCedula_TextChanged;
         }
@@ -182,20 +228,18 @@ namespace ClinicaMedica
             }
         }
 
-        // Aplica formato 000-000-0000 mientras el usuario escribe
+        // Elimina cualquier caracter no numerico que pueda llegar por pegado de texto
         private void txtTelefono_TextChanged(object sender, EventArgs e)
         {
-            string solo = txtTelefono.Text.Replace("-", "");
+            string solo = "";
+            foreach (char c in txtTelefono.Text)
+                if (char.IsDigit(c)) solo += c;
             if (solo.Length > 10) solo = solo.Substring(0, 10);
 
-            string formateado = solo;
-            if (solo.Length > 3)
-                formateado = solo.Substring(0, 3) + "-" + solo.Substring(3);
-            if (solo.Length > 6)
-                formateado = solo.Substring(0, 3) + "-" + solo.Substring(3, 3) + "-" + solo.Substring(6);
+            if (solo == txtTelefono.Text) return;
 
             txtTelefono.TextChanged -= txtTelefono_TextChanged;
-            txtTelefono.Text = formateado;
+            txtTelefono.Text = solo;
             txtTelefono.SelectionStart = txtTelefono.Text.Length;
             txtTelefono.TextChanged += txtTelefono_TextChanged;
         }

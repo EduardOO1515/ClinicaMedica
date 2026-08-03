@@ -25,6 +25,20 @@ namespace ClinicaMedica.Negocio
         // Inserta la cabecera de la receta, obtiene el IdReceta generado,
         // y luego inserta cada linea de medicamento del detalle
         // TODO: mejora futura, implementar una transaccion de BD para que cabecera y detalle se guarden de forma atomica
+        // Actualiza solo la cabecera de la receta (fecha e indicaciones)
+        // Los detalles de medicamentos existentes no se modifican con este metodo
+        public async Task<string> ActualizarRecetaAsync(int idReceta, DateTime fecha, string indicaciones)
+        {
+            if (idReceta <= 0)
+                return "ID de receta no valido.";
+
+            if (string.IsNullOrWhiteSpace(indicaciones))
+                return "Las indicaciones son obligatorias.";
+
+            await _dalRecetas.ActualizarAsync(idReceta, fecha, indicaciones);
+            return "OK";
+        }
+
         public async Task<string> RegistrarRecetaAsync(int idCita, DateTime fecha, string indicaciones, DataTable detalles)
         {
             if (idCita <= 0)

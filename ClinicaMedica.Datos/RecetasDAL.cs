@@ -54,5 +54,26 @@ namespace ClinicaMedica.Datos
                 throw new Exception("Error al insertar receta: " + ex.Message);
             }
         }
+        public async Task ActualizarAsync(int idReceta, DateTime fecha, string indicaciones)
+        {
+            try
+            {
+                using (SqlConnection con = Conexion.ObtenerConexion())
+                {
+                    await con.OpenAsync();
+                    SqlCommand cmd = new SqlCommand(
+                        "UPDATE Recetas SET Fecha=@fecha, Indicaciones=@indicaciones " +
+                        "WHERE IdReceta=@idReceta", con);
+                    cmd.Parameters.AddWithValue("@idReceta", idReceta);
+                    cmd.Parameters.AddWithValue("@fecha", fecha);
+                    cmd.Parameters.AddWithValue("@indicaciones", indicaciones);
+                    await cmd.ExecuteNonQueryAsync();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al actualizar receta: " + ex.Message);
+            }
+        }
     }
 }

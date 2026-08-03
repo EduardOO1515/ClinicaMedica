@@ -131,7 +131,7 @@ namespace ClinicaMedica
             this.txtCedula.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.txtCedula.ForeColor = System.Drawing.Color.White;
             this.txtCedula.Location = new System.Drawing.Point(30, 155);
-            this.txtCedula.MaxLength = 13;
+            this.txtCedula.MaxLength = 11;
             this.txtCedula.Name = "txtCedula";
             this.txtCedula.Size = new System.Drawing.Size(180, 30);
             this.txtCedula.TabIndex = 6;
@@ -171,7 +171,7 @@ namespace ClinicaMedica
             this.txtTelefono.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.txtTelefono.ForeColor = System.Drawing.Color.White;
             this.txtTelefono.Location = new System.Drawing.Point(630, 155);
-            this.txtTelefono.MaxLength = 15;
+            this.txtTelefono.MaxLength = 10;
             this.txtTelefono.Name = "txtTelefono";
             this.txtTelefono.Size = new System.Drawing.Size(180, 30);
             this.txtTelefono.TabIndex = 9;

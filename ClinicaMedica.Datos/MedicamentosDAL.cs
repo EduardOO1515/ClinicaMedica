@@ -18,7 +18,7 @@ namespace ClinicaMedica.Datos
                 {
                     await con.OpenAsync();
                     SqlDataAdapter da = new SqlDataAdapter(
-                        "SELECT m.IdMedicamento, p.Nombre AS Proveedor, m.Nombre, " +
+                        "SELECT m.IdMedicamento, m.IdProveedor, p.Nombre AS Proveedor, m.Nombre, " +
                         "m.Presentacion, m.Concentracion, m.Stock, m.Precio, m.FechaVencimiento " +
                         "FROM Medicamentos m " +
                         "INNER JOIN Proveedores p ON m.IdProveedor = p.IdProveedor " +
@@ -58,6 +58,36 @@ namespace ClinicaMedica.Datos
             catch (Exception ex)
             {
                 throw new Exception("Error al insertar medicamento: " + ex.Message);
+            }
+        }
+
+        public async Task ActualizarAsync(int idMedicamento, int idProveedor, string nombre, string presentacion,
+                                         string concentracion, int stock, decimal precio, DateTime fechaVencimiento)
+        {
+            try
+            {
+                using (SqlConnection con = Conexion.ObtenerConexion())
+                {
+                    await con.OpenAsync();
+                    SqlCommand cmd = new SqlCommand(
+                        "UPDATE Medicamentos SET IdProveedor=@idProveedor, Nombre=@nombre, " +
+                        "Presentacion=@presentacion, Concentracion=@concentracion, Stock=@stock, " +
+                        "Precio=@precio, FechaVencimiento=@fechaVencimiento " +
+                        "WHERE IdMedicamento=@idMedicamento", con);
+                    cmd.Parameters.AddWithValue("@idMedicamento", idMedicamento);
+                    cmd.Parameters.AddWithValue("@idProveedor", idProveedor);
+                    cmd.Parameters.AddWithValue("@nombre", nombre);
+                    cmd.Parameters.AddWithValue("@presentacion", presentacion);
+                    cmd.Parameters.AddWithValue("@concentracion", concentracion);
+                    cmd.Parameters.AddWithValue("@stock", stock);
+                    cmd.Parameters.AddWithValue("@precio", precio);
+                    cmd.Parameters.AddWithValue("@fechaVencimiento", fechaVencimiento);
+                    await cmd.ExecuteNonQueryAsync();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al actualizar medicamento: " + ex.Message);
             }
         }
 

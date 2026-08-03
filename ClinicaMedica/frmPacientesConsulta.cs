@@ -12,10 +12,12 @@ namespace ClinicaMedica
         private PacientesNegocio _negocio = new PacientesNegocio();
         // _tablaPacientes guarda el conjunto completo; la busqueda filtra sobre esta tabla
         private DataTable _tablaPacientes;
+        private frmPrincipal _principal;
 
-        public frmPacientesConsulta()
+        public frmPacientesConsulta(frmPrincipal principal)
         {
             InitializeComponent();
+            _principal = principal;
             this.Load += async (s, e) => await CargarPacientesAsync();
         }
 
@@ -69,6 +71,19 @@ namespace ClinicaMedica
         {
             txtBuscar.Clear();
             await CargarPacientesAsync();
+        }
+
+        // Carga el paciente seleccionado en frmPacientes para su edicion
+        private void btnEditar_Click(object sender, EventArgs e)
+        {
+            if (dgvPacientes.CurrentRow == null)
+            {
+                MessageBox.Show("Seleccione un paciente para editar.", "Advertencia",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            DataRow fila = ((DataRowView)dgvPacientes.CurrentRow.DataBoundItem).Row;
+            _principal.AbrirPacienteParaEditar(fila);
         }
 
         private void btnCerrar_Click(object sender, EventArgs e)

@@ -10,6 +10,7 @@ namespace ClinicaMedica.Datos
         Task<DataTable> ObtenerTodosAsync();
         // InsertarAsync deriva el IdPaciente desde la tabla Citas mediante subconsulta
         Task<bool> InsertarAsync(int idCita, string diagnostico, string tratamiento, DateTime fechaRegistro);
+        Task ActualizarAsync(int idExpediente, string diagnostico, string tratamiento);
         Task<DataTable> ConsultarPorPacienteAsync(int idPaciente);
     }
 }

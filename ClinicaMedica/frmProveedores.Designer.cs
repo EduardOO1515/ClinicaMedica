@@ -122,7 +122,7 @@ namespace ClinicaMedica
             this.txtTelefono.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.txtTelefono.ForeColor = System.Drawing.Color.White;
             this.txtTelefono.Location = new System.Drawing.Point(330, 155);
-            this.txtTelefono.MaxLength = 20;
+            this.txtTelefono.MaxLength = 10;
             this.txtTelefono.Name = "txtTelefono";
             this.txtTelefono.Size = new System.Drawing.Size(280, 30);
             this.txtTelefono.TabIndex = 7;

@@ -13,6 +13,7 @@ namespace ClinicaMedica
         private CitasNegocio _negocio = new CitasNegocio();
         private PacientesNegocio _negocioPacientes = new PacientesNegocio();
         private DoctoresNegocio _negocioDoctores = new DoctoresNegocio();
+        private int _idEditando = 0;
 
         public frmCitas()
         {
@@ -33,7 +34,7 @@ namespace ClinicaMedica
             btnHabilitar.Enabled = true;
         }
 
-        private void btnHabilitar_Click(object sender, EventArgs e)
+        private void HabilitarCampos()
         {
             cmbPaciente.Enabled = true;
             cmbDoctor.Enabled = true;
@@ -44,6 +45,25 @@ namespace ClinicaMedica
             btnGuardar.Enabled = true;
             btnHabilitar.Enabled = false;
             btnDeshabilitar.Enabled = true;
+            btnGuardar.Text = _idEditando == 0 ? "Guardar" : "Actualizar";
+        }
+
+        private void btnHabilitar_Click(object sender, EventArgs e)
+        {
+            HabilitarCampos();
+        }
+
+        // Carga los datos de una cita existente en los campos y activa el modo edicion
+        public void CargarParaEditar(DataRow fila)
+        {
+            _idEditando = Convert.ToInt32(fila["IdCita"]);
+            cmbPaciente.SelectedValue = Convert.ToInt32(fila["IdPaciente"]);
+            cmbDoctor.SelectedValue = Convert.ToInt32(fila["IdDoctor"]);
+            dtpFechaCita.Value = Convert.ToDateTime(fila["FechaCita"]);
+            cmbEstado.SelectedIndex = cmbEstado.FindStringExact(fila["Estado"].ToString());
+            cmbTipo.SelectedIndex = cmbTipo.FindStringExact(fila["TipoConsulta"].ToString());
+            txtCosto.Text = fila["Costo"].ToString();
+            HabilitarCampos();
         }
 
         private async void btnDeshabilitar_Click(object sender, EventArgs e)
@@ -57,6 +77,8 @@ namespace ClinicaMedica
             btnGuardar.Enabled = false;
             btnDeshabilitar.Enabled = false;
             btnHabilitar.Enabled = true;
+            _idEditando = 0;
+            btnGuardar.Text = "Guardar";
             await LimpiarCamposAsync();
         }
 
@@ -97,19 +119,36 @@ namespace ClinicaMedica
                 }
 
                 decimal costo = Convert.ToDecimal(txtCosto.Text);
+                string resultado;
 
-                string resultado = await _negocio.RegistrarCitaAsync(
-                    Convert.ToInt32(cmbPaciente.SelectedValue),
-                    Convert.ToInt32(cmbDoctor.SelectedValue),
-                    dtpFechaCita.Value,
-                    cmbEstado.SelectedItem.ToString(),
-                    cmbTipo.SelectedItem.ToString(),
-                    costo);
+                if (_idEditando == 0)
+                {
+                    resultado = await _negocio.RegistrarCitaAsync(
+                        Convert.ToInt32(cmbPaciente.SelectedValue),
+                        Convert.ToInt32(cmbDoctor.SelectedValue),
+                        dtpFechaCita.Value,
+                        cmbEstado.SelectedItem.ToString(),
+                        cmbTipo.SelectedItem.ToString(),
+                        costo);
+                }
+                else
+                {
+                    resultado = await _negocio.ActualizarCitaAsync(
+                        _idEditando,
+                        Convert.ToInt32(cmbPaciente.SelectedValue),
+                        Convert.ToInt32(cmbDoctor.SelectedValue),
+                        dtpFechaCita.Value,
+                        cmbEstado.SelectedItem.ToString(),
+                        cmbTipo.SelectedItem.ToString(),
+                        costo);
+                }
 
                 if (resultado == "OK")
                 {
-                    MessageBox.Show("Cita guardada correctamente.", "Exito",
-                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    string msg = _idEditando == 0 ? "Cita guardada correctamente." : "Cita actualizada correctamente.";
+                    MessageBox.Show(msg, "Exito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    _idEditando = 0;
+                    btnGuardar.Text = "Guardar";
                     await LimpiarCamposAsync();
                 }
                 else
