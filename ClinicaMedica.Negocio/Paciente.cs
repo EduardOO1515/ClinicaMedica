@@ -43,9 +43,9 @@ namespace ClinicaMedica.Negocio
         {
             decimal costoBase = 0m;
             if (_tipoConsulta == "General") costoBase = 1500m;
-            else if (_tipoConsulta == "Especialidad") costoBase = 3000m;
-            else if (_tipoConsulta == "Emergencia") costoBase = 5000m;
+            else if (_tipoConsulta == "Especialista") costoBase = 3000m;
             else if (_tipoConsulta == "Control") costoBase = 800m;
+            else if (_tipoConsulta == "Emergencia") costoBase = 5000m;
             else if (_tipoConsulta == "Laboratorio") costoBase = 1200m;
 
             if (!_tieneSeguro)

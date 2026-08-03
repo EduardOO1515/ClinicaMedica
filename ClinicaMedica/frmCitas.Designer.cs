@@ -208,7 +208,7 @@ namespace ClinicaMedica
             this.cmbTipo.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.cmbTipo.ForeColor = System.Drawing.Color.FromArgb(10, 60, 120);
             this.cmbTipo.FormattingEnabled = true;
-            this.cmbTipo.Items.AddRange(new object[] { "General", "Especialista", "Control", "Emergencia" });
+            this.cmbTipo.Items.AddRange(new object[] { "General", "Especialista", "Control", "Emergencia", "Laboratorio" });
             this.cmbTipo.Location = new System.Drawing.Point(280, 230);
             this.cmbTipo.Name = "cmbTipo";
             this.cmbTipo.Size = new System.Drawing.Size(230, 32);

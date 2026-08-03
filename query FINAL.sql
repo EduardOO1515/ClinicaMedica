@@ -76,7 +76,7 @@ CREATE TABLE Citas
     CONSTRAINT FK_Citas_Doctores FOREIGN KEY (IdDoctor)
         REFERENCES Doctores (IdDoctor),
     CONSTRAINT CK_Citas_Estado CHECK (Estado IN ('Pendiente','Confirmada','Cancelada','Completada')),
-    CONSTRAINT CK_Citas_TipoConsulta CHECK (TipoConsulta IN ('General','Especialista','Control','Emergencia')),
+    CONSTRAINT CK_Citas_TipoConsulta CHECK (TipoConsulta IN ('General','Especialista','Control','Emergencia','Laboratorio')),
     CONSTRAINT CK_Citas_Costo CHECK (Costo >= 0)
 );
 GO
