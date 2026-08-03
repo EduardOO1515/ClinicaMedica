@@ -1,5 +1,6 @@
 using System;
 using System.Data;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace ClinicaMedica
@@ -172,11 +173,11 @@ namespace ClinicaMedica
             AbrirFormulario(new frmRecetasConsulta(this));
         }
 
-        public void AbrirRecetaParaEditar(DataRow fila)
+        public async Task AbrirRecetaParaEditar(DataRow fila)
         {
             frmRecetas frm = new frmRecetas();
             AbrirFormulario(frm);
-            frm.CargarParaEditar(fila);
+            await frm.CargarParaEditar(fila);
         }
 
         // --- REPORTES ---

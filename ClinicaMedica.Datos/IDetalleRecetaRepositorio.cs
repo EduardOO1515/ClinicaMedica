@@ -9,7 +9,9 @@ namespace ClinicaMedica.Datos
         // InsertarAsync agrega una linea de medicamento a una receta existente
         Task<bool> InsertarAsync(int idReceta, int idMedicamento, string dosis,
                                  string frecuencia, string duracion, string observaciones);
-        // ConsultarPorRecetaAsync hace JOIN con Medicamentos para mostrar el nombre
+        // ConsultarPorRecetaAsync hace JOIN con Medicamentos para mostrar el nombre y el ID
         Task<DataTable> ConsultarPorRecetaAsync(int idReceta);
+        // EliminarPorRecetaAsync borra todas las lineas de detalle de una receta
+        Task EliminarPorRecetaAsync(int idReceta);
     }
 }

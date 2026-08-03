@@ -22,12 +22,14 @@ namespace ClinicaMedica.Negocio
             return await _dalRecetas.ObtenerTodosAsync();
         }
 
-        // Inserta la cabecera de la receta, obtiene el IdReceta generado,
-        // y luego inserta cada linea de medicamento del detalle
-        // TODO: mejora futura, implementar una transaccion de BD para que cabecera y detalle se guarden de forma atomica
-        // Actualiza solo la cabecera de la receta (fecha e indicaciones)
-        // Los detalles de medicamentos existentes no se modifican con este metodo
-        public async Task<string> ActualizarRecetaAsync(int idReceta, DateTime fecha, string indicaciones)
+        // Devuelve el detalle de medicamentos de una receta para cargarlos al editar
+        public async Task<DataTable> ObtenerDetalleAsync(int idReceta)
+        {
+            return await _dalDetalle.ConsultarPorRecetaAsync(idReceta);
+        }
+
+        // Actualiza la cabecera y reemplaza el detalle completo de la receta (borra e inserta de nuevo)
+        public async Task<string> ActualizarRecetaAsync(int idReceta, DateTime fecha, string indicaciones, DataTable detalles)
         {
             if (idReceta <= 0)
                 return "ID de receta no valido.";
@@ -35,7 +37,22 @@ namespace ClinicaMedica.Negocio
             if (string.IsNullOrWhiteSpace(indicaciones))
                 return "Las indicaciones son obligatorias.";
 
+            if (detalles == null || detalles.Rows.Count == 0)
+                return "Debe agregar al menos un medicamento al detalle.";
+
             await _dalRecetas.ActualizarAsync(idReceta, fecha, indicaciones);
+            await _dalDetalle.EliminarPorRecetaAsync(idReceta);
+
+            foreach (DataRow fila in detalles.Rows)
+            {
+                int idMedicamento = Convert.ToInt32(fila["IdMedicamento"]);
+                string dosis = fila["Dosis"].ToString();
+                string frecuencia = fila["Frecuencia"].ToString();
+                string duracion = fila["Duracion"].ToString();
+                string observaciones = fila["Observaciones"].ToString();
+                await _dalDetalle.InsertarAsync(idReceta, idMedicamento, dosis, frecuencia, duracion, observaciones);
+            }
+
             return "OK";
         }
 

@@ -98,13 +98,34 @@ namespace ClinicaMedica
             txtIndicaciones.Focus();
         }
 
-        // Carga los datos de una receta existente y activa el modo edicion (solo cabecera)
-        public void CargarParaEditar(DataRow fila)
+        // Carga los datos de una receta existente (cabecera + detalle) y activa el modo edicion
+        public async Task CargarParaEditar(DataRow fila)
         {
             _idEditando = Convert.ToInt32(fila["IdReceta"]);
             cboCita.SelectedValue = Convert.ToInt32(fila["IdCita"]);
             dtpFecha.Value = Convert.ToDateTime(fila["Fecha"]);
             txtIndicaciones.Text = fila["Indicaciones"].ToString();
+
+            try
+            {
+                DataTable detalle = await _negocio.ObtenerDetalleAsync(_idEditando);
+                dgvDetalle.Rows.Clear();
+                foreach (DataRow linea in detalle.Rows)
+                {
+                    dgvDetalle.Rows.Add(
+                        Convert.ToInt32(linea["IdMedicamento"]),
+                        linea["Dosis"].ToString(),
+                        linea["Frecuencia"].ToString(),
+                        linea["Duracion"].ToString(),
+                        linea["Observaciones"].ToString());
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al cargar detalle de receta: " + ex.Message, "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
             HabilitarCampos();
             txtIndicaciones.Focus();
         }
@@ -189,7 +210,8 @@ namespace ClinicaMedica
                     resultado = await _negocio.ActualizarRecetaAsync(
                         _idEditando,
                         dtpFecha.Value,
-                        txtIndicaciones.Text.Trim());
+                        txtIndicaciones.Text.Trim(),
+                        detalles);
                 }
 
                 if (resultado == "OK")

@@ -70,11 +70,11 @@ namespace ClinicaMedica
             await CargarRecetasAsync();
         }
 
-        private void btnEditar_Click(object sender, EventArgs e)
+        private async void btnEditar_Click(object sender, EventArgs e)
         {
             if (dgvRecetas.CurrentRow == null) return;
             DataRow fila = ((DataRowView)dgvRecetas.CurrentRow.DataBoundItem).Row;
-            _principal.AbrirRecetaParaEditar(fila);
+            await _principal.AbrirRecetaParaEditar(fila);
         }
 
         private void btnCerrar_Click(object sender, EventArgs e)

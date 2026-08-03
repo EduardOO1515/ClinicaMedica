@@ -193,7 +193,7 @@ namespace ClinicaMedica
             this.cmbEstado.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.cmbEstado.ForeColor = System.Drawing.Color.FromArgb(10, 60, 120);
             this.cmbEstado.FormattingEnabled = true;
-            this.cmbEstado.Items.AddRange(new object[] { "Pendiente", "Completada", "Cancelada" });
+            this.cmbEstado.Items.AddRange(new object[] { "Pendiente", "Confirmada", "Cancelada", "Completada" });
             this.cmbEstado.Location = new System.Drawing.Point(30, 230);
             this.cmbEstado.Name = "cmbEstado";
             this.cmbEstado.Size = new System.Drawing.Size(230, 32);
@@ -208,7 +208,7 @@ namespace ClinicaMedica
             this.cmbTipo.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.cmbTipo.ForeColor = System.Drawing.Color.FromArgb(10, 60, 120);
             this.cmbTipo.FormattingEnabled = true;
-            this.cmbTipo.Items.AddRange(new object[] { "General", "Especialidad", "Emergencia", "Control", "Laboratorio" });
+            this.cmbTipo.Items.AddRange(new object[] { "General", "Especialista", "Control", "Emergencia" });
             this.cmbTipo.Location = new System.Drawing.Point(280, 230);
             this.cmbTipo.Name = "cmbTipo";
             this.cmbTipo.Size = new System.Drawing.Size(230, 32);

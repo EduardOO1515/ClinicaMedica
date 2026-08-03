@@ -36,7 +36,27 @@ namespace ClinicaMedica.Datos
             }
         }
 
-        // Hace JOIN con Medicamentos para mostrar el nombre en lugar del ID
+        // Borra todas las lineas de detalle de la receta indicada
+        public async Task EliminarPorRecetaAsync(int idReceta)
+        {
+            try
+            {
+                using (SqlConnection con = Conexion.ObtenerConexion())
+                {
+                    await con.OpenAsync();
+                    SqlCommand cmd = new SqlCommand(
+                        "DELETE FROM DetalleReceta WHERE IdReceta = @idReceta", con);
+                    cmd.Parameters.AddWithValue("@idReceta", idReceta);
+                    await cmd.ExecuteNonQueryAsync();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al eliminar detalle de receta: " + ex.Message);
+            }
+        }
+
+        // Hace JOIN con Medicamentos para mostrar el nombre y el ID
         public async Task<DataTable> ConsultarPorRecetaAsync(int idReceta)
         {
             DataTable dt = new DataTable();
@@ -46,7 +66,7 @@ namespace ClinicaMedica.Datos
                 {
                     await con.OpenAsync();
                     SqlCommand cmd = new SqlCommand(
-                        "SELECT d.IdDetalle, m.Nombre AS Medicamento, d.Dosis, " +
+                        "SELECT d.IdDetalle, d.IdMedicamento, m.Nombre AS Medicamento, d.Dosis, " +
                         "d.Frecuencia, d.Duracion, d.Observaciones " +
                         "FROM DetalleReceta d " +
                         "INNER JOIN Medicamentos m ON d.IdMedicamento = m.IdMedicamento " +

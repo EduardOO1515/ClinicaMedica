@@ -60,8 +60,10 @@ namespace ClinicaMedica
             cmbPaciente.SelectedValue = Convert.ToInt32(fila["IdPaciente"]);
             cmbDoctor.SelectedValue = Convert.ToInt32(fila["IdDoctor"]);
             dtpFechaCita.Value = Convert.ToDateTime(fila["FechaCita"]);
-            cmbEstado.SelectedIndex = cmbEstado.FindStringExact(fila["Estado"].ToString());
-            cmbTipo.SelectedIndex = cmbTipo.FindStringExact(fila["TipoConsulta"].ToString());
+            int idxEstado = cmbEstado.FindStringExact(fila["Estado"].ToString());
+            cmbEstado.SelectedIndex = idxEstado >= 0 ? idxEstado : 0;
+            int idxTipo = cmbTipo.FindStringExact(fila["TipoConsulta"].ToString());
+            cmbTipo.SelectedIndex = idxTipo >= 0 ? idxTipo : 0;
             txtCosto.Text = fila["Costo"].ToString();
             HabilitarCampos();
         }
