@@ -101,6 +101,9 @@ namespace ClinicaMedica
         // Carga los datos de una receta existente (cabecera + detalle) y activa el modo edicion
         public async Task CargarParaEditar(DataRow fila)
         {
+            await CargarCitasAsync();
+            await CargarMedicamentosAsync();
+
             _idEditando = Convert.ToInt32(fila["IdReceta"]);
             cboCita.SelectedValue = Convert.ToInt32(fila["IdCita"]);
             dtpFecha.Value = Convert.ToDateTime(fila["Fecha"]);
