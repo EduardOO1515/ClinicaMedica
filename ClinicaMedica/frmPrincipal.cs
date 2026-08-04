@@ -232,5 +232,15 @@ namespace ClinicaMedica
             MessageBox.Show("Este modulo todavia esta en construccion.", "Proximamente",
                 MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
+
+        private void picLogo_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblTitulo_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

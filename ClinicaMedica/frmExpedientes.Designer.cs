@@ -15,208 +15,242 @@ namespace ClinicaMedica
 
         private void InitializeComponent()
         {
-            this.lblTitulo = new System.Windows.Forms.Label();
-            this.btnHabilitar = new System.Windows.Forms.Button();
-            this.btnDeshabilitar = new System.Windows.Forms.Button();
-            this.lblCita = new System.Windows.Forms.Label();
-            this.lblDiagnostico = new System.Windows.Forms.Label();
-            this.lblTratamiento = new System.Windows.Forms.Label();
-            this.cboCita = new System.Windows.Forms.ComboBox();
-            this.txtDiagnostico = new System.Windows.Forms.TextBox();
-            this.txtTratamiento = new System.Windows.Forms.TextBox();
-            this.btnGuardar = new System.Windows.Forms.Button();
-            this.btnLimpiar = new System.Windows.Forms.Button();
-            this.btnVolver = new System.Windows.Forms.Button();
-            this.SuspendLayout();
-            //
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmExpedientes));
+            lblTitulo = new System.Windows.Forms.Label();
+            btnHabilitar = new System.Windows.Forms.Button();
+            btnDeshabilitar = new System.Windows.Forms.Button();
+            lblCita = new System.Windows.Forms.Label();
+            lblDiagnostico = new System.Windows.Forms.Label();
+            lblTratamiento = new System.Windows.Forms.Label();
+            cboCita = new System.Windows.Forms.ComboBox();
+            txtDiagnostico = new System.Windows.Forms.TextBox();
+            txtTratamiento = new System.Windows.Forms.TextBox();
+            btnGuardar = new System.Windows.Forms.Button();
+            btnLimpiar = new System.Windows.Forms.Button();
+            btnVolver = new System.Windows.Forms.Button();
+            picLogo = new System.Windows.Forms.PictureBox();
+            ((System.ComponentModel.ISupportInitialize)picLogo).BeginInit();
+            SuspendLayout();
+            // 
             // lblTitulo
-            //
-            this.lblTitulo.AutoSize = false;
-            this.lblTitulo.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold);
-            this.lblTitulo.ForeColor = System.Drawing.Color.White;
-            this.lblTitulo.Location = new System.Drawing.Point(30, 15);
-            this.lblTitulo.Name = "lblTitulo";
-            this.lblTitulo.Size = new System.Drawing.Size(500, 40);
-            this.lblTitulo.TabIndex = 0;
-            this.lblTitulo.Text = "Alta de Expedientes";
-            //
+            // 
+            lblTitulo.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold);
+            lblTitulo.ForeColor = System.Drawing.Color.White;
+            lblTitulo.Location = new System.Drawing.Point(35, 17);
+            lblTitulo.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblTitulo.Name = "lblTitulo";
+            lblTitulo.Size = new System.Drawing.Size(583, 46);
+            lblTitulo.TabIndex = 0;
+            lblTitulo.Text = "Alta de Expedientes";
+            // 
             // btnHabilitar
-            //
-            this.btnHabilitar.BackColor = System.Drawing.Color.FromArgb(0, 160, 80);
-            this.btnHabilitar.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnHabilitar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnHabilitar.FlatAppearance.BorderSize = 0;
-            this.btnHabilitar.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
-            this.btnHabilitar.ForeColor = System.Drawing.Color.White;
-            this.btnHabilitar.Location = new System.Drawing.Point(30, 70);
-            this.btnHabilitar.Name = "btnHabilitar";
-            this.btnHabilitar.Size = new System.Drawing.Size(160, 38);
-            this.btnHabilitar.TabIndex = 1;
-            this.btnHabilitar.Text = "Habilitar Ingreso";
-            this.btnHabilitar.UseVisualStyleBackColor = false;
-            this.btnHabilitar.Click += new System.EventHandler(this.btnHabilitar_Click);
-            //
+            // 
+            btnHabilitar.BackColor = System.Drawing.Color.FromArgb(0, 160, 80);
+            btnHabilitar.Cursor = System.Windows.Forms.Cursors.Hand;
+            btnHabilitar.FlatAppearance.BorderSize = 0;
+            btnHabilitar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            btnHabilitar.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            btnHabilitar.ForeColor = System.Drawing.Color.White;
+            btnHabilitar.Location = new System.Drawing.Point(35, 81);
+            btnHabilitar.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            btnHabilitar.Name = "btnHabilitar";
+            btnHabilitar.Size = new System.Drawing.Size(187, 44);
+            btnHabilitar.TabIndex = 1;
+            btnHabilitar.Text = "Habilitar Ingreso";
+            btnHabilitar.UseVisualStyleBackColor = false;
+            btnHabilitar.Click += btnHabilitar_Click;
+            // 
             // btnDeshabilitar
-            //
-            this.btnDeshabilitar.BackColor = System.Drawing.Color.FromArgb(180, 90, 0);
-            this.btnDeshabilitar.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnDeshabilitar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnDeshabilitar.FlatAppearance.BorderSize = 0;
-            this.btnDeshabilitar.Enabled = false;
-            this.btnDeshabilitar.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
-            this.btnDeshabilitar.ForeColor = System.Drawing.Color.White;
-            this.btnDeshabilitar.Location = new System.Drawing.Point(200, 70);
-            this.btnDeshabilitar.Name = "btnDeshabilitar";
-            this.btnDeshabilitar.Size = new System.Drawing.Size(180, 38);
-            this.btnDeshabilitar.TabIndex = 2;
-            this.btnDeshabilitar.Text = "Deshabilitar Ingreso";
-            this.btnDeshabilitar.UseVisualStyleBackColor = false;
-            this.btnDeshabilitar.Click += new System.EventHandler(this.btnDeshabilitar_Click);
-            //
+            // 
+            btnDeshabilitar.BackColor = System.Drawing.Color.FromArgb(180, 90, 0);
+            btnDeshabilitar.Cursor = System.Windows.Forms.Cursors.Hand;
+            btnDeshabilitar.Enabled = false;
+            btnDeshabilitar.FlatAppearance.BorderSize = 0;
+            btnDeshabilitar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            btnDeshabilitar.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            btnDeshabilitar.ForeColor = System.Drawing.Color.White;
+            btnDeshabilitar.Location = new System.Drawing.Point(233, 81);
+            btnDeshabilitar.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            btnDeshabilitar.Name = "btnDeshabilitar";
+            btnDeshabilitar.Size = new System.Drawing.Size(210, 44);
+            btnDeshabilitar.TabIndex = 2;
+            btnDeshabilitar.Text = "Deshabilitar Ingreso";
+            btnDeshabilitar.UseVisualStyleBackColor = false;
+            btnDeshabilitar.Click += btnDeshabilitar_Click;
+            // 
             // lblCita
-            //
-            this.lblCita.AutoSize = true;
-            this.lblCita.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
-            this.lblCita.ForeColor = System.Drawing.Color.FromArgb(173, 216, 230);
-            this.lblCita.Location = new System.Drawing.Point(30, 130);
-            this.lblCita.Name = "lblCita";
-            this.lblCita.TabIndex = 3;
-            this.lblCita.Text = "Cita:";
-            //
-            // cboCita
-            //
-            this.cboCita.BackColor = System.Drawing.Color.White;
-            this.cboCita.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cboCita.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cboCita.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.cboCita.ForeColor = System.Drawing.Color.FromArgb(10, 60, 120);
-            this.cboCita.FormattingEnabled = true;
-            this.cboCita.Location = new System.Drawing.Point(30, 155);
-            this.cboCita.Name = "cboCita";
-            this.cboCita.Size = new System.Drawing.Size(500, 32);
-            this.cboCita.TabIndex = 4;
-            //
+            // 
+            lblCita.AutoSize = true;
+            lblCita.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            lblCita.ForeColor = System.Drawing.Color.FromArgb(173, 216, 230);
+            lblCita.Location = new System.Drawing.Point(35, 150);
+            lblCita.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblCita.Name = "lblCita";
+            lblCita.Size = new System.Drawing.Size(31, 15);
+            lblCita.TabIndex = 3;
+            lblCita.Text = "Cita:";
+            // 
             // lblDiagnostico
-            //
-            this.lblDiagnostico.AutoSize = true;
-            this.lblDiagnostico.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
-            this.lblDiagnostico.ForeColor = System.Drawing.Color.FromArgb(173, 216, 230);
-            this.lblDiagnostico.Location = new System.Drawing.Point(30, 210);
-            this.lblDiagnostico.Name = "lblDiagnostico";
-            this.lblDiagnostico.TabIndex = 5;
-            this.lblDiagnostico.Text = "Diagnostico:";
-            //
+            // 
+            lblDiagnostico.AutoSize = true;
+            lblDiagnostico.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            lblDiagnostico.ForeColor = System.Drawing.Color.FromArgb(173, 216, 230);
+            lblDiagnostico.Location = new System.Drawing.Point(35, 242);
+            lblDiagnostico.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblDiagnostico.Name = "lblDiagnostico";
+            lblDiagnostico.Size = new System.Drawing.Size(75, 15);
+            lblDiagnostico.TabIndex = 5;
+            lblDiagnostico.Text = "Diagnostico:";
+            // 
             // lblTratamiento
-            //
-            this.lblTratamiento.AutoSize = true;
-            this.lblTratamiento.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
-            this.lblTratamiento.ForeColor = System.Drawing.Color.FromArgb(173, 216, 230);
-            this.lblTratamiento.Location = new System.Drawing.Point(550, 210);
-            this.lblTratamiento.Name = "lblTratamiento";
-            this.lblTratamiento.TabIndex = 6;
-            this.lblTratamiento.Text = "Tratamiento:";
-            //
+            // 
+            lblTratamiento.AutoSize = true;
+            lblTratamiento.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            lblTratamiento.ForeColor = System.Drawing.Color.FromArgb(173, 216, 230);
+            lblTratamiento.Location = new System.Drawing.Point(35, 392);
+            lblTratamiento.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblTratamiento.Name = "lblTratamiento";
+            lblTratamiento.Size = new System.Drawing.Size(78, 15);
+            lblTratamiento.TabIndex = 6;
+            lblTratamiento.Text = "Tratamiento:";
+            // 
+            // cboCita
+            // 
+            cboCita.BackColor = System.Drawing.Color.White;
+            cboCita.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            cboCita.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            cboCita.Font = new System.Drawing.Font("Segoe UI", 10F);
+            cboCita.ForeColor = System.Drawing.Color.FromArgb(10, 60, 120);
+            cboCita.FormattingEnabled = true;
+            cboCita.Location = new System.Drawing.Point(35, 179);
+            cboCita.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            cboCita.Name = "cboCita";
+            cboCita.Size = new System.Drawing.Size(583, 25);
+            cboCita.TabIndex = 4;
+            // 
             // txtDiagnostico
-            //
-            this.txtDiagnostico.BackColor = System.Drawing.Color.FromArgb(20, 80, 150);
-            this.txtDiagnostico.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtDiagnostico.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.txtDiagnostico.ForeColor = System.Drawing.Color.White;
-            this.txtDiagnostico.Location = new System.Drawing.Point(30, 235);
-            this.txtDiagnostico.MaxLength = 500;
-            this.txtDiagnostico.Multiline = true;
-            this.txtDiagnostico.Name = "txtDiagnostico";
-            this.txtDiagnostico.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtDiagnostico.Size = new System.Drawing.Size(500, 90);
-            this.txtDiagnostico.TabIndex = 7;
-            //
+            // 
+            txtDiagnostico.BackColor = System.Drawing.Color.FromArgb(20, 80, 150);
+            txtDiagnostico.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            txtDiagnostico.Font = new System.Drawing.Font("Segoe UI", 10F);
+            txtDiagnostico.ForeColor = System.Drawing.Color.White;
+            txtDiagnostico.Location = new System.Drawing.Point(35, 271);
+            txtDiagnostico.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            txtDiagnostico.MaxLength = 500;
+            txtDiagnostico.Multiline = true;
+            txtDiagnostico.Name = "txtDiagnostico";
+            txtDiagnostico.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            txtDiagnostico.Size = new System.Drawing.Size(583, 104);
+            txtDiagnostico.TabIndex = 7;
+            // 
             // txtTratamiento
-            //
-            this.txtTratamiento.BackColor = System.Drawing.Color.FromArgb(20, 80, 150);
-            this.txtTratamiento.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtTratamiento.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.txtTratamiento.ForeColor = System.Drawing.Color.White;
-            this.txtTratamiento.Location = new System.Drawing.Point(550, 235);
-            this.txtTratamiento.MaxLength = 500;
-            this.txtTratamiento.Multiline = true;
-            this.txtTratamiento.Name = "txtTratamiento";
-            this.txtTratamiento.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtTratamiento.Size = new System.Drawing.Size(500, 90);
-            this.txtTratamiento.TabIndex = 8;
-            //
+            // 
+            txtTratamiento.BackColor = System.Drawing.Color.FromArgb(20, 80, 150);
+            txtTratamiento.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            txtTratamiento.Font = new System.Drawing.Font("Segoe UI", 10F);
+            txtTratamiento.ForeColor = System.Drawing.Color.White;
+            txtTratamiento.Location = new System.Drawing.Point(35, 421);
+            txtTratamiento.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            txtTratamiento.MaxLength = 500;
+            txtTratamiento.Multiline = true;
+            txtTratamiento.Name = "txtTratamiento";
+            txtTratamiento.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            txtTratamiento.Size = new System.Drawing.Size(583, 104);
+            txtTratamiento.TabIndex = 8;
+            // 
             // btnGuardar
-            //
-            this.btnGuardar.BackColor = System.Drawing.Color.FromArgb(60, 80, 180);
-            this.btnGuardar.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnGuardar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnGuardar.FlatAppearance.BorderSize = 0;
-            this.btnGuardar.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
-            this.btnGuardar.ForeColor = System.Drawing.Color.White;
-            this.btnGuardar.Location = new System.Drawing.Point(30, 345);
-            this.btnGuardar.Name = "btnGuardar";
-            this.btnGuardar.Size = new System.Drawing.Size(120, 38);
-            this.btnGuardar.TabIndex = 9;
-            this.btnGuardar.Text = "Guardar";
-            this.btnGuardar.UseVisualStyleBackColor = false;
-            this.btnGuardar.Click += new System.EventHandler(this.btnGuardar_Click);
-            //
+            // 
+            btnGuardar.BackColor = System.Drawing.Color.FromArgb(60, 80, 180);
+            btnGuardar.Cursor = System.Windows.Forms.Cursors.Hand;
+            btnGuardar.FlatAppearance.BorderSize = 0;
+            btnGuardar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            btnGuardar.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            btnGuardar.ForeColor = System.Drawing.Color.White;
+            btnGuardar.Location = new System.Drawing.Point(35, 559);
+            btnGuardar.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            btnGuardar.Name = "btnGuardar";
+            btnGuardar.Size = new System.Drawing.Size(140, 44);
+            btnGuardar.TabIndex = 9;
+            btnGuardar.Text = "Guardar";
+            btnGuardar.UseVisualStyleBackColor = false;
+            btnGuardar.Click += btnGuardar_Click;
+            // 
             // btnLimpiar
-            //
-            this.btnLimpiar.BackColor = System.Drawing.Color.FromArgb(70, 130, 180);
-            this.btnLimpiar.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnLimpiar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnLimpiar.FlatAppearance.BorderSize = 0;
-            this.btnLimpiar.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
-            this.btnLimpiar.ForeColor = System.Drawing.Color.White;
-            this.btnLimpiar.Location = new System.Drawing.Point(160, 345);
-            this.btnLimpiar.Name = "btnLimpiar";
-            this.btnLimpiar.Size = new System.Drawing.Size(120, 38);
-            this.btnLimpiar.TabIndex = 10;
-            this.btnLimpiar.Text = "Limpiar";
-            this.btnLimpiar.UseVisualStyleBackColor = false;
-            this.btnLimpiar.Click += new System.EventHandler(this.btnLimpiar_Click);
-            //
+            // 
+            btnLimpiar.BackColor = System.Drawing.Color.FromArgb(70, 130, 180);
+            btnLimpiar.Cursor = System.Windows.Forms.Cursors.Hand;
+            btnLimpiar.FlatAppearance.BorderSize = 0;
+            btnLimpiar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            btnLimpiar.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            btnLimpiar.ForeColor = System.Drawing.Color.White;
+            btnLimpiar.Location = new System.Drawing.Point(190, 559);
+            btnLimpiar.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            btnLimpiar.Name = "btnLimpiar";
+            btnLimpiar.Size = new System.Drawing.Size(140, 44);
+            btnLimpiar.TabIndex = 10;
+            btnLimpiar.Text = "Limpiar";
+            btnLimpiar.UseVisualStyleBackColor = false;
+            btnLimpiar.Click += btnLimpiar_Click;
+            // 
             // btnVolver
-            //
-            this.btnVolver.BackColor = System.Drawing.Color.FromArgb(0, 100, 60);
-            this.btnVolver.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnVolver.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnVolver.FlatAppearance.BorderSize = 0;
-            this.btnVolver.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
-            this.btnVolver.ForeColor = System.Drawing.Color.White;
-            this.btnVolver.Location = new System.Drawing.Point(290, 345);
-            this.btnVolver.Name = "btnVolver";
-            this.btnVolver.Size = new System.Drawing.Size(120, 38);
-            this.btnVolver.TabIndex = 11;
-            this.btnVolver.Text = "Volver";
-            this.btnVolver.UseVisualStyleBackColor = false;
-            this.btnVolver.Click += new System.EventHandler(this.btnVolver_Click);
-            //
+            // 
+            btnVolver.BackColor = System.Drawing.Color.FromArgb(0, 100, 60);
+            btnVolver.Cursor = System.Windows.Forms.Cursors.Hand;
+            btnVolver.FlatAppearance.BorderSize = 0;
+            btnVolver.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            btnVolver.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            btnVolver.ForeColor = System.Drawing.Color.White;
+            btnVolver.Location = new System.Drawing.Point(338, 559);
+            btnVolver.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            btnVolver.Name = "btnVolver";
+            btnVolver.Size = new System.Drawing.Size(140, 44);
+            btnVolver.TabIndex = 11;
+            btnVolver.Text = "Volver";
+            btnVolver.UseVisualStyleBackColor = false;
+            btnVolver.Click += btnVolver_Click;
+            // 
+            // picLogo
+            // 
+            picLogo.BackColor = System.Drawing.Color.Transparent;
+            picLogo.Image = (System.Drawing.Image)resources.GetObject("picLogo.Image");
+            picLogo.Location = new System.Drawing.Point(698, 271);
+            picLogo.Margin = new System.Windows.Forms.Padding(4);
+            picLogo.Name = "picLogo";
+            picLogo.Size = new System.Drawing.Size(280, 277);
+            picLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            picLogo.TabIndex = 12;
+            picLogo.TabStop = false;
+            // 
             // frmExpedientes
-            //
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.FromArgb(10, 60, 120);
-            this.ClientSize = new System.Drawing.Size(1280, 420);
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
-            this.Controls.Add(this.btnVolver);
-            this.Controls.Add(this.btnLimpiar);
-            this.Controls.Add(this.btnGuardar);
-            this.Controls.Add(this.txtTratamiento);
-            this.Controls.Add(this.txtDiagnostico);
-            this.Controls.Add(this.lblTratamiento);
-            this.Controls.Add(this.lblDiagnostico);
-            this.Controls.Add(this.cboCita);
-            this.Controls.Add(this.lblCita);
-            this.Controls.Add(this.btnDeshabilitar);
-            this.Controls.Add(this.btnHabilitar);
-            this.Controls.Add(this.lblTitulo);
-            this.Name = "frmExpedientes";
-            this.Text = "Clinica Medica - Alta de Expedientes";
-            this.Load += new System.EventHandler(this.frmExpedientes_Load);
-            this.ResumeLayout(false);
-            this.PerformLayout();
+            // 
+            AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            BackColor = System.Drawing.Color.FromArgb(10, 60, 120);
+            ClientSize = new System.Drawing.Size(1035, 679);
+            Controls.Add(picLogo);
+            Controls.Add(btnVolver);
+            Controls.Add(btnLimpiar);
+            Controls.Add(btnGuardar);
+            Controls.Add(txtTratamiento);
+            Controls.Add(txtDiagnostico);
+            Controls.Add(lblTratamiento);
+            Controls.Add(lblDiagnostico);
+            Controls.Add(cboCita);
+            Controls.Add(lblCita);
+            Controls.Add(btnDeshabilitar);
+            Controls.Add(btnHabilitar);
+            Controls.Add(lblTitulo);
+            FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            MaximizeBox = false;
+            Name = "frmExpedientes";
+            StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            Text = "Clinica Medica - Alta de Expedientes";
+            WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            Load += frmExpedientes_Load;
+            ((System.ComponentModel.ISupportInitialize)picLogo).EndInit();
+            ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
@@ -233,5 +267,6 @@ namespace ClinicaMedica
         private System.Windows.Forms.Button btnGuardar;
         private System.Windows.Forms.Button btnLimpiar;
         private System.Windows.Forms.Button btnVolver;
+        private System.Windows.Forms.PictureBox picLogo;
     }
 }

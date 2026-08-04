@@ -269,5 +269,15 @@ namespace ClinicaMedica
         {
             e.Handled = true;
         }
+
+        private void lblTitulo_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void picLogo_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

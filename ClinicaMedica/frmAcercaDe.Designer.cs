@@ -15,64 +15,68 @@
 
         private void InitializeComponent()
         {
-            this.lblTitulo = new System.Windows.Forms.Label();
-            this.lblIntegrantes = new System.Windows.Forms.Label();
-            this.btnCerrar = new System.Windows.Forms.Button();
-            this.SuspendLayout();
-            //
+            lblTitulo = new System.Windows.Forms.Label();
+            lblIntegrantes = new System.Windows.Forms.Label();
+            btnCerrar = new System.Windows.Forms.Button();
+            SuspendLayout();
+            // 
             // lblTitulo
-            //
-            this.lblTitulo.Font = new System.Drawing.Font("Segoe UI", 16F, System.Drawing.FontStyle.Bold);
-            this.lblTitulo.ForeColor = System.Drawing.Color.White;
-            this.lblTitulo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.lblTitulo.Location = new System.Drawing.Point(20, 20);
-            this.lblTitulo.Name = "lblTitulo";
-            this.lblTitulo.Size = new System.Drawing.Size(360, 40);
-            this.lblTitulo.TabIndex = 0;
-            this.lblTitulo.Text = "Clínica Médica — Sistema de Gestión";
-            //
+            // 
+            lblTitulo.Font = new System.Drawing.Font("Segoe UI", 16F, System.Drawing.FontStyle.Bold);
+            lblTitulo.ForeColor = System.Drawing.Color.White;
+            lblTitulo.Location = new System.Drawing.Point(23, 23);
+            lblTitulo.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblTitulo.Name = "lblTitulo";
+            lblTitulo.Size = new System.Drawing.Size(420, 46);
+            lblTitulo.TabIndex = 0;
+            lblTitulo.Text = "Clínica Médica — Sistema de Gestión";
+            lblTitulo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // lblIntegrantes
-            //
-            this.lblIntegrantes.Font = new System.Drawing.Font("Segoe UI", 11F);
-            this.lblIntegrantes.ForeColor = System.Drawing.Color.FromArgb(173, 216, 230);
-            this.lblIntegrantes.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.lblIntegrantes.Location = new System.Drawing.Point(20, 80);
-            this.lblIntegrantes.Name = "lblIntegrantes";
-            this.lblIntegrantes.Size = new System.Drawing.Size(360, 150);
-            this.lblIntegrantes.TabIndex = 1;
-            this.lblIntegrantes.Text = "Integrantes:\nIsma\nLogan\nRosembert\nEduardo Paulino\nRhyan Duquesne";
-            //
+            // 
+            lblIntegrantes.Font = new System.Drawing.Font("Segoe UI", 11F);
+            lblIntegrantes.ForeColor = System.Drawing.Color.FromArgb(173, 216, 230);
+            lblIntegrantes.Location = new System.Drawing.Point(23, 92);
+            lblIntegrantes.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblIntegrantes.Name = "lblIntegrantes";
+            lblIntegrantes.Size = new System.Drawing.Size(420, 173);
+            lblIntegrantes.TabIndex = 1;
+            lblIntegrantes.Text = "Integrantes:\nIsma\nLogan\nRosembert\nEduardo Paulino\nRhyan Duquesne";
+            lblIntegrantes.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // btnCerrar
-            //
-            this.btnCerrar.BackColor = System.Drawing.Color.FromArgb(0, 168, 232);
-            this.btnCerrar.ForeColor = System.Drawing.Color.White;
-            this.btnCerrar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnCerrar.FlatAppearance.BorderSize = 0;
-            this.btnCerrar.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
-            this.btnCerrar.Location = new System.Drawing.Point(140, 250);
-            this.btnCerrar.Name = "btnCerrar";
-            this.btnCerrar.Size = new System.Drawing.Size(120, 40);
-            this.btnCerrar.TabIndex = 2;
-            this.btnCerrar.Text = "Cerrar";
-            this.btnCerrar.UseVisualStyleBackColor = false;
-            this.btnCerrar.Click += new System.EventHandler(this.btnCerrar_Click);
-            //
+            // 
+            btnCerrar.BackColor = System.Drawing.Color.FromArgb(0, 168, 232);
+            btnCerrar.FlatAppearance.BorderSize = 0;
+            btnCerrar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            btnCerrar.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            btnCerrar.ForeColor = System.Drawing.Color.White;
+            btnCerrar.Location = new System.Drawing.Point(163, 288);
+            btnCerrar.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            btnCerrar.Name = "btnCerrar";
+            btnCerrar.Size = new System.Drawing.Size(140, 46);
+            btnCerrar.TabIndex = 2;
+            btnCerrar.Text = "Cerrar";
+            btnCerrar.UseVisualStyleBackColor = false;
+            btnCerrar.Click += btnCerrar_Click;
+            // 
             // frmAcercaDe
-            //
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.FromArgb(10, 60, 120);
-            this.ClientSize = new System.Drawing.Size(400, 310);
-            this.Controls.Add(this.btnCerrar);
-            this.Controls.Add(this.lblIntegrantes);
-            this.Controls.Add(this.lblTitulo);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
-            this.MaximizeBox = false;
-            this.MinimizeBox = false;
-            this.Name = "frmAcercaDe";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Acerca de";
-            this.ResumeLayout(false);
+            // 
+            AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            BackColor = System.Drawing.Color.FromArgb(10, 60, 120);
+            ClientSize = new System.Drawing.Size(467, 358);
+            Controls.Add(btnCerrar);
+            Controls.Add(lblIntegrantes);
+            Controls.Add(lblTitulo);
+            FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            MaximizeBox = false;
+            MinimizeBox = false;
+            Name = "frmAcercaDe";
+            StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            Text = "Acerca de";
+            ResumeLayout(false);
         }
 
         private System.Windows.Forms.Label lblTitulo;

@@ -82,5 +82,10 @@ namespace ClinicaMedica
         {
             this.Close();
         }
+
+        private void frmCitasConsulta_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

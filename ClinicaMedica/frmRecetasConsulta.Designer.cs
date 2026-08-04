@@ -15,158 +15,177 @@ namespace ClinicaMedica
 
         private void InitializeComponent()
         {
-            this.lblTitulo = new System.Windows.Forms.Label();
-            this.lblBuscar = new System.Windows.Forms.Label();
-            this.txtBuscar = new System.Windows.Forms.TextBox();
-            this.btnBuscar = new System.Windows.Forms.Button();
-            this.btnActualizar = new System.Windows.Forms.Button();
-            this.btnEditar = new System.Windows.Forms.Button();
-            this.btnCerrar = new System.Windows.Forms.Button();
-            this.dgvRecetas = new System.Windows.Forms.DataGridView();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvRecetas)).BeginInit();
-            this.SuspendLayout();
-            //
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            lblTitulo = new System.Windows.Forms.Label();
+            lblBuscar = new System.Windows.Forms.Label();
+            txtBuscar = new System.Windows.Forms.TextBox();
+            btnBuscar = new System.Windows.Forms.Button();
+            btnActualizar = new System.Windows.Forms.Button();
+            btnEditar = new System.Windows.Forms.Button();
+            btnCerrar = new System.Windows.Forms.Button();
+            dgvRecetas = new System.Windows.Forms.DataGridView();
+            ((System.ComponentModel.ISupportInitialize)dgvRecetas).BeginInit();
+            SuspendLayout();
+            // 
             // lblTitulo
-            //
-            this.lblTitulo.AutoSize = false;
-            this.lblTitulo.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold);
-            this.lblTitulo.ForeColor = System.Drawing.Color.White;
-            this.lblTitulo.Location = new System.Drawing.Point(30, 15);
-            this.lblTitulo.Name = "lblTitulo";
-            this.lblTitulo.Size = new System.Drawing.Size(500, 40);
-            this.lblTitulo.TabIndex = 0;
-            this.lblTitulo.Text = "Consulta de Recetas";
-            //
+            // 
+            lblTitulo.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold);
+            lblTitulo.ForeColor = System.Drawing.Color.White;
+            lblTitulo.Location = new System.Drawing.Point(35, 17);
+            lblTitulo.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblTitulo.Name = "lblTitulo";
+            lblTitulo.Size = new System.Drawing.Size(583, 46);
+            lblTitulo.TabIndex = 0;
+            lblTitulo.Text = "Consulta de Recetas";
+            // 
             // lblBuscar
-            //
-            this.lblBuscar.AutoSize = true;
-            this.lblBuscar.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
-            this.lblBuscar.ForeColor = System.Drawing.Color.FromArgb(173, 216, 230);
-            this.lblBuscar.Location = new System.Drawing.Point(30, 73);
-            this.lblBuscar.Name = "lblBuscar";
-            this.lblBuscar.TabIndex = 1;
-            this.lblBuscar.Text = "Buscar:";
-            //
+            // 
+            lblBuscar.AutoSize = true;
+            lblBuscar.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            lblBuscar.ForeColor = System.Drawing.Color.FromArgb(173, 216, 230);
+            lblBuscar.Location = new System.Drawing.Point(35, 84);
+            lblBuscar.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblBuscar.Name = "lblBuscar";
+            lblBuscar.Size = new System.Drawing.Size(58, 19);
+            lblBuscar.TabIndex = 1;
+            lblBuscar.Text = "Buscar:";
+            // 
             // txtBuscar
-            //
-            this.txtBuscar.BackColor = System.Drawing.Color.FromArgb(20, 80, 150);
-            this.txtBuscar.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtBuscar.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.txtBuscar.ForeColor = System.Drawing.Color.White;
-            this.txtBuscar.Location = new System.Drawing.Point(110, 68);
-            this.txtBuscar.Name = "txtBuscar";
-            this.txtBuscar.Size = new System.Drawing.Size(280, 30);
-            this.txtBuscar.TabIndex = 2;
-            //
+            // 
+            txtBuscar.BackColor = System.Drawing.Color.FromArgb(20, 80, 150);
+            txtBuscar.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            txtBuscar.Font = new System.Drawing.Font("Segoe UI", 10F);
+            txtBuscar.ForeColor = System.Drawing.Color.White;
+            txtBuscar.Location = new System.Drawing.Point(128, 78);
+            txtBuscar.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            txtBuscar.Name = "txtBuscar";
+            txtBuscar.Size = new System.Drawing.Size(326, 25);
+            txtBuscar.TabIndex = 2;
+            // 
             // btnBuscar
-            //
-            this.btnBuscar.BackColor = System.Drawing.Color.FromArgb(100, 60, 180);
-            this.btnBuscar.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnBuscar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnBuscar.FlatAppearance.BorderSize = 0;
-            this.btnBuscar.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
-            this.btnBuscar.ForeColor = System.Drawing.Color.White;
-            this.btnBuscar.Location = new System.Drawing.Point(400, 65);
-            this.btnBuscar.Name = "btnBuscar";
-            this.btnBuscar.Size = new System.Drawing.Size(110, 35);
-            this.btnBuscar.TabIndex = 3;
-            this.btnBuscar.Text = "Buscar";
-            this.btnBuscar.UseVisualStyleBackColor = false;
-            this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
-            //
+            // 
+            btnBuscar.BackColor = System.Drawing.Color.FromArgb(100, 60, 180);
+            btnBuscar.Cursor = System.Windows.Forms.Cursors.Hand;
+            btnBuscar.FlatAppearance.BorderSize = 0;
+            btnBuscar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            btnBuscar.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            btnBuscar.ForeColor = System.Drawing.Color.White;
+            btnBuscar.Location = new System.Drawing.Point(467, 75);
+            btnBuscar.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            btnBuscar.Name = "btnBuscar";
+            btnBuscar.Size = new System.Drawing.Size(128, 40);
+            btnBuscar.TabIndex = 3;
+            btnBuscar.Text = "Buscar";
+            btnBuscar.UseVisualStyleBackColor = false;
+            btnBuscar.Click += btnBuscar_Click;
+            // 
             // btnActualizar
-            //
-            this.btnActualizar.BackColor = System.Drawing.Color.FromArgb(70, 130, 180);
-            this.btnActualizar.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnActualizar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnActualizar.FlatAppearance.BorderSize = 0;
-            this.btnActualizar.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
-            this.btnActualizar.ForeColor = System.Drawing.Color.White;
-            this.btnActualizar.Location = new System.Drawing.Point(520, 65);
-            this.btnActualizar.Name = "btnActualizar";
-            this.btnActualizar.Size = new System.Drawing.Size(120, 35);
-            this.btnActualizar.TabIndex = 4;
-            this.btnActualizar.Text = "Actualizar";
-            this.btnActualizar.UseVisualStyleBackColor = false;
-            this.btnActualizar.Click += new System.EventHandler(this.btnActualizar_Click);
-            //
+            // 
+            btnActualizar.BackColor = System.Drawing.Color.FromArgb(70, 130, 180);
+            btnActualizar.Cursor = System.Windows.Forms.Cursors.Hand;
+            btnActualizar.FlatAppearance.BorderSize = 0;
+            btnActualizar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            btnActualizar.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            btnActualizar.ForeColor = System.Drawing.Color.White;
+            btnActualizar.Location = new System.Drawing.Point(607, 75);
+            btnActualizar.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            btnActualizar.Name = "btnActualizar";
+            btnActualizar.Size = new System.Drawing.Size(140, 40);
+            btnActualizar.TabIndex = 4;
+            btnActualizar.Text = "Actualizar";
+            btnActualizar.UseVisualStyleBackColor = false;
+            btnActualizar.Click += btnActualizar_Click;
+            // 
             // btnEditar
-            //
-            this.btnEditar.BackColor = System.Drawing.Color.FromArgb(180, 100, 0);
-            this.btnEditar.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnEditar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnEditar.FlatAppearance.BorderSize = 0;
-            this.btnEditar.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
-            this.btnEditar.ForeColor = System.Drawing.Color.White;
-            this.btnEditar.Location = new System.Drawing.Point(650, 65);
-            this.btnEditar.Name = "btnEditar";
-            this.btnEditar.Size = new System.Drawing.Size(110, 35);
-            this.btnEditar.TabIndex = 5;
-            this.btnEditar.Text = "Editar";
-            this.btnEditar.UseVisualStyleBackColor = false;
-            this.btnEditar.Click += new System.EventHandler(this.btnEditar_Click);
-            //
+            // 
+            btnEditar.BackColor = System.Drawing.Color.FromArgb(180, 100, 0);
+            btnEditar.Cursor = System.Windows.Forms.Cursors.Hand;
+            btnEditar.FlatAppearance.BorderSize = 0;
+            btnEditar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            btnEditar.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            btnEditar.ForeColor = System.Drawing.Color.White;
+            btnEditar.Location = new System.Drawing.Point(758, 75);
+            btnEditar.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            btnEditar.Name = "btnEditar";
+            btnEditar.Size = new System.Drawing.Size(128, 40);
+            btnEditar.TabIndex = 5;
+            btnEditar.Text = "Editar";
+            btnEditar.UseVisualStyleBackColor = false;
+            btnEditar.Click += btnEditar_Click;
+            // 
             // btnCerrar
-            //
-            this.btnCerrar.BackColor = System.Drawing.Color.FromArgb(0, 100, 60);
-            this.btnCerrar.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnCerrar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnCerrar.FlatAppearance.BorderSize = 0;
-            this.btnCerrar.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
-            this.btnCerrar.ForeColor = System.Drawing.Color.White;
-            this.btnCerrar.Location = new System.Drawing.Point(770, 65);
-            this.btnCerrar.Name = "btnCerrar";
-            this.btnCerrar.Size = new System.Drawing.Size(110, 35);
-            this.btnCerrar.TabIndex = 6;
-            this.btnCerrar.Text = "Cerrar";
-            this.btnCerrar.UseVisualStyleBackColor = false;
-            this.btnCerrar.Click += new System.EventHandler(this.btnCerrar_Click);
-            //
+            // 
+            btnCerrar.BackColor = System.Drawing.Color.FromArgb(0, 100, 60);
+            btnCerrar.Cursor = System.Windows.Forms.Cursors.Hand;
+            btnCerrar.FlatAppearance.BorderSize = 0;
+            btnCerrar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            btnCerrar.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            btnCerrar.ForeColor = System.Drawing.Color.White;
+            btnCerrar.Location = new System.Drawing.Point(898, 75);
+            btnCerrar.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            btnCerrar.Name = "btnCerrar";
+            btnCerrar.Size = new System.Drawing.Size(128, 40);
+            btnCerrar.TabIndex = 6;
+            btnCerrar.Text = "Cerrar";
+            btnCerrar.UseVisualStyleBackColor = false;
+            btnCerrar.Click += btnCerrar_Click;
+            // 
             // dgvRecetas
-            //
-            this.dgvRecetas.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right | System.Windows.Forms.AnchorStyles.Bottom;
-            this.dgvRecetas.AllowUserToAddRows = false;
-            this.dgvRecetas.ReadOnly = true;
-            this.dgvRecetas.BackgroundColor = System.Drawing.Color.White;
-            this.dgvRecetas.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.dgvRecetas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            this.dgvRecetas.ColumnHeadersHeight = 38;
-            this.dgvRecetas.ColumnHeadersDefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(100, 60, 180);
-            this.dgvRecetas.ColumnHeadersDefaultCellStyle.ForeColor = System.Drawing.Color.White;
-            this.dgvRecetas.ColumnHeadersDefaultCellStyle.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
-            this.dgvRecetas.AlternatingRowsDefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(235, 228, 255);
-            this.dgvRecetas.GridColor = System.Drawing.Color.FromArgb(170, 150, 220);
-            this.dgvRecetas.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.dgvRecetas.Location = new System.Drawing.Point(30, 115);
-            this.dgvRecetas.Name = "dgvRecetas";
-            this.dgvRecetas.RowHeadersVisible = false;
-            this.dgvRecetas.RowTemplate.Height = 32;
-            this.dgvRecetas.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvRecetas.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dgvRecetas.Size = new System.Drawing.Size(1220, 490);
-            this.dgvRecetas.TabIndex = 6;
-            //
+            // 
+            dgvRecetas.AllowUserToAddRows = false;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(235, 228, 255);
+            dgvRecetas.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dgvRecetas.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            dgvRecetas.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            dgvRecetas.BackgroundColor = System.Drawing.Color.White;
+            dgvRecetas.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(100, 60, 180);
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            dgvRecetas.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dgvRecetas.ColumnHeadersHeight = 38;
+            dgvRecetas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            dgvRecetas.Font = new System.Drawing.Font("Segoe UI", 10F);
+            dgvRecetas.GridColor = System.Drawing.Color.FromArgb(170, 150, 220);
+            dgvRecetas.Location = new System.Drawing.Point(35, 133);
+            dgvRecetas.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            dgvRecetas.Name = "dgvRecetas";
+            dgvRecetas.ReadOnly = true;
+            dgvRecetas.RowHeadersVisible = false;
+            dgvRecetas.RowTemplate.Height = 32;
+            dgvRecetas.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            dgvRecetas.Size = new System.Drawing.Size(1423, 565);
+            dgvRecetas.TabIndex = 6;
+            // 
             // frmRecetasConsulta
-            //
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.FromArgb(10, 60, 120);
-            this.ClientSize = new System.Drawing.Size(1280, 650);
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
-            this.Controls.Add(this.dgvRecetas);
-            this.Controls.Add(this.btnCerrar);
-            this.Controls.Add(this.btnEditar);
-            this.Controls.Add(this.btnActualizar);
-            this.Controls.Add(this.btnBuscar);
-            this.Controls.Add(this.txtBuscar);
-            this.Controls.Add(this.lblBuscar);
-            this.Controls.Add(this.lblTitulo);
-            this.Name = "frmRecetasConsulta";
-            this.Text = "Clinica Medica - Consulta de Recetas";
-            ((System.ComponentModel.ISupportInitialize)(this.dgvRecetas)).EndInit();
-            this.ResumeLayout(false);
-            this.PerformLayout();
+            // 
+            AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            BackColor = System.Drawing.Color.FromArgb(10, 60, 120);
+            ClientSize = new System.Drawing.Size(1493, 750);
+            Controls.Add(dgvRecetas);
+            Controls.Add(btnCerrar);
+            Controls.Add(btnEditar);
+            Controls.Add(btnActualizar);
+            Controls.Add(btnBuscar);
+            Controls.Add(txtBuscar);
+            Controls.Add(lblBuscar);
+            Controls.Add(lblTitulo);
+            FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            MaximizeBox = false;
+            Name = "frmRecetasConsulta";
+            StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            Text = "Clinica Medica - Consulta de Recetas";
+            WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            ((System.ComponentModel.ISupportInitialize)dgvRecetas).EndInit();
+            ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion

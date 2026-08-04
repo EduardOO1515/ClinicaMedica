@@ -28,122 +28,157 @@ namespace ClinicaMedica
         /// </summary>
         private void InitializeComponent()
         {
-            this.lblTitulo = new System.Windows.Forms.Label();
-            this.lblUsuario = new System.Windows.Forms.Label();
-            this.lblContrasena = new System.Windows.Forms.Label();
-            this.txtUsuario = new System.Windows.Forms.TextBox();
-            this.txtContrasena = new System.Windows.Forms.TextBox();
-            this.btnEntrar = new System.Windows.Forms.Button();
-            this.btnCancelar = new System.Windows.Forms.Button();
-            this.SuspendLayout();
-            //
+            components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmLogin));
+            lblTitulo = new System.Windows.Forms.Label();
+            lblUsuario = new System.Windows.Forms.Label();
+            lblContrasena = new System.Windows.Forms.Label();
+            txtUsuario = new System.Windows.Forms.TextBox();
+            txtContrasena = new System.Windows.Forms.TextBox();
+            btnEntrar = new System.Windows.Forms.Button();
+            btnCancelar = new System.Windows.Forms.Button();
+            picLogo = new System.Windows.Forms.PictureBox();
+            imageList1 = new System.Windows.Forms.ImageList(components);
+            ((System.ComponentModel.ISupportInitialize)picLogo).BeginInit();
+            SuspendLayout();
+            // 
             // lblTitulo
-            //
-            this.lblTitulo.AutoSize = false;
-            this.lblTitulo.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold);
-            this.lblTitulo.ForeColor = System.Drawing.Color.White;
-            this.lblTitulo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.lblTitulo.Location = new System.Drawing.Point(30, 40);
-            this.lblTitulo.Name = "lblTitulo";
-            this.lblTitulo.Size = new System.Drawing.Size(420, 80);
-            this.lblTitulo.TabIndex = 0;
-            this.lblTitulo.Text = "Clinica Medica\nSistema de Gestion";
-            //
+            // 
+            lblTitulo.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold);
+            lblTitulo.ForeColor = System.Drawing.Color.White;
+            lblTitulo.Location = new System.Drawing.Point(32, -1);
+            lblTitulo.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblTitulo.Name = "lblTitulo";
+            lblTitulo.Size = new System.Drawing.Size(490, 92);
+            lblTitulo.TabIndex = 0;
+            lblTitulo.Text = "Clinica Medica\nSistema de Gestion";
+            lblTitulo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // lblUsuario
-            //
-            this.lblUsuario.AutoSize = true;
-            this.lblUsuario.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
-            this.lblUsuario.ForeColor = System.Drawing.Color.FromArgb(173, 216, 230);
-            this.lblUsuario.Location = new System.Drawing.Point(60, 160);
-            this.lblUsuario.Name = "lblUsuario";
-            this.lblUsuario.TabIndex = 1;
-            this.lblUsuario.Text = "Usuario:";
-            //
+            // 
+            lblUsuario.AutoSize = true;
+            lblUsuario.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
+            lblUsuario.ForeColor = System.Drawing.Color.FromArgb(173, 216, 230);
+            lblUsuario.Location = new System.Drawing.Point(70, 224);
+            lblUsuario.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblUsuario.Name = "lblUsuario";
+            lblUsuario.Size = new System.Drawing.Size(67, 20);
+            lblUsuario.TabIndex = 1;
+            lblUsuario.Text = "Usuario:";
+            // 
             // lblContrasena
-            //
-            this.lblContrasena.AutoSize = true;
-            this.lblContrasena.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
-            this.lblContrasena.ForeColor = System.Drawing.Color.FromArgb(173, 216, 230);
-            this.lblContrasena.Location = new System.Drawing.Point(60, 240);
-            this.lblContrasena.Name = "lblContrasena";
-            this.lblContrasena.TabIndex = 2;
-            this.lblContrasena.Text = "Contrasena:";
-            //
+            // 
+            lblContrasena.AutoSize = true;
+            lblContrasena.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
+            lblContrasena.ForeColor = System.Drawing.Color.FromArgb(173, 216, 230);
+            lblContrasena.Location = new System.Drawing.Point(70, 316);
+            lblContrasena.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblContrasena.Name = "lblContrasena";
+            lblContrasena.Size = new System.Drawing.Size(92, 20);
+            lblContrasena.TabIndex = 2;
+            lblContrasena.Text = "Contrasena:";
+            // 
             // txtUsuario
-            //
-            this.txtUsuario.Font = new System.Drawing.Font("Segoe UI", 12F);
-            this.txtUsuario.Size = new System.Drawing.Size(320, 35);
-            this.txtUsuario.Location = new System.Drawing.Point(60, 185);
-            this.txtUsuario.BackColor = System.Drawing.Color.FromArgb(20, 80, 150);
-            this.txtUsuario.ForeColor = System.Drawing.Color.White;
-            this.txtUsuario.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtUsuario.Name = "txtUsuario";
-            this.txtUsuario.TabIndex = 3;
-            //
+            // 
+            txtUsuario.BackColor = System.Drawing.Color.FromArgb(20, 80, 150);
+            txtUsuario.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            txtUsuario.Font = new System.Drawing.Font("Segoe UI", 12F);
+            txtUsuario.ForeColor = System.Drawing.Color.White;
+            txtUsuario.Location = new System.Drawing.Point(70, 252);
+            txtUsuario.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            txtUsuario.Name = "txtUsuario";
+            txtUsuario.Size = new System.Drawing.Size(373, 29);
+            txtUsuario.TabIndex = 3;
+            // 
             // txtContrasena
-            //
-            this.txtContrasena.Font = new System.Drawing.Font("Segoe UI", 12F);
-            this.txtContrasena.Size = new System.Drawing.Size(320, 35);
-            this.txtContrasena.Location = new System.Drawing.Point(60, 265);
-            this.txtContrasena.BackColor = System.Drawing.Color.FromArgb(20, 80, 150);
-            this.txtContrasena.ForeColor = System.Drawing.Color.White;
-            this.txtContrasena.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtContrasena.PasswordChar = '*';
-            this.txtContrasena.Name = "txtContrasena";
-            this.txtContrasena.TabIndex = 4;
-            //
+            // 
+            txtContrasena.BackColor = System.Drawing.Color.FromArgb(20, 80, 150);
+            txtContrasena.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            txtContrasena.Font = new System.Drawing.Font("Segoe UI", 12F);
+            txtContrasena.ForeColor = System.Drawing.Color.White;
+            txtContrasena.Location = new System.Drawing.Point(70, 345);
+            txtContrasena.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            txtContrasena.Name = "txtContrasena";
+            txtContrasena.PasswordChar = '*';
+            txtContrasena.Size = new System.Drawing.Size(373, 29);
+            txtContrasena.TabIndex = 4;
+            // 
             // btnEntrar
-            //
-            this.btnEntrar.Text = "  INICIAR SESION";
-            this.btnEntrar.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
-            this.btnEntrar.Size = new System.Drawing.Size(320, 50);
-            this.btnEntrar.Location = new System.Drawing.Point(60, 360);
-            this.btnEntrar.BackColor = System.Drawing.Color.FromArgb(0, 168, 232);
-            this.btnEntrar.ForeColor = System.Drawing.Color.White;
-            this.btnEntrar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnEntrar.FlatAppearance.BorderSize = 0;
-            this.btnEntrar.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnEntrar.UseVisualStyleBackColor = false;
-            this.btnEntrar.Name = "btnEntrar";
-            this.btnEntrar.TabIndex = 5;
-            this.btnEntrar.Click += new System.EventHandler(this.btnEntrar_Click);
-            //
+            // 
+            btnEntrar.BackColor = System.Drawing.Color.FromArgb(0, 168, 232);
+            btnEntrar.Cursor = System.Windows.Forms.Cursors.Hand;
+            btnEntrar.FlatAppearance.BorderSize = 0;
+            btnEntrar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            btnEntrar.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
+            btnEntrar.ForeColor = System.Drawing.Color.White;
+            btnEntrar.Location = new System.Drawing.Point(70, 415);
+            btnEntrar.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            btnEntrar.Name = "btnEntrar";
+            btnEntrar.Size = new System.Drawing.Size(373, 58);
+            btnEntrar.TabIndex = 5;
+            btnEntrar.Text = "  INICIAR SESION";
+            btnEntrar.UseVisualStyleBackColor = false;
+            btnEntrar.Click += btnEntrar_Click;
+            // 
             // btnCancelar
-            //
-            this.btnCancelar.Text = "  CANCELAR";
-            this.btnCancelar.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
-            this.btnCancelar.Size = new System.Drawing.Size(320, 45);
-            this.btnCancelar.Location = new System.Drawing.Point(60, 425);
-            this.btnCancelar.BackColor = System.Drawing.Color.FromArgb(180, 30, 30);
-            this.btnCancelar.ForeColor = System.Drawing.Color.White;
-            this.btnCancelar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnCancelar.FlatAppearance.BorderSize = 0;
-            this.btnCancelar.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnCancelar.UseVisualStyleBackColor = false;
-            this.btnCancelar.Name = "btnCancelar";
-            this.btnCancelar.TabIndex = 6;
-            this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
-            //
+            // 
+            btnCancelar.BackColor = System.Drawing.Color.FromArgb(180, 30, 30);
+            btnCancelar.Cursor = System.Windows.Forms.Cursors.Hand;
+            btnCancelar.FlatAppearance.BorderSize = 0;
+            btnCancelar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            btnCancelar.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
+            btnCancelar.ForeColor = System.Drawing.Color.White;
+            btnCancelar.Location = new System.Drawing.Point(70, 490);
+            btnCancelar.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            btnCancelar.Name = "btnCancelar";
+            btnCancelar.Size = new System.Drawing.Size(373, 52);
+            btnCancelar.TabIndex = 6;
+            btnCancelar.Text = "  CANCELAR";
+            btnCancelar.UseVisualStyleBackColor = false;
+            btnCancelar.Click += btnCancelar_Click;
+            // 
+            // picLogo
+            // 
+            picLogo.BackColor = System.Drawing.Color.Transparent;
+            picLogo.Image = (System.Drawing.Image)resources.GetObject("picLogo.Image");
+            picLogo.Location = new System.Drawing.Point(199, 78);
+            picLogo.Margin = new System.Windows.Forms.Padding(4);
+            picLogo.Name = "picLogo";
+            picLogo.Size = new System.Drawing.Size(136, 166);
+            picLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            picLogo.TabIndex = 7;
+            picLogo.TabStop = false;
+            // 
+            // imageList1
+            // 
+            imageList1.ColorDepth = System.Windows.Forms.ColorDepth.Depth32Bit;
+            imageList1.ImageSize = new System.Drawing.Size(16, 16);
+            imageList1.TransparentColor = System.Drawing.Color.Transparent;
+            // 
             // frmLogin
-            //
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.FromArgb(10, 60, 120);
-            this.ClientSize = new System.Drawing.Size(480, 580);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.MaximizeBox = false;
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Controls.Add(this.btnCancelar);
-            this.Controls.Add(this.btnEntrar);
-            this.Controls.Add(this.txtContrasena);
-            this.Controls.Add(this.txtUsuario);
-            this.Controls.Add(this.lblContrasena);
-            this.Controls.Add(this.lblUsuario);
-            this.Controls.Add(this.lblTitulo);
-            this.Name = "frmLogin";
-            this.Text = "Clinica Medica - Iniciar Sesion";
-            this.ResumeLayout(false);
-            this.PerformLayout();
+            // 
+            AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            BackColor = System.Drawing.Color.FromArgb(10, 60, 120);
+            ClientSize = new System.Drawing.Size(560, 669);
+            Controls.Add(picLogo);
+            Controls.Add(btnCancelar);
+            Controls.Add(btnEntrar);
+            Controls.Add(txtContrasena);
+            Controls.Add(txtUsuario);
+            Controls.Add(lblContrasena);
+            Controls.Add(lblUsuario);
+            Controls.Add(lblTitulo);
+            FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            MaximizeBox = false;
+            Name = "frmLogin";
+            StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            Text = "Clinica Medica - Iniciar Sesion";
+            Load += frmLogin_Load;
+            ((System.ComponentModel.ISupportInitialize)picLogo).EndInit();
+            ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
@@ -155,5 +190,7 @@ namespace ClinicaMedica
         private System.Windows.Forms.TextBox txtContrasena;
         private System.Windows.Forms.Button btnEntrar;
         private System.Windows.Forms.Button btnCancelar;
+        private System.Windows.Forms.PictureBox picLogo;
+        private System.Windows.Forms.ImageList imageList1;
     }
 }

@@ -15,206 +15,240 @@ namespace ClinicaMedica
 
         private void InitializeComponent()
         {
-            this.lblTitulo = new System.Windows.Forms.Label();
-            this.btnHabilitar = new System.Windows.Forms.Button();
-            this.btnDeshabilitar = new System.Windows.Forms.Button();
-            this.lblNombre = new System.Windows.Forms.Label();
-            this.lblTelefono = new System.Windows.Forms.Label();
-            this.lblEmail = new System.Windows.Forms.Label();
-            this.txtNombre = new System.Windows.Forms.TextBox();
-            this.txtTelefono = new System.Windows.Forms.TextBox();
-            this.txtEmail = new System.Windows.Forms.TextBox();
-            this.btnGuardar = new System.Windows.Forms.Button();
-            this.btnLimpiar = new System.Windows.Forms.Button();
-            this.btnVolver = new System.Windows.Forms.Button();
-            this.SuspendLayout();
-            //
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmProveedores));
+            lblTitulo = new System.Windows.Forms.Label();
+            btnHabilitar = new System.Windows.Forms.Button();
+            btnDeshabilitar = new System.Windows.Forms.Button();
+            lblNombre = new System.Windows.Forms.Label();
+            lblTelefono = new System.Windows.Forms.Label();
+            lblEmail = new System.Windows.Forms.Label();
+            txtNombre = new System.Windows.Forms.TextBox();
+            txtTelefono = new System.Windows.Forms.TextBox();
+            txtEmail = new System.Windows.Forms.TextBox();
+            btnGuardar = new System.Windows.Forms.Button();
+            btnLimpiar = new System.Windows.Forms.Button();
+            btnVolver = new System.Windows.Forms.Button();
+            picLogo = new System.Windows.Forms.PictureBox();
+            ((System.ComponentModel.ISupportInitialize)picLogo).BeginInit();
+            SuspendLayout();
+            // 
             // lblTitulo
-            //
-            this.lblTitulo.AutoSize = false;
-            this.lblTitulo.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold);
-            this.lblTitulo.ForeColor = System.Drawing.Color.White;
-            this.lblTitulo.Location = new System.Drawing.Point(30, 15);
-            this.lblTitulo.Name = "lblTitulo";
-            this.lblTitulo.Size = new System.Drawing.Size(500, 40);
-            this.lblTitulo.TabIndex = 0;
-            this.lblTitulo.Text = "Alta de Proveedores";
-            //
+            // 
+            lblTitulo.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold);
+            lblTitulo.ForeColor = System.Drawing.Color.White;
+            lblTitulo.Location = new System.Drawing.Point(35, 17);
+            lblTitulo.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblTitulo.Name = "lblTitulo";
+            lblTitulo.Size = new System.Drawing.Size(583, 46);
+            lblTitulo.TabIndex = 0;
+            lblTitulo.Text = "Alta de Proveedores";
+            // 
             // btnHabilitar
-            //
-            this.btnHabilitar.BackColor = System.Drawing.Color.FromArgb(0, 160, 80);
-            this.btnHabilitar.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnHabilitar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnHabilitar.FlatAppearance.BorderSize = 0;
-            this.btnHabilitar.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
-            this.btnHabilitar.ForeColor = System.Drawing.Color.White;
-            this.btnHabilitar.Location = new System.Drawing.Point(30, 70);
-            this.btnHabilitar.Name = "btnHabilitar";
-            this.btnHabilitar.Size = new System.Drawing.Size(160, 38);
-            this.btnHabilitar.TabIndex = 1;
-            this.btnHabilitar.Text = "Habilitar Ingreso";
-            this.btnHabilitar.UseVisualStyleBackColor = false;
-            this.btnHabilitar.Click += new System.EventHandler(this.btnHabilitar_Click);
-            //
+            // 
+            btnHabilitar.BackColor = System.Drawing.Color.FromArgb(0, 160, 80);
+            btnHabilitar.Cursor = System.Windows.Forms.Cursors.Hand;
+            btnHabilitar.FlatAppearance.BorderSize = 0;
+            btnHabilitar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            btnHabilitar.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            btnHabilitar.ForeColor = System.Drawing.Color.White;
+            btnHabilitar.Location = new System.Drawing.Point(35, 81);
+            btnHabilitar.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            btnHabilitar.Name = "btnHabilitar";
+            btnHabilitar.Size = new System.Drawing.Size(187, 44);
+            btnHabilitar.TabIndex = 1;
+            btnHabilitar.Text = "Habilitar Ingreso";
+            btnHabilitar.UseVisualStyleBackColor = false;
+            btnHabilitar.Click += btnHabilitar_Click;
+            // 
             // btnDeshabilitar
-            //
-            this.btnDeshabilitar.BackColor = System.Drawing.Color.FromArgb(180, 90, 0);
-            this.btnDeshabilitar.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnDeshabilitar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnDeshabilitar.FlatAppearance.BorderSize = 0;
-            this.btnDeshabilitar.Enabled = false;
-            this.btnDeshabilitar.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
-            this.btnDeshabilitar.ForeColor = System.Drawing.Color.White;
-            this.btnDeshabilitar.Location = new System.Drawing.Point(200, 70);
-            this.btnDeshabilitar.Name = "btnDeshabilitar";
-            this.btnDeshabilitar.Size = new System.Drawing.Size(180, 38);
-            this.btnDeshabilitar.TabIndex = 2;
-            this.btnDeshabilitar.Text = "Deshabilitar Ingreso";
-            this.btnDeshabilitar.UseVisualStyleBackColor = false;
-            this.btnDeshabilitar.Click += new System.EventHandler(this.btnDeshabilitar_Click);
-            //
+            // 
+            btnDeshabilitar.BackColor = System.Drawing.Color.FromArgb(180, 90, 0);
+            btnDeshabilitar.Cursor = System.Windows.Forms.Cursors.Hand;
+            btnDeshabilitar.Enabled = false;
+            btnDeshabilitar.FlatAppearance.BorderSize = 0;
+            btnDeshabilitar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            btnDeshabilitar.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            btnDeshabilitar.ForeColor = System.Drawing.Color.White;
+            btnDeshabilitar.Location = new System.Drawing.Point(233, 81);
+            btnDeshabilitar.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            btnDeshabilitar.Name = "btnDeshabilitar";
+            btnDeshabilitar.Size = new System.Drawing.Size(210, 44);
+            btnDeshabilitar.TabIndex = 2;
+            btnDeshabilitar.Text = "Deshabilitar Ingreso";
+            btnDeshabilitar.UseVisualStyleBackColor = false;
+            btnDeshabilitar.Click += btnDeshabilitar_Click;
+            // 
             // lblNombre
-            //
-            this.lblNombre.AutoSize = true;
-            this.lblNombre.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
-            this.lblNombre.ForeColor = System.Drawing.Color.FromArgb(173, 216, 230);
-            this.lblNombre.Location = new System.Drawing.Point(30, 130);
-            this.lblNombre.Name = "lblNombre";
-            this.lblNombre.TabIndex = 3;
-            this.lblNombre.Text = "Nombre:";
-            //
+            // 
+            lblNombre.AutoSize = true;
+            lblNombre.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            lblNombre.ForeColor = System.Drawing.Color.FromArgb(173, 216, 230);
+            lblNombre.Location = new System.Drawing.Point(35, 150);
+            lblNombre.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblNombre.Name = "lblNombre";
+            lblNombre.Size = new System.Drawing.Size(56, 15);
+            lblNombre.TabIndex = 3;
+            lblNombre.Text = "Nombre:";
+            // 
             // lblTelefono
-            //
-            this.lblTelefono.AutoSize = true;
-            this.lblTelefono.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
-            this.lblTelefono.ForeColor = System.Drawing.Color.FromArgb(173, 216, 230);
-            this.lblTelefono.Location = new System.Drawing.Point(330, 130);
-            this.lblTelefono.Name = "lblTelefono";
-            this.lblTelefono.TabIndex = 4;
-            this.lblTelefono.Text = "Telefono:";
-            //
+            // 
+            lblTelefono.AutoSize = true;
+            lblTelefono.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            lblTelefono.ForeColor = System.Drawing.Color.FromArgb(173, 216, 230);
+            lblTelefono.Location = new System.Drawing.Point(385, 150);
+            lblTelefono.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblTelefono.Name = "lblTelefono";
+            lblTelefono.Size = new System.Drawing.Size(59, 15);
+            lblTelefono.TabIndex = 4;
+            lblTelefono.Text = "Telefono:";
+            // 
             // lblEmail
-            //
-            this.lblEmail.AutoSize = true;
-            this.lblEmail.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
-            this.lblEmail.ForeColor = System.Drawing.Color.FromArgb(173, 216, 230);
-            this.lblEmail.Location = new System.Drawing.Point(630, 130);
-            this.lblEmail.Name = "lblEmail";
-            this.lblEmail.TabIndex = 5;
-            this.lblEmail.Text = "Email:";
-            //
+            // 
+            lblEmail.AutoSize = true;
+            lblEmail.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            lblEmail.ForeColor = System.Drawing.Color.FromArgb(173, 216, 230);
+            lblEmail.Location = new System.Drawing.Point(35, 234);
+            lblEmail.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblEmail.Name = "lblEmail";
+            lblEmail.Size = new System.Drawing.Size(39, 15);
+            lblEmail.TabIndex = 5;
+            lblEmail.Text = "Email:";
+            // 
             // txtNombre
-            //
-            this.txtNombre.BackColor = System.Drawing.Color.FromArgb(20, 80, 150);
-            this.txtNombre.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtNombre.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.txtNombre.ForeColor = System.Drawing.Color.White;
-            this.txtNombre.Location = new System.Drawing.Point(30, 155);
-            this.txtNombre.MaxLength = 100;
-            this.txtNombre.Name = "txtNombre";
-            this.txtNombre.Size = new System.Drawing.Size(280, 30);
-            this.txtNombre.TabIndex = 6;
-            //
+            // 
+            txtNombre.BackColor = System.Drawing.Color.FromArgb(20, 80, 150);
+            txtNombre.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            txtNombre.Font = new System.Drawing.Font("Segoe UI", 10F);
+            txtNombre.ForeColor = System.Drawing.Color.White;
+            txtNombre.Location = new System.Drawing.Point(35, 179);
+            txtNombre.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            txtNombre.MaxLength = 100;
+            txtNombre.Name = "txtNombre";
+            txtNombre.Size = new System.Drawing.Size(326, 25);
+            txtNombre.TabIndex = 6;
+            // 
             // txtTelefono
-            //
-            this.txtTelefono.BackColor = System.Drawing.Color.FromArgb(20, 80, 150);
-            this.txtTelefono.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtTelefono.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.txtTelefono.ForeColor = System.Drawing.Color.White;
-            this.txtTelefono.Location = new System.Drawing.Point(330, 155);
-            this.txtTelefono.MaxLength = 10;
-            this.txtTelefono.Name = "txtTelefono";
-            this.txtTelefono.Size = new System.Drawing.Size(280, 30);
-            this.txtTelefono.TabIndex = 7;
-            this.txtTelefono.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtTelefono_KeyPress);
-            this.txtTelefono.TextChanged += new System.EventHandler(this.txtTelefono_TextChanged);
-            //
+            // 
+            txtTelefono.BackColor = System.Drawing.Color.FromArgb(20, 80, 150);
+            txtTelefono.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            txtTelefono.Font = new System.Drawing.Font("Segoe UI", 10F);
+            txtTelefono.ForeColor = System.Drawing.Color.White;
+            txtTelefono.Location = new System.Drawing.Point(385, 179);
+            txtTelefono.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            txtTelefono.MaxLength = 10;
+            txtTelefono.Name = "txtTelefono";
+            txtTelefono.Size = new System.Drawing.Size(326, 25);
+            txtTelefono.TabIndex = 7;
+            txtTelefono.TextChanged += txtTelefono_TextChanged;
+            txtTelefono.KeyPress += txtTelefono_KeyPress;
+            // 
             // txtEmail
-            //
-            this.txtEmail.BackColor = System.Drawing.Color.FromArgb(20, 80, 150);
-            this.txtEmail.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtEmail.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.txtEmail.ForeColor = System.Drawing.Color.White;
-            this.txtEmail.Location = new System.Drawing.Point(630, 155);
-            this.txtEmail.MaxLength = 100;
-            this.txtEmail.Name = "txtEmail";
-            this.txtEmail.Size = new System.Drawing.Size(280, 30);
-            this.txtEmail.TabIndex = 8;
-            this.txtEmail.Leave += new System.EventHandler(this.txtEmail_Leave);
-            //
+            // 
+            txtEmail.BackColor = System.Drawing.Color.FromArgb(20, 80, 150);
+            txtEmail.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            txtEmail.Font = new System.Drawing.Font("Segoe UI", 10F);
+            txtEmail.ForeColor = System.Drawing.Color.White;
+            txtEmail.Location = new System.Drawing.Point(35, 263);
+            txtEmail.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            txtEmail.MaxLength = 100;
+            txtEmail.Name = "txtEmail";
+            txtEmail.Size = new System.Drawing.Size(326, 25);
+            txtEmail.TabIndex = 8;
+            txtEmail.Leave += txtEmail_Leave;
+            // 
             // btnGuardar
-            //
-            this.btnGuardar.BackColor = System.Drawing.Color.FromArgb(0, 140, 130);
-            this.btnGuardar.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnGuardar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnGuardar.FlatAppearance.BorderSize = 0;
-            this.btnGuardar.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
-            this.btnGuardar.ForeColor = System.Drawing.Color.White;
-            this.btnGuardar.Location = new System.Drawing.Point(30, 210);
-            this.btnGuardar.Name = "btnGuardar";
-            this.btnGuardar.Size = new System.Drawing.Size(120, 38);
-            this.btnGuardar.TabIndex = 9;
-            this.btnGuardar.Text = "Guardar";
-            this.btnGuardar.UseVisualStyleBackColor = false;
-            this.btnGuardar.Click += new System.EventHandler(this.btnGuardar_Click);
-            //
+            // 
+            btnGuardar.BackColor = System.Drawing.Color.FromArgb(0, 140, 130);
+            btnGuardar.Cursor = System.Windows.Forms.Cursors.Hand;
+            btnGuardar.FlatAppearance.BorderSize = 0;
+            btnGuardar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            btnGuardar.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            btnGuardar.ForeColor = System.Drawing.Color.White;
+            btnGuardar.Location = new System.Drawing.Point(18, 332);
+            btnGuardar.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            btnGuardar.Name = "btnGuardar";
+            btnGuardar.Size = new System.Drawing.Size(140, 44);
+            btnGuardar.TabIndex = 9;
+            btnGuardar.Text = "Guardar";
+            btnGuardar.UseVisualStyleBackColor = false;
+            btnGuardar.Click += btnGuardar_Click;
+            // 
             // btnLimpiar
-            //
-            this.btnLimpiar.BackColor = System.Drawing.Color.FromArgb(70, 130, 180);
-            this.btnLimpiar.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnLimpiar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnLimpiar.FlatAppearance.BorderSize = 0;
-            this.btnLimpiar.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
-            this.btnLimpiar.ForeColor = System.Drawing.Color.White;
-            this.btnLimpiar.Location = new System.Drawing.Point(160, 210);
-            this.btnLimpiar.Name = "btnLimpiar";
-            this.btnLimpiar.Size = new System.Drawing.Size(120, 38);
-            this.btnLimpiar.TabIndex = 10;
-            this.btnLimpiar.Text = "Limpiar";
-            this.btnLimpiar.UseVisualStyleBackColor = false;
-            this.btnLimpiar.Click += new System.EventHandler(this.btnLimpiar_Click);
-            //
+            // 
+            btnLimpiar.BackColor = System.Drawing.Color.FromArgb(70, 130, 180);
+            btnLimpiar.Cursor = System.Windows.Forms.Cursors.Hand;
+            btnLimpiar.FlatAppearance.BorderSize = 0;
+            btnLimpiar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            btnLimpiar.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            btnLimpiar.ForeColor = System.Drawing.Color.White;
+            btnLimpiar.Location = new System.Drawing.Point(170, 332);
+            btnLimpiar.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            btnLimpiar.Name = "btnLimpiar";
+            btnLimpiar.Size = new System.Drawing.Size(140, 44);
+            btnLimpiar.TabIndex = 10;
+            btnLimpiar.Text = "Limpiar";
+            btnLimpiar.UseVisualStyleBackColor = false;
+            btnLimpiar.Click += btnLimpiar_Click;
+            // 
             // btnVolver
-            //
-            this.btnVolver.BackColor = System.Drawing.Color.FromArgb(0, 100, 60);
-            this.btnVolver.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnVolver.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnVolver.FlatAppearance.BorderSize = 0;
-            this.btnVolver.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
-            this.btnVolver.ForeColor = System.Drawing.Color.White;
-            this.btnVolver.Location = new System.Drawing.Point(290, 210);
-            this.btnVolver.Name = "btnVolver";
-            this.btnVolver.Size = new System.Drawing.Size(120, 38);
-            this.btnVolver.TabIndex = 11;
-            this.btnVolver.Text = "Volver";
-            this.btnVolver.UseVisualStyleBackColor = false;
-            this.btnVolver.Click += new System.EventHandler(this.btnVolver_Click);
-            //
+            // 
+            btnVolver.BackColor = System.Drawing.Color.FromArgb(0, 100, 60);
+            btnVolver.Cursor = System.Windows.Forms.Cursors.Hand;
+            btnVolver.FlatAppearance.BorderSize = 0;
+            btnVolver.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            btnVolver.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            btnVolver.ForeColor = System.Drawing.Color.White;
+            btnVolver.Location = new System.Drawing.Point(321, 332);
+            btnVolver.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            btnVolver.Name = "btnVolver";
+            btnVolver.Size = new System.Drawing.Size(140, 44);
+            btnVolver.TabIndex = 11;
+            btnVolver.Text = "Volver";
+            btnVolver.UseVisualStyleBackColor = false;
+            btnVolver.Click += btnVolver_Click;
+            // 
+            // picLogo
+            // 
+            picLogo.BackColor = System.Drawing.Color.Transparent;
+            picLogo.Image = (System.Drawing.Image)resources.GetObject("picLogo.Image");
+            picLogo.Location = new System.Drawing.Point(550, 253);
+            picLogo.Margin = new System.Windows.Forms.Padding(4);
+            picLogo.Name = "picLogo";
+            picLogo.Size = new System.Drawing.Size(408, 362);
+            picLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            picLogo.TabIndex = 13;
+            picLogo.TabStop = false;
+            // 
             // frmProveedores
-            //
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.FromArgb(10, 60, 120);
-            this.ClientSize = new System.Drawing.Size(1280, 300);
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
-            this.Controls.Add(this.btnVolver);
-            this.Controls.Add(this.btnLimpiar);
-            this.Controls.Add(this.btnGuardar);
-            this.Controls.Add(this.txtEmail);
-            this.Controls.Add(this.txtTelefono);
-            this.Controls.Add(this.txtNombre);
-            this.Controls.Add(this.lblEmail);
-            this.Controls.Add(this.lblTelefono);
-            this.Controls.Add(this.lblNombre);
-            this.Controls.Add(this.btnDeshabilitar);
-            this.Controls.Add(this.btnHabilitar);
-            this.Controls.Add(this.lblTitulo);
-            this.Name = "frmProveedores";
-            this.Text = "Clinica Medica - Alta de Proveedores";
-            this.Load += new System.EventHandler(this.frmProveedores_Load);
-            this.ResumeLayout(false);
-            this.PerformLayout();
+            // 
+            AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            BackColor = System.Drawing.Color.FromArgb(10, 60, 120);
+            ClientSize = new System.Drawing.Size(1035, 679);
+            Controls.Add(picLogo);
+            Controls.Add(btnVolver);
+            Controls.Add(btnLimpiar);
+            Controls.Add(btnGuardar);
+            Controls.Add(txtEmail);
+            Controls.Add(txtTelefono);
+            Controls.Add(txtNombre);
+            Controls.Add(lblEmail);
+            Controls.Add(lblTelefono);
+            Controls.Add(lblNombre);
+            Controls.Add(btnDeshabilitar);
+            Controls.Add(btnHabilitar);
+            Controls.Add(lblTitulo);
+            FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            MaximizeBox = false;
+            Name = "frmProveedores";
+            StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            Text = "Clinica Medica - Alta de Proveedores";
+            WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            Load += frmProveedores_Load;
+            ((System.ComponentModel.ISupportInitialize)picLogo).EndInit();
+            ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
@@ -231,5 +265,6 @@ namespace ClinicaMedica
         private System.Windows.Forms.Button btnGuardar;
         private System.Windows.Forms.Button btnLimpiar;
         private System.Windows.Forms.Button btnVolver;
+        private System.Windows.Forms.PictureBox picLogo;
     }
 }
