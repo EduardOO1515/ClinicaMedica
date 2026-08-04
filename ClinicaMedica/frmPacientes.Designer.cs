@@ -284,7 +284,7 @@ namespace ClinicaMedica
             // 
             picLogo.BackColor = System.Drawing.Color.Transparent;
             picLogo.Image = (System.Drawing.Image)resources.GetObject("picLogo.Image");
-            picLogo.Location = new System.Drawing.Point(622, 299);
+            picLogo.Location = new System.Drawing.Point(655, 347);
             picLogo.Margin = new System.Windows.Forms.Padding(4);
             picLogo.Name = "picLogo";
             picLogo.Size = new System.Drawing.Size(311, 296);

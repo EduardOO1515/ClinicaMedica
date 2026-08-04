@@ -166,7 +166,7 @@ namespace ClinicaMedica
             btnGuardar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             btnGuardar.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
             btnGuardar.ForeColor = System.Drawing.Color.White;
-            btnGuardar.Location = new System.Drawing.Point(35, 559);
+            btnGuardar.Location = new System.Drawing.Point(35, 599);
             btnGuardar.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btnGuardar.Name = "btnGuardar";
             btnGuardar.Size = new System.Drawing.Size(140, 44);
@@ -183,7 +183,7 @@ namespace ClinicaMedica
             btnLimpiar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             btnLimpiar.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
             btnLimpiar.ForeColor = System.Drawing.Color.White;
-            btnLimpiar.Location = new System.Drawing.Point(190, 559);
+            btnLimpiar.Location = new System.Drawing.Point(190, 599);
             btnLimpiar.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btnLimpiar.Name = "btnLimpiar";
             btnLimpiar.Size = new System.Drawing.Size(140, 44);
@@ -200,7 +200,7 @@ namespace ClinicaMedica
             btnVolver.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             btnVolver.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
             btnVolver.ForeColor = System.Drawing.Color.White;
-            btnVolver.Location = new System.Drawing.Point(338, 559);
+            btnVolver.Location = new System.Drawing.Point(338, 599);
             btnVolver.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btnVolver.Name = "btnVolver";
             btnVolver.Size = new System.Drawing.Size(140, 44);
@@ -213,7 +213,7 @@ namespace ClinicaMedica
             // 
             picLogo.BackColor = System.Drawing.Color.Transparent;
             picLogo.Image = (System.Drawing.Image)resources.GetObject("picLogo.Image");
-            picLogo.Location = new System.Drawing.Point(698, 271);
+            picLogo.Location = new System.Drawing.Point(711, 366);
             picLogo.Margin = new System.Windows.Forms.Padding(4);
             picLogo.Name = "picLogo";
             picLogo.Size = new System.Drawing.Size(280, 277);
