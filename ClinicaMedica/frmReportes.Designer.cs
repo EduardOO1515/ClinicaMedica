@@ -98,10 +98,10 @@ namespace ClinicaMedica
             btnFiltrar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             btnFiltrar.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
             btnFiltrar.ForeColor = System.Drawing.Color.White;
-            btnFiltrar.Location = new System.Drawing.Point(35, 669);
+            btnFiltrar.Location = new System.Drawing.Point(500, 614);
             btnFiltrar.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btnFiltrar.Name = "btnFiltrar";
-            btnFiltrar.Size = new System.Drawing.Size(140, 44);
+            btnFiltrar.Size = new System.Drawing.Size(142, 25);
             btnFiltrar.TabIndex = 4;
             btnFiltrar.Text = "Filtrar";
             btnFiltrar.UseVisualStyleBackColor = false;
@@ -115,10 +115,10 @@ namespace ClinicaMedica
             btnTodos.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             btnTodos.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
             btnTodos.ForeColor = System.Drawing.Color.White;
-            btnTodos.Location = new System.Drawing.Point(187, 669);
+            btnTodos.Location = new System.Drawing.Point(652, 614);
             btnTodos.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btnTodos.Name = "btnTodos";
-            btnTodos.Size = new System.Drawing.Size(140, 44);
+            btnTodos.Size = new System.Drawing.Size(142, 25);
             btnTodos.TabIndex = 5;
             btnTodos.Text = "Ver Todos";
             btnTodos.UseVisualStyleBackColor = false;
@@ -132,10 +132,10 @@ namespace ClinicaMedica
             btnVolver.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             btnVolver.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
             btnVolver.ForeColor = System.Drawing.Color.White;
-            btnVolver.Location = new System.Drawing.Point(338, 669);
+            btnVolver.Location = new System.Drawing.Point(803, 614);
             btnVolver.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btnVolver.Name = "btnVolver";
-            btnVolver.Size = new System.Drawing.Size(140, 44);
+            btnVolver.Size = new System.Drawing.Size(142, 25);
             btnVolver.TabIndex = 7;
             btnVolver.Text = "Volver";
             btnVolver.UseVisualStyleBackColor = false;
@@ -177,7 +177,7 @@ namespace ClinicaMedica
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             BackColor = System.Drawing.Color.FromArgb(10, 60, 120);
-            ClientSize = new System.Drawing.Size(1493, 750);
+            ClientSize = new System.Drawing.Size(1493, 662);
             Controls.Add(btnVolver);
             Controls.Add(dgvReportes);
             Controls.Add(btnTodos);
